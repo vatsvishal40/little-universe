@@ -7,22 +7,15 @@
   <title>Little Universe ✦</title>
 
   <style>
-    /* =========================================
-       LITTLE UNIVERSE — MOBILE FIRST
-       ========================================= */
-
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
 
     :root {
-      --purple: #8d67c8;
-      --deep-purple: #24133f;
-      --lavender: #d8c4ff;
-      --pink: #ffb9dc;
       --cream: #fffaff;
-      --blue: #bddcff;
+      --purple: #8d67c8;
+      --pink: #ffb9dc;
       --glass: rgba(255,255,255,.11);
       --border: rgba(255,255,255,.18);
-      --shadow: 0 18px 60px rgba(19, 7, 45, .35);
+      --shadow: 0 18px 50px rgba(19,7,45,.30);
     }
 
     * {
@@ -41,6 +34,7 @@
       color: var(--cream);
       font-family: "DM Sans", Arial, sans-serif;
       background: #160d29;
+      -webkit-font-smoothing: antialiased;
     }
 
     button, a {
@@ -48,11 +42,9 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    button {
-      cursor: pointer;
-    }
+    button { cursor: pointer; }
 
-    /* ===== ANIMATED BACKGROUND ===== */
+    /* ========== SMOOTH ANIMATED UNIVERSE ========== */
 
     .space {
       position: fixed;
@@ -60,12 +52,13 @@
       z-index: -10;
       overflow: hidden;
       background:
-        radial-gradient(circle at 15% 15%, rgba(189,130,255,.42), transparent 25%),
-        radial-gradient(circle at 85% 25%, rgba(255,155,215,.27), transparent 23%),
-        radial-gradient(circle at 55% 78%, rgba(107,170,255,.22), transparent 30%),
+        radial-gradient(circle at 15% 15%, rgba(189,130,255,.38), transparent 26%),
+        radial-gradient(circle at 85% 25%, rgba(255,155,215,.25), transparent 24%),
+        radial-gradient(circle at 55% 78%, rgba(107,170,255,.20), transparent 32%),
         linear-gradient(135deg, #130b25, #251141, #442368, #20143d);
       background-size: 180% 180%;
-      animation: universeShift 15s ease infinite;
+      animation: universeShift 18s ease-in-out infinite;
+      transform: translateZ(0);
     }
 
     @keyframes universeShift {
@@ -75,19 +68,20 @@
 
     .aurora {
       position: absolute;
-      width: 120vw;
-      height: 45vh;
-      left: -10vw;
-      top: 20vh;
-      filter: blur(70px);
-      opacity: .25;
+      width: 100vw;
+      height: 35vh;
+      left: 0;
+      top: 25vh;
+      opacity: .18;
       background: linear-gradient(90deg, transparent, #a878ff, #ff9dd7, transparent);
-      animation: auroraMove 12s ease-in-out infinite alternate;
+      filter: blur(45px);
+      animation: auroraMove 14s ease-in-out infinite alternate;
+      will-change: transform;
     }
 
     @keyframes auroraMove {
-      from { transform: translateX(-10%) rotate(-8deg); }
-      to { transform: translateX(15%) rotate(8deg); }
+      from { transform: translateX(-8%) rotate(-5deg); }
+      to { transform: translateX(8%) rotate(5deg); }
     }
 
     #stars, #particles, #floatingThings {
@@ -95,6 +89,7 @@
       inset: 0;
       overflow: hidden;
       pointer-events: none;
+      transform: translateZ(0);
     }
 
     #stars { z-index: -8; }
@@ -107,14 +102,15 @@
       height: var(--size);
       border-radius: 50%;
       background: white;
-      box-shadow: 0 0 7px white, 0 0 16px #d8c7ff;
+      box-shadow: 0 0 5px rgba(255,255,255,.9);
       animation: twinkle var(--duration) ease-in-out infinite alternate;
       animation-delay: var(--delay);
+      will-change: opacity, transform;
     }
 
     @keyframes twinkle {
-      from { opacity: .15; transform: scale(.6); }
-      to { opacity: 1; transform: scale(1.8); }
+      from { opacity: .2; transform: scale(.7); }
+      to { opacity: 1; transform: scale(1.5); }
     }
 
     .particle {
@@ -123,16 +119,16 @@
       height: 3px;
       border-radius: 50%;
       background: rgba(255,255,255,.8);
-      box-shadow: 0 0 10px #e8d8ff;
       animation: drift var(--duration) linear infinite;
+      will-change: transform, opacity;
     }
 
     @keyframes drift {
       from {
-        transform: translateY(110vh) translateX(0);
+        transform: translateY(110vh);
         opacity: 0;
       }
-      10% { opacity: .8; }
+      10% { opacity: .7; }
       to {
         transform: translateY(-10vh) translateX(var(--drift));
         opacity: 0;
@@ -143,25 +139,25 @@
       position: absolute;
       bottom: -80px;
       font-size: var(--size);
-      opacity: .55;
+      opacity: .45;
       animation: floatUniverse var(--duration) linear infinite;
       animation-delay: var(--delay);
-      filter: drop-shadow(0 0 12px rgba(255,255,255,.3));
+      will-change: transform, opacity;
     }
 
     @keyframes floatUniverse {
       0% {
-        transform: translateY(0) rotate(0deg) scale(.8);
+        transform: translateY(0) rotate(0deg);
         opacity: 0;
       }
-      10% { opacity: .65; }
+      10% { opacity: .5; }
       100% {
         transform: translateY(-120vh) rotate(var(--rotate)) translateX(var(--move));
         opacity: 0;
       }
     }
 
-    /* ===== LOADER ===== */
+    /* ========== LOADER ========== */
 
     #loader {
       position: fixed;
@@ -173,34 +169,35 @@
       align-items: center;
       text-align: center;
       background:
-        radial-gradient(circle, rgba(151,95,218,.45), transparent 30%),
+        radial-gradient(circle, rgba(151,95,218,.35), transparent 30%),
         #130b25;
-      transition: opacity .9s ease, visibility .9s ease;
+      transition: opacity .7s ease, visibility .7s ease;
     }
 
     .loader-orbit {
-      width: 110px;
-      height: 110px;
+      width: 100px;
+      height: 100px;
       position: relative;
       border: 1px solid rgba(255,255,255,.2);
       border-radius: 50%;
       animation: spin 3s linear infinite;
+      will-change: transform;
     }
 
     .loader-orbit::before,
     .loader-orbit::after {
       content: "";
       position: absolute;
-      width: 14px;
-      height: 14px;
       border-radius: 50%;
-      background: #e5c9ff;
-      box-shadow: 0 0 25px #e5c9ff;
     }
 
     .loader-orbit::before {
       top: -7px;
-      left: 45px;
+      left: 43px;
+      width: 14px;
+      height: 14px;
+      background: #e5c9ff;
+      box-shadow: 0 0 20px #e5c9ff;
     }
 
     .loader-orbit::after {
@@ -213,8 +210,8 @@
 
     .loader-heart {
       position: absolute;
-      font-size: 42px;
-      animation: heartbeat 1.2s infinite;
+      font-size: 40px;
+      animation: heartbeat 1.3s ease-in-out infinite;
     }
 
     @keyframes spin {
@@ -222,35 +219,35 @@
     }
 
     @keyframes heartbeat {
-      50% { transform: scale(1.2); }
+      50% { transform: scale(1.15); }
     }
 
     .loader-title {
-      margin-top: 35px;
+      margin-top: 32px;
       font-family: "Playfair Display", serif;
       font-size: 28px;
-      letter-spacing: 1px;
     }
 
     .loader-subtitle {
       margin-top: 9px;
       color: #d7c5ee;
-      font-size: 13px;
+      font-size: 11px;
       letter-spacing: 2px;
       animation: loaderBlink 1.4s infinite alternate;
     }
 
     @keyframes loaderBlink {
-      from { opacity: .3; }
+      from { opacity: .35; }
       to { opacity: 1; }
     }
 
     #loader.hide {
       opacity: 0;
       visibility: hidden;
+      pointer-events: none;
     }
 
-    /* ===== PAGE ===== */
+    /* ========== MAIN ========== */
 
     main {
       width: min(100%, 560px);
@@ -259,7 +256,7 @@
     }
 
     section {
-      scroll-margin-top: 30px;
+      scroll-margin-top: 25px;
       margin: 28px 0 52px;
     }
 
@@ -267,11 +264,11 @@
       background: var(--glass);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
-    /* ===== HERO ===== */
+    /* ========== HERO ========== */
 
     .hero {
       min-height: calc(100vh - 20px);
@@ -285,93 +282,90 @@
 
     .planet {
       position: absolute;
-      width: 110px;
-      height: 110px;
-      right: -42px;
+      width: 105px;
+      height: 105px;
+      right: -40px;
       top: 10%;
       border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 30%, #f7d8ff, #b884e9 35%, #6e459d 70%);
-      box-shadow: 0 0 60px rgba(201,145,255,.35);
+      background: radial-gradient(circle at 30% 30%, #f7d8ff, #b884e9 35%, #6e459d 70%);
+      box-shadow: 0 0 45px rgba(201,145,255,.3);
       animation: planetFloat 6s ease-in-out infinite;
+      will-change: transform;
     }
 
     .planet::after {
       content: "";
       position: absolute;
-      width: 145px;
-      height: 35px;
+      width: 140px;
+      height: 33px;
       left: -18px;
-      top: 38px;
-      border: 5px solid rgba(255,220,255,.55);
+      top: 36px;
+      border: 4px solid rgba(255,220,255,.55);
       border-radius: 50%;
       transform: rotate(-18deg);
     }
 
     .mini-moon {
       position: absolute;
-      width: 45px;
-      height: 45px;
-      left: -8px;
+      width: 43px;
+      height: 43px;
+      left: -5px;
       bottom: 17%;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #fff, #d8ccff 60%, #9c84c9);
-      box-shadow: 0 0 30px rgba(220,210,255,.4);
+      box-shadow: 0 0 25px rgba(220,210,255,.35);
       animation: moonFloat 5s ease-in-out infinite alternate;
+      will-change: transform;
     }
 
     @keyframes planetFloat {
-      50% { transform: translateY(-18px) rotate(8deg); }
+      50% { transform: translateY(-14px) rotate(6deg); }
     }
 
     @keyframes moonFloat {
-      to { transform: translate(18px, -12px); }
+      to { transform: translate(15px, -10px); }
     }
 
     .logo-pill {
-      display: flex;
-      align-items: center;
-      gap: 9px;
       padding: 10px 17px;
       border-radius: 999px;
       color: #f4eaff;
-      font-size: 13px;
+      font-size: 11px;
       letter-spacing: 1.2px;
       background: rgba(255,255,255,.1);
       border: 1px solid rgba(255,255,255,.2);
-      box-shadow: 0 8px 35px rgba(0,0,0,.15);
       animation: gentleFloat 4s ease-in-out infinite;
+      will-change: transform;
     }
 
     @keyframes gentleFloat {
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-6px); }
     }
 
     .hero h1 {
       font-family: "Playfair Display", serif;
-      font-size: clamp(52px, 16vw, 82px);
+      font-size: clamp(50px, 15vw, 78px);
       line-height: .92;
       margin: 26px 0 16px;
       letter-spacing: -2px;
-      background: linear-gradient(135deg, #ffffff 20%, #f2c8ff 55%, #bcdcff);
+      background: linear-gradient(135deg, #fff 20%, #f2c8ff 55%, #bcdcff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      filter: drop-shadow(0 0 22px rgba(224,190,255,.18));
     }
 
     .hero h1 span {
       display: block;
-      font-size: .55em;
-      margin-top: 10px;
-      letter-spacing: 1px;
+      font-size: .48em;
+      margin-top: 13px;
+      letter-spacing: .5px;
     }
 
     .hero-description {
       max-width: 390px;
       color: #e9dff6;
       line-height: 1.8;
-      font-size: 15px;
+      font-size: 14px;
       margin: 0;
     }
 
@@ -387,17 +381,18 @@
       font-weight: 700;
       background: linear-gradient(135deg, #9a70e5, #d777bc, #a480ef);
       background-size: 200% 200%;
-      box-shadow: 0 15px 40px rgba(168,110,255,.4);
-      animation: buttonGradient 4s ease infinite, buttonFloat 2.5s ease-in-out infinite;
+      box-shadow: 0 15px 35px rgba(168,110,255,.35);
+      animation: buttonGradient 5s ease infinite, buttonFloat 3s ease-in-out infinite;
+      will-change: transform;
     }
 
     .enter-btn::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.4), transparent 80%);
+      background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,.35), transparent 75%);
       transform: translateX(-120%);
-      animation: shine 3s infinite;
+      animation: shine 4s infinite;
     }
 
     @keyframes buttonGradient {
@@ -405,26 +400,26 @@
     }
 
     @keyframes buttonFloat {
-      50% { transform: translateY(-5px) scale(1.02); }
+      50% { transform: translateY(-4px); }
     }
 
     @keyframes shine {
-      50%, 100% { transform: translateX(120%); }
+      45%, 100% { transform: translateX(120%); }
     }
 
     .scroll-hint {
       margin-top: 35px;
       color: rgba(255,255,255,.55);
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 2px;
-      animation: hintBounce 2s infinite;
+      animation: hintBounce 2s ease-in-out infinite;
     }
 
     @keyframes hintBounce {
-      50% { transform: translateY(8px); }
+      50% { transform: translateY(6px); }
     }
 
-    /* ===== HEADINGS ===== */
+    /* ========== SECTION HEADINGS ========== */
 
     .section-head {
       text-align: center;
@@ -434,7 +429,7 @@
     .eyebrow {
       display: block;
       color: #f0b8dc;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -444,7 +439,7 @@
     .section-head h2 {
       margin: 0;
       font-family: "Playfair Display", serif;
-      font-size: 30px;
+      font-size: 29px;
     }
 
     .section-head p {
@@ -455,11 +450,11 @@
       line-height: 1.6;
     }
 
-    /* ===== COUNTDOWN ===== */
+    /* ========== COUNTDOWN ========== */
 
     .countdown-card {
       border-radius: 30px;
-      padding: 24px 13px;
+      padding: 23px 12px;
       position: relative;
       overflow: hidden;
     }
@@ -468,9 +463,9 @@
       content: "✦";
       position: absolute;
       right: 18px;
-      top: 10px;
-      font-size: 32px;
-      color: rgba(255,255,255,.15);
+      top: 8px;
+      font-size: 30px;
+      color: rgba(255,255,255,.13);
     }
 
     .countdown {
@@ -482,14 +477,14 @@
     .time-box {
       padding: 15px 4px;
       text-align: center;
-      border-radius: 19px;
+      border-radius: 18px;
       background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.08);
     }
 
     .time-box b {
       display: block;
-      font-size: clamp(21px, 7vw, 30px);
+      font-size: clamp(20px, 7vw, 29px);
       font-variant-numeric: tabular-nums;
     }
 
@@ -498,21 +493,21 @@
       margin-top: 4px;
       font-size: 8px;
       color: #cdbfdd;
-      letter-spacing: 1.3px;
+      letter-spacing: 1.2px;
     }
 
     .countdown-note {
       text-align: center;
-      margin: 17px 0 0;
+      margin: 16px 0 0;
       color: #e8d8f2;
       font-size: 12px;
     }
 
-    /* ===== TODAY ===== */
+    /* ========== TODAY ========== */
 
     .today-card {
       position: relative;
-      min-height: 360px;
+      min-height: 355px;
       padding: 30px 20px;
       border-radius: 32px;
       overflow: hidden;
@@ -522,25 +517,22 @@
     .today-card::before {
       content: "";
       position: absolute;
-      width: 180px;
-      height: 180px;
-      top: -90px;
-      left: -80px;
+      width: 170px;
+      height: 170px;
+      top: -80px;
+      left: -70px;
       border-radius: 50%;
-      background: rgba(198,143,255,.16);
-      filter: blur(20px);
+      background: rgba(198,143,255,.14);
     }
 
     .today-date {
       position: relative;
       display: inline-flex;
-      align-items: center;
-      gap: 8px;
       padding: 8px 13px;
       border-radius: 999px;
       background: rgba(255,255,255,.1);
       color: #f2dcff;
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 1px;
     }
 
@@ -549,45 +541,36 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 145px;
-      height: 105px;
+      width: 140px;
+      height: 102px;
       margin: 26px auto 18px;
       border-radius: 12px;
-      font-size: 56px;
+      font-size: 55px;
       background: linear-gradient(135deg, #f0d3ff, #b889dd);
-      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      box-shadow: 0 18px 40px rgba(0,0,0,.22);
       animation: envelopeFloat 3s ease-in-out infinite;
-      transition: .35s;
-    }
-
-    .big-envelope::after {
-      content: "";
-      position: absolute;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #a66cba;
-      box-shadow: 0 0 0 4px rgba(255,255,255,.13);
-    }
-
-    .big-envelope.open {
-      animation: envelopeOpen .7s ease forwards;
+      transition: transform .35s ease;
+      will-change: transform;
     }
 
     @keyframes envelopeFloat {
-      50% { transform: translateY(-10px) rotate(2deg); }
+      50% { transform: translateY(-8px) rotate(1.5deg); }
+    }
+
+    .big-envelope.open {
+      animation: envelopeOpen .65s ease forwards;
     }
 
     @keyframes envelopeOpen {
-      50% { transform: scale(1.16) rotate(-4deg); }
-      100% { transform: scale(1.05); }
+      50% { transform: scale(1.12) rotate(-3deg); }
+      100% { transform: scale(1.03); }
     }
 
     .today-card h3 {
       position: relative;
       margin: 0;
       font-family: "Playfair Display", serif;
-      font-size: 24px;
+      font-size: 23px;
     }
 
     .today-card > p {
@@ -607,10 +590,9 @@
       padding: 13px 20px;
       border-radius: 999px;
       background: rgba(255,255,255,.12);
-      backdrop-filter: blur(10px);
     }
 
-    /* ===== JOURNEY ===== */
+    /* ========== JOURNEY ========== */
 
     .progress-card {
       border-radius: 28px;
@@ -631,7 +613,7 @@
     }
 
     .progress-track {
-      height: 12px;
+      height: 11px;
       margin-top: 14px;
       border-radius: 999px;
       overflow: hidden;
@@ -643,8 +625,7 @@
       height: 100%;
       border-radius: inherit;
       background: linear-gradient(90deg, #a77aff, #ff9ed3, #c3ddff);
-      box-shadow: 0 0 20px rgba(215,160,255,.7);
-      transition: width 1.2s cubic-bezier(.2,.8,.2,1);
+      transition: width 1s cubic-bezier(.2,.8,.2,1);
     }
 
     .days-grid {
@@ -663,33 +644,34 @@
       color: white;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.08);
-      box-shadow: 0 12px 35px rgba(0,0,0,.13);
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
       transition: transform .25s ease, opacity .25s ease;
+      contain: layout paint style;
     }
 
     .day-card:active {
-      transform: scale(.95);
+      transform: scale(.96);
     }
 
     .day-card.unlocked {
       background:
-        radial-gradient(circle at 90% 5%, rgba(255,181,223,.23), transparent 35%),
-        linear-gradient(145deg, rgba(158,107,218,.38), rgba(255,157,211,.16));
+        radial-gradient(circle at 90% 5%, rgba(255,181,223,.20), transparent 35%),
+        linear-gradient(145deg, rgba(158,107,218,.35), rgba(255,157,211,.14));
     }
 
     .day-card.today {
-      border-color: rgba(255,225,250,.5);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 15px 40px rgba(185,125,255,.25);
-      animation: todayGlow 2.2s ease-in-out infinite;
+      border-color: rgba(255,225,250,.48);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 13px 35px rgba(185,125,255,.22);
+      animation: todayGlow 2.8s ease-in-out infinite;
     }
 
     @keyframes todayGlow {
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-4px); }
     }
 
     .day-card.locked {
-      opacity: .57;
-      filter: saturate(.55);
+      opacity: .55;
+      filter: saturate(.65);
     }
 
     .day-number {
@@ -700,7 +682,7 @@
     }
 
     .day-icon {
-      font-size: 35px;
+      font-size: 34px;
       margin: 18px 0 8px;
     }
 
@@ -730,7 +712,7 @@
       font-size: 12px;
     }
 
-    /* ===== VAULT ===== */
+    /* ========== VAULT ========== */
 
     .vault {
       padding: 28px 20px;
@@ -741,13 +723,14 @@
     }
 
     .vault-icon {
-      font-size: 65px;
+      font-size: 62px;
       display: inline-block;
       animation: vaultFloat 3s ease-in-out infinite;
+      will-change: transform;
     }
 
     @keyframes vaultFloat {
-      50% { transform: translateY(-8px) rotate(3deg); }
+      50% { transform: translateY(-7px) rotate(2deg); }
     }
 
     .vault h3 {
@@ -771,7 +754,7 @@
       font-size: 11px;
     }
 
-    /* ===== FINAL DAY ===== */
+    /* ========== BIRTHDAY ========== */
 
     .birthday-card {
       display: none;
@@ -782,29 +765,29 @@
         radial-gradient(circle at 50% 0%, rgba(255,211,240,.35), transparent 45%),
         linear-gradient(135deg, rgba(142,92,210,.7), rgba(226,113,177,.5));
       border: 1px solid rgba(255,255,255,.3);
-      box-shadow: 0 20px 80px rgba(187,111,255,.3);
+      box-shadow: 0 20px 65px rgba(187,111,255,.25);
     }
 
     .birthday-card.show {
       display: block;
-      animation: birthdayReveal 1s ease both;
+      animation: birthdayReveal .8s ease both;
     }
 
     @keyframes birthdayReveal {
-      from { opacity: 0; transform: scale(.8) translateY(30px); }
+      from { opacity: 0; transform: scale(.85) translateY(25px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    .birthday-card .cake {
-      font-size: 80px;
-      animation: cakeDance 2s ease-in-out infinite;
+    .cake {
+      font-size: 75px;
+      animation: cakeDance 2.5s ease-in-out infinite;
     }
 
     @keyframes cakeDance {
-      50% { transform: rotate(-5deg) scale(1.08); }
+      50% { transform: rotate(-4deg) scale(1.06); }
     }
 
-    /* ===== BOTTOM NAV ===== */
+    /* ========== BOTTOM NAV ========== */
 
     .bottom-nav {
       position: fixed;
@@ -817,10 +800,11 @@
       display: flex;
       justify-content: space-around;
       border-radius: 25px;
-      background: rgba(30,16,55,.78);
+      background: rgba(30,16,55,.82);
       border: 1px solid rgba(255,255,255,.15);
-      box-shadow: 0 15px 45px rgba(0,0,0,.35);
-      backdrop-filter: blur(22px);
+      box-shadow: 0 15px 40px rgba(0,0,0,.3);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .nav-item {
@@ -834,11 +818,11 @@
 
     .nav-item span {
       display: block;
-      font-size: 20px;
+      font-size: 19px;
       margin-bottom: 3px;
     }
 
-    /* ===== MODAL ===== */
+    /* ========== MODAL ========== */
 
     #modal {
       position: fixed;
@@ -849,7 +833,6 @@
       justify-content: center;
       padding: 15px;
       background: rgba(10,5,25,.55);
-      backdrop-filter: blur(10px);
       opacity: 0;
       visibility: hidden;
       transition: .3s;
@@ -870,9 +853,9 @@
         radial-gradient(circle at 80% 0%, rgba(221,150,255,.2), transparent 35%),
         #352052;
       border: 1px solid rgba(255,255,255,.2);
-      box-shadow: 0 -15px 60px rgba(0,0,0,.3);
+      box-shadow: 0 -15px 55px rgba(0,0,0,.3);
       transform: translateY(40px);
-      transition: transform .4s cubic-bezier(.2,.9,.2,1);
+      transition: transform .35s cubic-bezier(.2,.9,.2,1);
     }
 
     #modal.show .modal-card {
@@ -890,7 +873,7 @@
     }
 
     .modal-icon {
-      font-size: 55px;
+      font-size: 52px;
     }
 
     .modal-card h3 {
@@ -912,9 +895,10 @@
       line-height: 1.8;
       background: rgba(255,255,255,.07);
       font-size: 14px;
+      white-space: pre-line;
     }
 
-    /* ===== TOAST ===== */
+    /* ========== TOAST ========== */
 
     #toast {
       position: fixed;
@@ -926,12 +910,11 @@
       padding: 14px 17px;
       border-radius: 18px;
       color: white;
-      background: rgba(61,37,91,.92);
+      background: rgba(61,37,91,.94);
       border: 1px solid rgba(255,255,255,.2);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(20px);
       transform: translate(-50%, -100px);
-      transition: .45s;
+      transition: transform .4s ease;
       font-size: 13px;
       text-align: center;
     }
@@ -940,49 +923,51 @@
       transform: translate(-50%, 0);
     }
 
-    /* ===== CONFETTI ===== */
+    /* ========== CONFETTI ========== */
 
     .confetti {
       position: fixed;
       z-index: 9998;
       top: -20px;
-      width: 9px;
-      height: 15px;
-      border-radius: 3px;
+      width: 8px;
+      height: 14px;
+      border-radius: 2px;
       pointer-events: none;
       animation: confettiFall var(--time) linear forwards;
+      will-change: transform, opacity;
     }
 
     @keyframes confettiFall {
       to {
-        transform: translate(var(--x), 110vh) rotate(900deg);
+        transform: translate(var(--x), 110vh) rotate(720deg);
         opacity: 0;
       }
     }
 
-    /* ===== TAP SPARKLE ===== */
+    /* ========== TAP SPARKLES ========== */
 
     .tap-sparkle {
       position: fixed;
       z-index: 8000;
       pointer-events: none;
-      font-size: 18px;
-      animation: tapSparkle .7s ease-out forwards;
+      font-size: 17px;
+      animation: tapSparkle .65s ease-out forwards;
+      will-change: transform, opacity;
     }
 
     @keyframes tapSparkle {
       to {
-        transform: translate(var(--x), var(--y)) rotate(180deg) scale(0);
+        transform: translate(var(--x), var(--y)) rotate(150deg) scale(0);
         opacity: 0;
       }
     }
 
-    /* ===== SCROLL REVEAL ===== */
+    /* ========== SCROLL REVEAL ========== */
 
     .reveal {
       opacity: 0;
-      transform: translateY(25px);
-      transition: opacity .8s ease, transform .8s ease;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
     }
 
     .reveal.visible {
@@ -1000,7 +985,6 @@
 
 <body>
 
-  <!-- BACKGROUND -->
   <div class="space">
     <div class="aurora"></div>
   </div>
@@ -1009,7 +993,6 @@
   <div id="particles"></div>
   <div id="floatingThings"></div>
 
-  <!-- LOADER -->
   <div id="loader">
     <div class="loader-orbit"></div>
     <div class="loader-heart">💜</div>
@@ -1017,13 +1000,10 @@
     <div class="loader-subtitle">PREPARING SOMETHING MAGICAL...</div>
   </div>
 
-  <!-- TOAST -->
   <div id="toast"></div>
 
-  <!-- MAIN -->
   <main>
 
-    <!-- HERO -->
     <section class="hero" id="home">
       <div class="planet"></div>
       <div class="mini-moon"></div>
@@ -1032,7 +1012,7 @@
 
       <h1>
         Heyyyy
-        <span>Madam Jiii 💜</span>
+        <span>Diyaa Madam Ji 💜</span>
       </h1>
 
       <p class="hero-description">
@@ -1047,7 +1027,6 @@
       <div class="scroll-hint">SCROLL TO EXPLORE ↓</div>
     </section>
 
-    <!-- COUNTDOWN -->
     <section class="reveal" id="countdown">
       <div class="section-head">
         <span class="eyebrow">THE GRAND FINALE</span>
@@ -1057,22 +1036,10 @@
 
       <div class="glass countdown-card">
         <div class="countdown">
-          <div class="time-box">
-            <b id="days">00</b>
-            <span>DAYS</span>
-          </div>
-          <div class="time-box">
-            <b id="hours">00</b>
-            <span>HOURS</span>
-          </div>
-          <div class="time-box">
-            <b id="minutes">00</b>
-            <span>MINS</span>
-          </div>
-          <div class="time-box">
-            <b id="seconds">00</b>
-            <span>SECS</span>
-          </div>
+          <div class="time-box"><b id="days">00</b><span>DAYS</span></div>
+          <div class="time-box"><b id="hours">00</b><span>HOURS</span></div>
+          <div class="time-box"><b id="minutes">00</b><span>MINS</span></div>
+          <div class="time-box"><b id="seconds">00</b><span>SECS</span></div>
         </div>
 
         <p class="countdown-note" id="countdownNote">
@@ -1081,7 +1048,6 @@
       </div>
     </section>
 
-    <!-- TODAY -->
     <section class="reveal" id="today">
       <div class="section-head">
         <span class="eyebrow">TODAY'S SURPRISE</span>
@@ -1105,12 +1071,11 @@
       </div>
     </section>
 
-    <!-- JOURNEY -->
     <section class="reveal" id="journey">
       <div class="section-head">
         <span class="eyebrow">YOUR JOURNEY</span>
         <h2>17 little moments ✨</h2>
-        <p>One day at a time. One surprise at a time. No cheating, Madam Ji. 👀</p>
+        <p>One day at a time. One surprise at a time. No cheating, Diyaa Madam Ji. 👀</p>
       </div>
 
       <div class="glass progress-card">
@@ -1127,7 +1092,6 @@
       <div class="days-grid" id="daysGrid"></div>
     </section>
 
-    <!-- VAULT -->
     <section class="reveal" id="vault">
       <div class="glass vault">
         <div class="vault-icon">🎁</div>
@@ -1143,14 +1107,12 @@
       </div>
     </section>
 
-    <!-- FINAL BIRTHDAY MODE -->
     <section id="birthdaySection">
       <div class="birthday-card" id="birthdayCard">
         <div class="cake">🎂</div>
-        <h2>HAPPY BIRTHDAY MADAM JIII!!! 💜🎉</h2>
-        <p>
-          The whole Little Universe is finally yours today. ✨🌌
-        </p>
+        <h2>HAPPY BIRTHDAY DIYAA MADAM JI!!! 💜🎉</h2>
+        <p>The whole Little Universe is finally yours today. ✨🌌</p>
+
         <button class="open-surprise-btn" onclick="birthdayBlast()">
           CELEBRATEEEE 🎉
         </button>
@@ -1159,250 +1121,118 @@
 
   </main>
 
-  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
-    <a class="nav-item" href="#home">
-      <span>🏠</span>Home
-    </a>
-
-    <a class="nav-item" href="#today">
-      <span>💌</span>Today
-    </a>
-
-    <a class="nav-item" href="#journey">
-      <span>🪐</span>Journey
-    </a>
-
-    <a class="nav-item" href="#vault">
-      <span>🎁</span>Vault
-    </a>
+    <a class="nav-item" href="#home"><span>🏠</span>Home</a>
+    <a class="nav-item" href="#today"><span>💌</span>Today</a>
+    <a class="nav-item" href="#journey"><span>🪐</span>Journey</a>
+    <a class="nav-item" href="#vault"><span>🎁</span>Vault</a>
   </nav>
 
-  <!-- MESSAGE MODAL -->
   <div id="modal">
     <div class="modal-card">
       <button class="modal-close" onclick="closeModal()">✕</button>
-
       <div class="modal-icon" id="modalIcon">💌</div>
       <div class="modal-date" id="modalDate"></div>
       <h3 id="modalTitle">A Little Surprise</h3>
-
       <div class="modal-message" id="modalMessage">
         Your message will go here. 💜
       </div>
     </div>
   </div>
 
-
   <script>
-    /* =========================================
-       LITTLE UNIVERSE CONFIGURATION
-       ========================================= */
+    /* ========== DATES ========== */
 
     const START_DATE = new Date(2026, 7, 22, 0, 0, 0);
     const FINAL_DATE = new Date(2026, 8, 7, 0, 0, 0);
 
+    /* ========== 17 SURPRISE DAYS ========== */
+
     const surprises = [
-      {
-        date: "22 August",
-        icon: "💌",
-        title: "The Beginning",
-        preview: "The first little piece of your universe...",
-        message: "DAY 1 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "23 August",
-        icon: "🌸",
-        title: "A Little Smile",
-        preview: "Something small to make Madam Ji smile.",
-        message: "DAY 2 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "24 August",
-        icon: "✨",
-        title: "A Tiny Sparkle",
-        preview: "Today's universe has something shiny.",
-        message: "DAY 3 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "25 August",
-        icon: "🦋",
-        title: "Butterfly Day",
-        preview: "A little surprise has landed.",
-        message: "DAY 4 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "26 August",
-        icon: "💜",
-        title: "A Purple Secret",
-        preview: "Something is waiting behind this card.",
-        message: "DAY 5 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "27 August",
-        icon: "🎀",
-        title: "Wrapped for You",
-        preview: "Another little moment, just for you.",
-        message: "DAY 6 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "28 August",
-        icon: "🌙",
-        title: "Moonlight",
-        preview: "Tonight, your universe feels extra magical.",
-        message: "DAY 7 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "29 August",
-        icon: "⭐",
-        title: "You Shine",
-        preview: "A little reminder from your universe.",
-        message: "DAY 8 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "30 August",
-        icon: "🪐",
-        title: "Another World",
-        preview: "You've reached another little planet.",
-        message: "DAY 9 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "31 August",
-        icon: "🎁",
-        title: "Mystery Box",
-        preview: "Something is wrapped especially for today.",
-        message: "DAY 10 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "1 September",
-        icon: "🌷",
-        title: "September Begins",
-        preview: "The grand day is getting closer...",
-        message: "DAY 11 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "2 September",
-        icon: "📸",
-        title: "A Little Memory",
-        preview: "A special corner of the universe.",
-        message: "DAY 12 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "3 September",
-        icon: "💭",
-        title: "Thinking of You",
-        preview: "A thought saved especially for today.",
-        message: "DAY 13 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "4 September",
-        icon: "💗",
-        title: "Almost There",
-        preview: "The countdown is getting serious now. 👀",
-        message: "DAY 14 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "5 September",
-        icon: "🔮",
-        title: "A Magical Hint",
-        preview: "Something BIG is getting closer...",
-        message: "DAY 15 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "6 September",
-        icon: "👑",
-        title: "One More Sleep",
-        preview: "Tomorrow... everything changes. 🎂",
-        message: "DAY 16 MESSAGE WILL BE ADDED HERE 💜"
-      },
-      {
-        date: "7 September",
-        icon: "🎂",
-        title: "THE GRAND FINALE",
-        preview: "HAPPY BIRTHDAY MADAM JIII!!!",
-        message: "THE FINAL BIRTHDAY MESSAGE WILL BE ADDED HERE 🎂💜🎉"
-      }
+      { date: "22 August", icon: "💌", title: "The Beginning", preview: "The first little piece of your universe...", message: "DAY 1 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "23 August", icon: "🌸", title: "A Little Smile", preview: "Something small to make Diyaa Madam Ji smile.", message: "DAY 2 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "24 August", icon: "✨", title: "A Tiny Sparkle", preview: "Today's universe has something shiny.", message: "DAY 3 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "25 August", icon: "🦋", title: "Butterfly Day", preview: "A little surprise has landed.", message: "DAY 4 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "26 August", icon: "💜", title: "A Purple Secret", preview: "Something is waiting behind this card.", message: "DAY 5 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "27 August", icon: "🎀", title: "Wrapped for You", preview: "Another little moment, just for you.", message: "DAY 6 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "28 August", icon: "🌙", title: "Moonlight", preview: "Tonight, your universe feels extra magical.", message: "DAY 7 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "29 August", icon: "⭐", title: "You Shine", preview: "A little reminder from your universe.", message: "DAY 8 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "30 August", icon: "🪐", title: "Another World", preview: "You've reached another little planet.", message: "DAY 9 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "31 August", icon: "🎁", title: "Mystery Box", preview: "Something is wrapped especially for today.", message: "DAY 10 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "1 September", icon: "🌷", title: "September Begins", preview: "The grand day is getting closer...", message: "DAY 11 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "2 September", icon: "📸", title: "A Little Memory", preview: "A special corner of the universe.", message: "DAY 12 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "3 September", icon: "💭", title: "Thinking of You", preview: "A thought saved especially for today.", message: "DAY 13 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "4 September", icon: "💗", title: "Almost There", preview: "The countdown is getting serious now. 👀", message: "DAY 14 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "5 September", icon: "🔮", title: "A Magical Hint", preview: "Something BIG is getting closer...", message: "DAY 15 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "6 September", icon: "👑", title: "One More Sleep", preview: "Tomorrow... everything changes. 🎂", message: "DAY 16 MESSAGE WILL BE ADDED HERE 💜" },
+      { date: "7 September", icon: "🎂", title: "THE GRAND FINALE", preview: "HAPPY BIRTHDAY DIYAA MADAM JI!!!", message: "THE FINAL BIRTHDAY MESSAGE WILL BE ADDED HERE 🎂💜🎉" }
     ];
 
-
-    /* =========================================
-       CREATE STARS
-       ========================================= */
+    /* ========== CREATE STARS ========== */
 
     const starsContainer = document.getElementById("stars");
 
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 100; i++) {
       const star = document.createElement("div");
       star.className = "star";
 
-      const size = Math.random() * 3 + 1;
+      const size = Math.random() * 2.5 + 1;
 
       star.style.left = Math.random() * 100 + "%";
       star.style.top = Math.random() * 100 + "%";
       star.style.setProperty("--size", size + "px");
-      star.style.setProperty("--duration", (1.5 + Math.random() * 3) + "s");
-      star.style.setProperty("--delay", (-Math.random() * 4) + "s");
+      star.style.setProperty("--duration", (2 + Math.random() * 3) + "s");
+      star.style.setProperty("--delay", (-Math.random() * 5) + "s");
 
       starsContainer.appendChild(star);
     }
 
-
-    /* =========================================
-       FLOATING PARTICLES
-       ========================================= */
+    /* ========== PARTICLES ========== */
 
     const particlesContainer = document.getElementById("particles");
 
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 20; i++) {
       const particle = document.createElement("div");
       particle.className = "particle";
 
       particle.style.left = Math.random() * 100 + "%";
-      particle.style.bottom = Math.random() * 100 + "%";
-      particle.style.setProperty("--duration", (8 + Math.random() * 10) + "s");
-      particle.style.setProperty("--drift", ((Math.random() - .5) * 180) + "px");
+      particle.style.setProperty("--duration", (12 + Math.random() * 10) + "s");
+      particle.style.setProperty("--drift", ((Math.random() - .5) * 100) + "px");
 
       particlesContainer.appendChild(particle);
     }
 
-
-    /* =========================================
-       FLOATING MAGIC ITEMS
-       ========================================= */
+    /* ========== FLOATING ITEMS ========== */
 
     const floatingContainer = document.getElementById("floatingThings");
     const floatingIcons = ["💜", "🩷", "✨", "✦", "🦋", "🌸", "☁️"];
 
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 16; i++) {
       const item = document.createElement("div");
       item.className = "float-item";
-      item.textContent = floatingIcons[Math.floor(Math.random() * floatingIcons.length)];
+
+      item.textContent =
+        floatingIcons[Math.floor(Math.random() * floatingIcons.length)];
 
       item.style.left = Math.random() * 100 + "%";
-      item.style.setProperty("--size", (13 + Math.random() * 16) + "px");
-      item.style.setProperty("--duration", (12 + Math.random() * 15) + "s");
+      item.style.setProperty("--size", (13 + Math.random() * 15) + "px");
+      item.style.setProperty("--duration", (15 + Math.random() * 12) + "s");
       item.style.setProperty("--delay", (-Math.random() * 20) + "s");
-      item.style.setProperty("--rotate", ((Math.random() * 720) - 360) + "deg");
-      item.style.setProperty("--move", ((Math.random() - .5) * 150) + "px");
+      item.style.setProperty("--rotate", ((Math.random() * 500) - 250) + "deg");
+      item.style.setProperty("--move", ((Math.random() - .5) * 100) + "px");
 
       floatingContainer.appendChild(item);
     }
 
-
-    /* =========================================
-       LOADER
-       ========================================= */
+    /* ========== LOADER ========== */
 
     window.addEventListener("load", () => {
       setTimeout(() => {
         document.getElementById("loader").classList.add("hide");
-      }, 2200);
+      }, 1800);
     });
 
-
-    /* =========================================
-       CURRENT DAY
-       ========================================= */
+    /* ========== CURRENT DAY ========== */
 
     function getCurrentDay() {
       const now = new Date();
@@ -1410,20 +1240,14 @@
       if (now < START_DATE) return 0;
 
       const diff = now - START_DATE;
-
-      const day = Math.floor(
-        diff / (1000 * 60 * 60 * 24)
-      ) + 1;
+      const day = Math.floor(diff / 86400000) + 1;
 
       return Math.min(day, 17);
     }
 
     let currentDay = getCurrentDay();
 
-
-    /* =========================================
-       TODAY'S CARD
-       ========================================= */
+    /* ========== TODAY CARD ========== */
 
     function updateToday() {
       const todayDate = document.getElementById("todayDate");
@@ -1444,10 +1268,7 @@
       description.textContent = surprise.preview;
     }
 
-
-    /* =========================================
-       17 DAY CARDS
-       ========================================= */
+    /* ========== BUILD 17 CARDS ========== */
 
     function buildDays() {
       const grid = document.getElementById("daysGrid");
@@ -1466,23 +1287,11 @@
           (isToday ? "today" : "");
 
         card.innerHTML = `
-          <div class="lock-dot">
-            ${unlocked ? "✨" : "🔒"}
-          </div>
-
-          <div class="day-number">
-            DAY ${String(dayNumber).padStart(2, "0")}
-          </div>
-
-          <div class="day-icon">
-            ${unlocked ? surprise.icon : "🔐"}
-          </div>
-
+          <div class="lock-dot">${unlocked ? "✨" : "🔒"}</div>
+          <div class="day-number">DAY ${String(dayNumber).padStart(2, "0")}</div>
+          <div class="day-icon">${unlocked ? surprise.icon : "🔐"}</div>
           <b>${unlocked ? surprise.title : "Locked"}</b>
-
-          <small>
-            ${unlocked ? surprise.date : "Come back on " + surprise.date}
-          </small>
+          <small>${unlocked ? surprise.date : "Come back on " + surprise.date}</small>
         `;
 
         card.addEventListener("click", () => {
@@ -1497,10 +1306,7 @@
       });
     }
 
-
-    /* =========================================
-       PROGRESS
-       ========================================= */
+    /* ========== PROGRESS ========== */
 
     function updateProgress() {
       const percentage = Math.round((currentDay / 17) * 100);
@@ -1511,16 +1317,13 @@
       document.getElementById("progressPercent").textContent =
         `${percentage}%`;
 
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         document.getElementById("progressFill").style.width =
           percentage + "%";
-      }, 500);
+      });
     }
 
-
-    /* =========================================
-       COUNTDOWN
-       ========================================= */
+    /* ========== COUNTDOWN ========== */
 
     function updateCountdown() {
       const now = new Date();
@@ -1539,9 +1342,9 @@
 
       const diff = FINAL_DATE - now;
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff / 3600000) % 24);
+      const minutes = Math.floor((diff / 60000) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
       document.getElementById("days").textContent =
@@ -1557,10 +1360,7 @@
         String(seconds).padStart(2, "0");
     }
 
-
-    /* =========================================
-       OPEN TODAY
-       ========================================= */
+    /* ========== OPEN TODAY ========== */
 
     function openToday() {
       if (currentDay === 0) {
@@ -1575,13 +1375,10 @@
       envelope.classList.add("open");
 
       openDay(currentDay);
-      confettiBurst(35);
+      confettiBurst(28);
     }
 
-
-    /* =========================================
-       OPEN ANY DAY
-       ========================================= */
+    /* ========== OPEN DAY MESSAGE ========== */
 
     function openDay(day) {
       const surprise = surprises[day - 1];
@@ -1599,53 +1396,34 @@
       document.getElementById("modal").classList.add("show");
     }
 
-
     function closeModal() {
       document.getElementById("modal").classList.remove("show");
     }
 
-    document.getElementById("modal").addEventListener("click", (event) => {
-      if (event.target.id === "modal") {
-        closeModal();
-      }
+    document.getElementById("modal").addEventListener("click", event => {
+      if (event.target.id === "modal") closeModal();
     });
 
-
-    /* =========================================
-       LOCKED CARD ANIMATION
-       ========================================= */
+    /* ========== LOCKED ANIMATION ========== */
 
     function lockedAnimation(card, date) {
-      card.animate(
-        [
-          { transform: "translateX(0)" },
-          { transform: "translateX(-8px) rotate(-2deg)" },
-          { transform: "translateX(8px) rotate(2deg)" },
-          { transform: "translateX(-5px)" },
-          { transform: "translateX(0)" }
-        ],
-        {
-          duration: 450,
-          easing: "ease-in-out"
-        }
-      );
+      card.animate([
+        { transform: "translateX(0)" },
+        { transform: "translateX(-6px)" },
+        { transform: "translateX(6px)" },
+        { transform: "translateX(0)" }
+      ], {
+        duration: 350,
+        easing: "ease-in-out"
+      });
 
-      showToast(`Nopeee Madam Ji 👀🔒 Come back on ${date}!`);
+      showToast(`Nopeee Diyaa Madam Ji 👀🔒 Come back on ${date}!`);
     }
 
+    /* ========== CONFETTI ========== */
 
-    /* =========================================
-       CONFETTI
-       ========================================= */
-
-    function confettiBurst(amount = 50) {
-      const colors = [
-        "#d7a6ff",
-        "#ffb7dc",
-        "#c6e0ff",
-        "#fff2a8",
-        "#ffffff"
-      ];
+    function confettiBurst(amount = 40) {
+      const colors = ["#d7a6ff", "#ffb7dc", "#c6e0ff", "#fff2a8", "#ffffff"];
 
       for (let i = 0; i < amount; i++) {
         const piece = document.createElement("div");
@@ -1657,24 +1435,21 @@
 
         piece.style.setProperty(
           "--x",
-          ((Math.random() - .5) * 300) + "px"
+          ((Math.random() - .5) * 250) + "px"
         );
 
         piece.style.setProperty(
           "--time",
-          (2 + Math.random() * 2) + "s"
+          (2 + Math.random() * 1.5) + "s"
         );
 
         document.body.appendChild(piece);
 
-        setTimeout(() => piece.remove(), 4500);
+        setTimeout(() => piece.remove(), 4000);
       }
     }
 
-
-    /* =========================================
-       BIRTHDAY MODE
-       ========================================= */
+    /* ========== BIRTHDAY MODE ========== */
 
     function checkBirthdayMode() {
       const now = new Date();
@@ -1685,34 +1460,26 @@
         document.getElementById("vaultStatus").textContent =
           "🔓 THE VAULT IS NOW OPEN!!! 🎉";
 
-        setTimeout(() => {
-          confettiBurst(100);
-        }, 1000);
+        setTimeout(() => confettiBurst(70), 800);
       }
     }
 
     function birthdayBlast() {
-      confettiBurst(180);
-      showToast("HAPPY BIRTHDAY MADAM JIIII!!! 🎂💜🎉✨");
+      confettiBurst(100);
+      showToast("HAPPY BIRTHDAY DIYAA MADAM JIII!!! 🎂💜🎉✨");
     }
 
-
-    /* =========================================
-       HERO BUTTON
-       ========================================= */
+    /* ========== HERO BUTTON ========== */
 
     function goToJourney() {
       document.getElementById("today").scrollIntoView({
         behavior: "smooth"
       });
 
-      setTimeout(() => confettiBurst(20), 500);
+      setTimeout(() => confettiBurst(15), 400);
     }
 
-
-    /* =========================================
-       TOAST
-       ========================================= */
+    /* ========== TOAST ========== */
 
     let toastTimer;
 
@@ -1726,18 +1493,15 @@
 
       toastTimer = setTimeout(() => {
         toast.classList.remove("show");
-      }, 3000);
+      }, 2800);
     }
 
+    /* ========== TAP SPARKLES ========== */
 
-    /* =========================================
-       TOUCH SPARKLES
-       ========================================= */
-
-    document.addEventListener("pointerdown", (event) => {
+    document.addEventListener("pointerdown", event => {
       if (event.target.closest("button, a")) return;
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 3; i++) {
         const sparkle = document.createElement("div");
 
         sparkle.className = "tap-sparkle";
@@ -1748,46 +1512,38 @@
 
         sparkle.style.setProperty(
           "--x",
-          ((Math.random() - .5) * 90) + "px"
+          ((Math.random() - .5) * 70) + "px"
         );
 
         sparkle.style.setProperty(
           "--y",
-          ((Math.random() - .5) * 90) + "px"
+          ((Math.random() - .5) * 70) + "px"
         );
 
         document.body.appendChild(sparkle);
 
-        setTimeout(() => sparkle.remove(), 800);
+        setTimeout(() => sparkle.remove(), 700);
       }
     });
 
+    /* ========== SCROLL REVEAL ========== */
 
-    /* =========================================
-       SCROLL REVEAL
-       ========================================= */
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      {
-        threshold: .12
-      }
-    );
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
 
     document.querySelectorAll(".reveal").forEach(element => {
       observer.observe(element);
     });
 
-
-    /* =========================================
-       INITIALIZE WEBSITE
-       ========================================= */
+    /* ========== START EVERYTHING ========== */
 
     updateToday();
     buildDays();
@@ -1797,7 +1553,6 @@
 
     setInterval(updateCountdown, 1000);
 
-    /* Update day automatically if midnight passes */
     setInterval(() => {
       const newDay = getCurrentDay();
 
@@ -1808,12 +1563,11 @@
         buildDays();
         updateProgress();
 
-        showToast("💌 A new surprise has unlocked, Madam Ji!!! ✨");
-        confettiBurst(70);
+        showToast("💌 A new surprise has unlocked, Diyaa Madam Ji!!! ✨");
+        confettiBurst(50);
       }
     }, 60000);
-
   </script>
 
 </body>
-</html>
+  </html>
