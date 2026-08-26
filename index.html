@@ -1,1 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6f4ca3">
+  <title>Little Universe ✦</title>
 
+  <style>
+    /* =========================================
+       LITTLE UNIVERSE — MOBILE FIRST
+       ========================================= */
+
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+
+    :root {
+      --purple: #8d67c8;
+      --deep-purple: #24133f;
+      --lavender: #d8c4ff;
+      --pink: #ffb9dc;
+      --cream: #fffaff;
+      --blue: #bddcff;
+      --glass: rgba(255,255,255,.11);
+      --border: rgba(255,255,255,.18);
+      --shadow: 0 18px 60px rgba(19, 7, 45, .35);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--cream);
+      font-family: "DM Sans", Arial, sans-serif;
+      background: #160d29;
+    }
+
+    button, a {
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* ===== ANIMATED BACKGROUND ===== */
+
+    .space {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(189,130,255,.42), transparent 25%),
+        radial-gradient(circle at 85% 25%, rgba(255,155,215,.27), transparent 23%),
+        radial-gradient(circle at 55% 78%, rgba(107,170,255,.22), transparent 30%),
+        linear-gradient(135deg, #130b25, #251141, #442368, #20143d);
+      background-size: 180% 180%;
+      animation: universeShift 15s ease infinite;
+    }
+
+    @keyframes universeShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .aurora {
+      position: absolute;
+      width: 120vw;
+      height: 45vh;
+      left: -10vw;
+      top: 20vh;
+      filter: blur(70px);
+      opacity: .25;
+      background: linear-gradient(90deg, transparent, #a878ff, #ff9dd7, transparent);
+      animation: auroraMove 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes auroraMove {
+      from { transform: translateX(-10%) rotate(-8deg); }
+      to { transform: translateX(15%) rotate(8deg); }
+    }
+
+    #stars, #particles, #floatingThings {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    #stars { z-index: -8; }
+    #particles { z-index: -7; }
+    #floatingThings { z-index: -6; }
+
+    .star {
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 0 7px white, 0 0 16px #d8c7ff;
+      animation: twinkle var(--duration) ease-in-out infinite alternate;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes twinkle {
+      from { opacity: .15; transform: scale(.6); }
+      to { opacity: 1; transform: scale(1.8); }
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.8);
+      box-shadow: 0 0 10px #e8d8ff;
+      animation: drift var(--duration) linear infinite;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateY(110vh) translateX(0);
+        opacity: 0;
+      }
+      10% { opacity: .8; }
+      to {
+        transform: translateY(-10vh) translateX(var(--drift));
+        opacity: 0;
+      }
+    }
+
+    .float-item {
+      position: absolute;
+      bottom: -80px;
+      font-size: var(--size);
+      opacity: .55;
+      animation: floatUniverse var(--duration) linear infinite;
+      animation-delay: var(--delay);
+      filter: drop-shadow(0 0 12px rgba(255,255,255,.3));
+    }
+
+    @keyframes floatUniverse {
+      0% {
+        transform: translateY(0) rotate(0deg) scale(.8);
+        opacity: 0;
+      }
+      10% { opacity: .65; }
+      100% {
+        transform: translateY(-120vh) rotate(var(--rotate)) translateX(var(--move));
+        opacity: 0;
+      }
+    }
+
+    /* ===== LOADER ===== */
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle, rgba(151,95,218,.45), transparent 30%),
+        #130b25;
+      transition: opacity .9s ease, visibility .9s ease;
+    }
+
+    .loader-orbit {
+      width: 110px;
+      height: 110px;
+      position: relative;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      animation: spin 3s linear infinite;
+    }
+
+    .loader-orbit::before,
+    .loader-orbit::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #e5c9ff;
+      box-shadow: 0 0 25px #e5c9ff;
+    }
+
+    .loader-orbit::before {
+      top: -7px;
+      left: 45px;
+    }
+
+    .loader-orbit::after {
+      bottom: 18px;
+      right: -5px;
+      width: 8px;
+      height: 8px;
+      background: #ffb6dd;
+    }
+
+    .loader-heart {
+      position: absolute;
+      font-size: 42px;
+      animation: heartbeat 1.2s infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes heartbeat {
+      50% { transform: scale(1.2); }
+    }
+
+    .loader-title {
+      margin-top: 35px;
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      letter-spacing: 1px;
+    }
+
+    .loader-subtitle {
+      margin-top: 9px;
+      color: #d7c5ee;
+      font-size: 13px;
+      letter-spacing: 2px;
+      animation: loaderBlink 1.4s infinite alternate;
+    }
+
+    @keyframes loaderBlink {
+      from { opacity: .3; }
+      to { opacity: 1; }
+    }
+
+    #loader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* ===== PAGE ===== */
+
+    main {
+      width: min(100%, 560px);
+      margin: 0 auto;
+      padding: max(18px, env(safe-area-inset-top)) 16px 120px;
+    }
+
+    section {
+      scroll-margin-top: 30px;
+      margin: 28px 0 52px;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+
+    /* ===== HERO ===== */
+
+    .hero {
+      min-height: calc(100vh - 20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .planet {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      right: -42px;
+      top: 10%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 30%, #f7d8ff, #b884e9 35%, #6e459d 70%);
+      box-shadow: 0 0 60px rgba(201,145,255,.35);
+      animation: planetFloat 6s ease-in-out infinite;
+    }
+
+    .planet::after {
+      content: "";
+      position: absolute;
+      width: 145px;
+      height: 35px;
+      left: -18px;
+      top: 38px;
+      border: 5px solid rgba(255,220,255,.55);
+      border-radius: 50%;
+      transform: rotate(-18deg);
+    }
+
+    .mini-moon {
+      position: absolute;
+      width: 45px;
+      height: 45px;
+      left: -8px;
+      bottom: 17%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #d8ccff 60%, #9c84c9);
+      box-shadow: 0 0 30px rgba(220,210,255,.4);
+      animation: moonFloat 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes planetFloat {
+      50% { transform: translateY(-18px) rotate(8deg); }
+    }
+
+    @keyframes moonFloat {
+      to { transform: translate(18px, -12px); }
+    }
+
+    .logo-pill {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 17px;
+      border-radius: 999px;
+      color: #f4eaff;
+      font-size: 13px;
+      letter-spacing: 1.2px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 8px 35px rgba(0,0,0,.15);
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      50% { transform: translateY(-8px); }
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(52px, 16vw, 82px);
+      line-height: .92;
+      margin: 26px 0 16px;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #ffffff 20%, #f2c8ff 55%, #bcdcff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 22px rgba(224,190,255,.18));
+    }
+
+    .hero h1 span {
+      display: block;
+      font-size: .55em;
+      margin-top: 10px;
+      letter-spacing: 1px;
+    }
+
+    .hero-description {
+      max-width: 390px;
+      color: #e9dff6;
+      line-height: 1.8;
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .enter-btn {
+      position: relative;
+      overflow: hidden;
+      margin-top: 28px;
+      padding: 16px 24px;
+      min-width: 210px;
+      border: 0;
+      border-radius: 999px;
+      color: white;
+      font-weight: 700;
+      background: linear-gradient(135deg, #9a70e5, #d777bc, #a480ef);
+      background-size: 200% 200%;
+      box-shadow: 0 15px 40px rgba(168,110,255,.4);
+      animation: buttonGradient 4s ease infinite, buttonFloat 2.5s ease-in-out infinite;
+    }
+
+    .enter-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.4), transparent 80%);
+      transform: translateX(-120%);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes buttonGradient {
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes buttonFloat {
+      50% { transform: translateY(-5px) scale(1.02); }
+    }
+
+    @keyframes shine {
+      50%, 100% { transform: translateX(120%); }
+    }
+
+    .scroll-hint {
+      margin-top: 35px;
+      color: rgba(255,255,255,.55);
+      font-size: 11px;
+      letter-spacing: 2px;
+      animation: hintBounce 2s infinite;
+    }
+
+    @keyframes hintBounce {
+      50% { transform: translateY(8px); }
+    }
+
+    /* ===== HEADINGS ===== */
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: block;
+      color: #f0b8dc;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+    }
+
+    .section-head p {
+      color: #d9cee8;
+      font-size: 13px;
+      margin: 9px auto 0;
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    /* ===== COUNTDOWN ===== */
+
+    .countdown-card {
+      border-radius: 30px;
+      padding: 24px 13px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-card::before {
+      content: "✦";
+      position: absolute;
+      right: 18px;
+      top: 10px;
+      font-size: 32px;
+      color: rgba(255,255,255,.15);
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+    }
+
+    .time-box {
+      padding: 15px 4px;
+      text-align: center;
+      border-radius: 19px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+
+    .time-box b {
+      display: block;
+      font-size: clamp(21px, 7vw, 30px);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time-box span {
+      display: block;
+      margin-top: 4px;
+      font-size: 8px;
+      color: #cdbfdd;
+      letter-spacing: 1.3px;
+    }
+
+    .countdown-note {
+      text-align: center;
+      margin: 17px 0 0;
+      color: #e8d8f2;
+      font-size: 12px;
+    }
+
+    /* ===== TODAY ===== */
+
+    .today-card {
+      position: relative;
+      min-height: 360px;
+      padding: 30px 20px;
+      border-radius: 32px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .today-card::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      top: -90px;
+      left: -80px;
+      border-radius: 50%;
+      background: rgba(198,143,255,.16);
+      filter: blur(20px);
+    }
+
+    .today-date {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      color: #f2dcff;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .big-envelope {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 145px;
+      height: 105px;
+      margin: 26px auto 18px;
+      border-radius: 12px;
+      font-size: 56px;
+      background: linear-gradient(135deg, #f0d3ff, #b889dd);
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      animation: envelopeFloat 3s ease-in-out infinite;
+      transition: .35s;
+    }
+
+    .big-envelope::after {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #a66cba;
+      box-shadow: 0 0 0 4px rgba(255,255,255,.13);
+    }
+
+    .big-envelope.open {
+      animation: envelopeOpen .7s ease forwards;
+    }
+
+    @keyframes envelopeFloat {
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    @keyframes envelopeOpen {
+      50% { transform: scale(1.16) rotate(-4deg); }
+      100% { transform: scale(1.05); }
+    }
+
+    .today-card h3 {
+      position: relative;
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+    }
+
+    .today-card > p {
+      position: relative;
+      color: #dcd0ea;
+      line-height: 1.7;
+      font-size: 13px;
+      max-width: 340px;
+      margin: 10px auto;
+    }
+
+    .open-surprise-btn {
+      position: relative;
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.2);
+      color: white;
+      padding: 13px 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ===== JOURNEY ===== */
+
+    .progress-card {
+      border-radius: 28px;
+      padding: 19px;
+      margin-bottom: 18px;
+    }
+
+    .progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .progress-top b {
+      color: #f4d9ff;
+    }
+
+    .progress-track {
+      height: 12px;
+      margin-top: 14px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.1);
+    }
+
+    #progressFill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #a77aff, #ff9ed3, #c3ddff);
+      box-shadow: 0 0 20px rgba(215,160,255,.7);
+      transition: width 1.2s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+    }
+
+    .day-card {
+      min-height: 158px;
+      padding: 15px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      text-align: left;
+      color: white;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 12px 35px rgba(0,0,0,.13);
+      transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .day-card:active {
+      transform: scale(.95);
+    }
+
+    .day-card.unlocked {
+      background:
+        radial-gradient(circle at 90% 5%, rgba(255,181,223,.23), transparent 35%),
+        linear-gradient(145deg, rgba(158,107,218,.38), rgba(255,157,211,.16));
+    }
+
+    .day-card.today {
+      border-color: rgba(255,225,250,.5);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 15px 40px rgba(185,125,255,.25);
+      animation: todayGlow 2.2s ease-in-out infinite;
+    }
+
+    @keyframes todayGlow {
+      50% { transform: translateY(-5px); }
+    }
+
+    .day-card.locked {
+      opacity: .57;
+      filter: saturate(.55);
+    }
+
+    .day-number {
+      color: #d7c7e9;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+
+    .day-icon {
+      font-size: 35px;
+      margin: 18px 0 8px;
+    }
+
+    .day-card b {
+      display: block;
+      font-size: 14px;
+    }
+
+    .day-card small {
+      display: block;
+      margin-top: 5px;
+      color: #d8cbe5;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
+    .lock-dot {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      font-size: 12px;
+    }
+
+    /* ===== VAULT ===== */
+
+    .vault {
+      padding: 28px 20px;
+      border-radius: 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vault-icon {
+      font-size: 65px;
+      display: inline-block;
+      animation: vaultFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes vaultFloat {
+      50% { transform: translateY(-8px) rotate(3deg); }
+    }
+
+    .vault h3 {
+      margin: 12px 0 8px;
+      font-family: "Playfair Display", serif;
+      font-size: 25px;
+    }
+
+    .vault p {
+      color: #d8cde5;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .vault-status {
+      margin-top: 15px;
+      display: inline-block;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      font-size: 11px;
+    }
+
+    /* ===== FINAL DAY ===== */
+
+    .birthday-card {
+      display: none;
+      border-radius: 32px;
+      padding: 30px 20px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,211,240,.35), transparent 45%),
+        linear-gradient(135deg, rgba(142,92,210,.7), rgba(226,113,177,.5));
+      border: 1px solid rgba(255,255,255,.3);
+      box-shadow: 0 20px 80px rgba(187,111,255,.3);
+    }
+
+    .birthday-card.show {
+      display: block;
+      animation: birthdayReveal 1s ease both;
+    }
+
+    @keyframes birthdayReveal {
+      from { opacity: 0; transform: scale(.8) translateY(30px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .birthday-card .cake {
+      font-size: 80px;
+      animation: cakeDance 2s ease-in-out infinite;
+    }
+
+    @keyframes cakeDance {
+      50% { transform: rotate(-5deg) scale(1.08); }
+    }
+
+    /* ===== BOTTOM NAV ===== */
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 500;
+      left: 50%;
+      bottom: max(12px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: min(calc(100% - 24px), 520px);
+      padding: 9px 5px;
+      display: flex;
+      justify-content: space-around;
+      border-radius: 25px;
+      background: rgba(30,16,55,.78);
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 15px 45px rgba(0,0,0,.35);
+      backdrop-filter: blur(22px);
+    }
+
+    .nav-item {
+      flex: 1;
+      color: rgba(255,255,255,.68);
+      text-decoration: none;
+      text-align: center;
+      font-size: 9px;
+      padding: 5px 2px;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    /* ===== MODAL ===== */
+
+    #modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 15px;
+      background: rgba(10,5,25,.55);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      visibility: hidden;
+      transition: .3s;
+    }
+
+    #modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-card {
+      width: min(100%, 520px);
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 28px 20px 25px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(221,150,255,.2), transparent 35%),
+        #352052;
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 -15px 60px rgba(0,0,0,.3);
+      transform: translateY(40px);
+      transition: transform .4s cubic-bezier(.2,.9,.2,1);
+    }
+
+    #modal.show .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      float: right;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      color: white;
+      background: rgba(255,255,255,.12);
+    }
+
+    .modal-icon {
+      font-size: 55px;
+    }
+
+    .modal-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 27px;
+      margin: 13px 0 8px;
+    }
+
+    .modal-date {
+      color: #e8bce3;
+      font-size: 12px;
+    }
+
+    .modal-message {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 20px;
+      color: #eee6f7;
+      line-height: 1.8;
+      background: rgba(255,255,255,.07);
+      font-size: 14px;
+    }
+
+    /* ===== TOAST ===== */
+
+    #toast {
+      position: fixed;
+      z-index: 10000;
+      top: max(18px, env(safe-area-inset-top));
+      left: 50%;
+      width: calc(100% - 32px);
+      max-width: 450px;
+      padding: 14px 17px;
+      border-radius: 18px;
+      color: white;
+      background: rgba(61,37,91,.92);
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      transform: translate(-50%, -100px);
+      transition: .45s;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    #toast.show {
+      transform: translate(-50%, 0);
+    }
+
+    /* ===== CONFETTI ===== */
+
+    .confetti {
+      position: fixed;
+      z-index: 9998;
+      top: -20px;
+      width: 9px;
+      height: 15px;
+      border-radius: 3px;
+      pointer-events: none;
+      animation: confettiFall var(--time) linear forwards;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translate(var(--x), 110vh) rotate(900deg);
+        opacity: 0;
+      }
+    }
+
+    /* ===== TAP SPARKLE ===== */
+
+    .tap-sparkle {
+      position: fixed;
+      z-index: 8000;
+      pointer-events: none;
+      font-size: 18px;
+      animation: tapSparkle .7s ease-out forwards;
+    }
+
+    @keyframes tapSparkle {
+      to {
+        transform: translate(var(--x), var(--y)) rotate(180deg) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 600px) {
+      .days-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="space">
+    <div class="aurora"></div>
+  </div>
+
+  <div id="stars"></div>
+  <div id="particles"></div>
+  <div id="floatingThings"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-orbit"></div>
+    <div class="loader-heart">💜</div>
+    <div class="loader-title">Little Universe</div>
+    <div class="loader-subtitle">PREPARING SOMETHING MAGICAL...</div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast"></div>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="planet"></div>
+      <div class="mini-moon"></div>
+
+      <div class="logo-pill">✦ YOUR VERY OWN LITTLE UNIVERSE ✦</div>
+
+      <h1>
+        Heyyyy
+        <span>Madam Jiii 💜</span>
+      </h1>
+
+      <p class="hero-description">
+        This is a tiny little universe made especially for you...
+        and every day, a new piece of it will slowly come alive. ✨
+      </p>
+
+      <button class="enter-btn" onclick="goToJourney()">
+        ✦ Start Exploring ✦
+      </button>
+
+      <div class="scroll-hint">SCROLL TO EXPLORE ↓</div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="reveal" id="countdown">
+      <div class="section-head">
+        <span class="eyebrow">THE GRAND FINALE</span>
+        <h2>Counting down... ⏳</h2>
+        <p>Something very special is waiting at the end of this journey.</p>
+      </div>
+
+      <div class="glass countdown-card">
+        <div class="countdown">
+          <div class="time-box">
+            <b id="days">00</b>
+            <span>DAYS</span>
+          </div>
+          <div class="time-box">
+            <b id="hours">00</b>
+            <span>HOURS</span>
+          </div>
+          <div class="time-box">
+            <b id="minutes">00</b>
+            <span>MINS</span>
+          </div>
+          <div class="time-box">
+            <b id="seconds">00</b>
+            <span>SECS</span>
+          </div>
+        </div>
+
+        <p class="countdown-note" id="countdownNote">
+          Until 7 September 🎂✨
+        </p>
+      </div>
+    </section>
+
+    <!-- TODAY -->
+    <section class="reveal" id="today">
+      <div class="section-head">
+        <span class="eyebrow">TODAY'S SURPRISE</span>
+        <h2>Something for you 💌</h2>
+      </div>
+
+      <div class="glass today-card">
+        <div class="today-date" id="todayDate">✦ LOADING YOUR DAY...</div>
+
+        <div class="big-envelope" id="todayEnvelope">💌</div>
+
+        <h3 id="todayTitle">A little surprise...</h3>
+
+        <p id="todayDescription">
+          Your special message is waiting for you.
+        </p>
+
+        <button class="open-surprise-btn" onclick="openToday()">
+          Open today's surprise ✨
+        </button>
+      </div>
+    </section>
+
+    <!-- JOURNEY -->
+    <section class="reveal" id="journey">
+      <div class="section-head">
+        <span class="eyebrow">YOUR JOURNEY</span>
+        <h2>17 little moments ✨</h2>
+        <p>One day at a time. One surprise at a time. No cheating, Madam Ji. 👀</p>
+      </div>
+
+      <div class="glass progress-card">
+        <div class="progress-top">
+          <b id="progressText">Day 1 of 17 💜</b>
+          <span id="progressPercent">0%</span>
+        </div>
+
+        <div class="progress-track">
+          <div id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="days-grid" id="daysGrid"></div>
+    </section>
+
+    <!-- VAULT -->
+    <section class="reveal" id="vault">
+      <div class="glass vault">
+        <div class="vault-icon">🎁</div>
+        <h3>The Birthday Vault</h3>
+        <p>
+          The biggest surprise in this Little Universe is safely locked away...
+          and it only opens on the special day. 🔐✨
+        </p>
+
+        <div class="vault-status" id="vaultStatus">
+          🔒 LOCKED UNTIL 7 SEPTEMBER
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL BIRTHDAY MODE -->
+    <section id="birthdaySection">
+      <div class="birthday-card" id="birthdayCard">
+        <div class="cake">🎂</div>
+        <h2>HAPPY BIRTHDAY MADAM JIII!!! 💜🎉</h2>
+        <p>
+          The whole Little Universe is finally yours today. ✨🌌
+        </p>
+        <button class="open-surprise-btn" onclick="birthdayBlast()">
+          CELEBRATEEEE 🎉
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a class="nav-item" href="#home">
+      <span>🏠</span>Home
+    </a>
+
+    <a class="nav-item" href="#today">
+      <span>💌</span>Today
+    </a>
+
+    <a class="nav-item" href="#journey">
+      <span>🪐</span>Journey
+    </a>
+
+    <a class="nav-item" href="#vault">
+      <span>🎁</span>Vault
+    </a>
+  </nav>
+
+  <!-- MESSAGE MODAL -->
+  <div id="modal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+
+      <div class="modal-icon" id="modalIcon">💌</div>
+      <div class="modal-date" id="modalDate"></div>
+      <h3 id="modalTitle">A Little Surprise</h3>
+
+      <div class="modal-message" id="modalMessage">
+        Your message will go here. 💜
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    /* =========================================
+       LITTLE UNIVERSE CONFIGURATION
+       ========================================= */
+
+    const START_DATE = new Date(2026, 7, 22, 0, 0, 0);
+    const FINAL_DATE = new Date(2026, 8, 7, 0, 0, 0);
+
+    const surprises = [
+      {
+        date: "22 August",
+        icon: "💌",
+        title: "The Beginning",
+        preview: "The first little piece of your universe...",
+        message: "DAY 1 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "23 August",
+        icon: "🌸",
+        title: "A Little Smile",
+        preview: "Something small to make Madam Ji smile.",
+        message: "DAY 2 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "24 August",
+        icon: "✨",
+        title: "A Tiny Sparkle",
+        preview: "Today's universe has something shiny.",
+        message: "DAY 3 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "25 August",
+        icon: "🦋",
+        title: "Butterfly Day",
+        preview: "A little surprise has landed.",
+        message: "DAY 4 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "26 August",
+        icon: "💜",
+        title: "A Purple Secret",
+        preview: "Something is waiting behind this card.",
+        message: "DAY 5 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "27 August",
+        icon: "🎀",
+        title: "Wrapped for You",
+        preview: "Another little moment, just for you.",
+        message: "DAY 6 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "28 August",
+        icon: "🌙",
+        title: "Moonlight",
+        preview: "Tonight, your universe feels extra magical.",
+        message: "DAY 7 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "29 August",
+        icon: "⭐",
+        title: "You Shine",
+        preview: "A little reminder from your universe.",
+        message: "DAY 8 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "30 August",
+        icon: "🪐",
+        title: "Another World",
+        preview: "You've reached another little planet.",
+        message: "DAY 9 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "31 August",
+        icon: "🎁",
+        title: "Mystery Box",
+        preview: "Something is wrapped especially for today.",
+        message: "DAY 10 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "1 September",
+        icon: "🌷",
+        title: "September Begins",
+        preview: "The grand day is getting closer...",
+        message: "DAY 11 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "2 September",
+        icon: "📸",
+        title: "A Little Memory",
+        preview: "A special corner of the universe.",
+        message: "DAY 12 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "3 September",
+        icon: "💭",
+        title: "Thinking of You",
+        preview: "A thought saved especially for today.",
+        message: "DAY 13 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "4 September",
+        icon: "💗",
+        title: "Almost There",
+        preview: "The countdown is getting serious now. 👀",
+        message: "DAY 14 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "5 September",
+        icon: "🔮",
+        title: "A Magical Hint",
+        preview: "Something BIG is getting closer...",
+        message: "DAY 15 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "6 September",
+        icon: "👑",
+        title: "One More Sleep",
+        preview: "Tomorrow... everything changes. 🎂",
+        message: "DAY 16 MESSAGE WILL BE ADDED HERE 💜"
+      },
+      {
+        date: "7 September",
+        icon: "🎂",
+        title: "THE GRAND FINALE",
+        preview: "HAPPY BIRTHDAY MADAM JIII!!!",
+        message: "THE FINAL BIRTHDAY MESSAGE WILL BE ADDED HERE 🎂💜🎉"
+      }
+    ];
+
+
+    /* =========================================
+       CREATE STARS
+       ========================================= */
+
+    const starsContainer = document.getElementById("stars");
+
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+
+      const size = Math.random() * 3 + 1;
+
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.setProperty("--size", size + "px");
+      star.style.setProperty("--duration", (1.5 + Math.random() * 3) + "s");
+      star.style.setProperty("--delay", (-Math.random() * 4) + "s");
+
+      starsContainer.appendChild(star);
+    }
+
+
+    /* =========================================
+       FLOATING PARTICLES
+       ========================================= */
+
+    const particlesContainer = document.getElementById("particles");
+
+    for (let i = 0; i < 35; i++) {
+      const particle = document.createElement("div");
+      particle.className = "particle";
+
+      particle.style.left = Math.random() * 100 + "%";
+      particle.style.bottom = Math.random() * 100 + "%";
+      particle.style.setProperty("--duration", (8 + Math.random() * 10) + "s");
+      particle.style.setProperty("--drift", ((Math.random() - .5) * 180) + "px");
+
+      particlesContainer.appendChild(particle);
+    }
+
+
+    /* =========================================
+       FLOATING MAGIC ITEMS
+       ========================================= */
+
+    const floatingContainer = document.getElementById("floatingThings");
+    const floatingIcons = ["💜", "🩷", "✨", "✦", "🦋", "🌸", "☁️"];
+
+    for (let i = 0; i < 24; i++) {
+      const item = document.createElement("div");
+      item.className = "float-item";
+      item.textContent = floatingIcons[Math.floor(Math.random() * floatingIcons.length)];
+
+      item.style.left = Math.random() * 100 + "%";
+      item.style.setProperty("--size", (13 + Math.random() * 16) + "px");
+      item.style.setProperty("--duration", (12 + Math.random() * 15) + "s");
+      item.style.setProperty("--delay", (-Math.random() * 20) + "s");
+      item.style.setProperty("--rotate", ((Math.random() * 720) - 360) + "deg");
+      item.style.setProperty("--move", ((Math.random() - .5) * 150) + "px");
+
+      floatingContainer.appendChild(item);
+    }
+
+
+    /* =========================================
+       LOADER
+       ========================================= */
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").classList.add("hide");
+      }, 2200);
+    });
+
+
+    /* =========================================
+       CURRENT DAY
+       ========================================= */
+
+    function getCurrentDay() {
+      const now = new Date();
+
+      if (now < START_DATE) return 0;
+
+      const diff = now - START_DATE;
+
+      const day = Math.floor(
+        diff / (1000 * 60 * 60 * 24)
+      ) + 1;
+
+      return Math.min(day, 17);
+    }
+
+    let currentDay = getCurrentDay();
+
+
+    /* =========================================
+       TODAY'S CARD
+       ========================================= */
+
+    function updateToday() {
+      const todayDate = document.getElementById("todayDate");
+      const title = document.getElementById("todayTitle");
+      const description = document.getElementById("todayDescription");
+
+      if (currentDay === 0) {
+        todayDate.textContent = "🔒 THE JOURNEY HAS NOT STARTED YET";
+        title.textContent = "Not yet... 👀";
+        description.textContent = "Your Little Universe begins on 22 August.";
+        return;
+      }
+
+      const surprise = surprises[currentDay - 1];
+
+      todayDate.textContent = `✦ DAY ${currentDay} • ${surprise.date}`;
+      title.textContent = surprise.title;
+      description.textContent = surprise.preview;
+    }
+
+
+    /* =========================================
+       17 DAY CARDS
+       ========================================= */
+
+    function buildDays() {
+      const grid = document.getElementById("daysGrid");
+      grid.innerHTML = "";
+
+      surprises.forEach((surprise, index) => {
+        const dayNumber = index + 1;
+        const unlocked = dayNumber <= currentDay;
+        const isToday = dayNumber === currentDay;
+
+        const card = document.createElement("button");
+
+        card.className =
+          "day-card " +
+          (unlocked ? "unlocked " : "locked ") +
+          (isToday ? "today" : "");
+
+        card.innerHTML = `
+          <div class="lock-dot">
+            ${unlocked ? "✨" : "🔒"}
+          </div>
+
+          <div class="day-number">
+            DAY ${String(dayNumber).padStart(2, "0")}
+          </div>
+
+          <div class="day-icon">
+            ${unlocked ? surprise.icon : "🔐"}
+          </div>
+
+          <b>${unlocked ? surprise.title : "Locked"}</b>
+
+          <small>
+            ${unlocked ? surprise.date : "Come back on " + surprise.date}
+          </small>
+        `;
+
+        card.addEventListener("click", () => {
+          if (unlocked) {
+            openDay(dayNumber);
+          } else {
+            lockedAnimation(card, surprise.date);
+          }
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+
+    /* =========================================
+       PROGRESS
+       ========================================= */
+
+    function updateProgress() {
+      const percentage = Math.round((currentDay / 17) * 100);
+
+      document.getElementById("progressText").textContent =
+        `Day ${currentDay || 0} of 17 💜`;
+
+      document.getElementById("progressPercent").textContent =
+        `${percentage}%`;
+
+      setTimeout(() => {
+        document.getElementById("progressFill").style.width =
+          percentage + "%";
+      }, 500);
+    }
+
+
+    /* =========================================
+       COUNTDOWN
+       ========================================= */
+
+    function updateCountdown() {
+      const now = new Date();
+
+      if (now >= FINAL_DATE) {
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+
+        document.getElementById("countdownNote").textContent =
+          "IT'S THE SPECIAL DAY!!! 🎂🎉💜";
+
+        return;
+      }
+
+      const diff = FINAL_DATE - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+      document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+      document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+      document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+    }
+
+
+    /* =========================================
+       OPEN TODAY
+       ========================================= */
+
+    function openToday() {
+      if (currentDay === 0) {
+        showToast("The Little Universe opens on 22 August 👀✨");
+        return;
+      }
+
+      const envelope = document.getElementById("todayEnvelope");
+
+      envelope.classList.remove("open");
+      void envelope.offsetWidth;
+      envelope.classList.add("open");
+
+      openDay(currentDay);
+      confettiBurst(35);
+    }
+
+
+    /* =========================================
+       OPEN ANY DAY
+       ========================================= */
+
+    function openDay(day) {
+      const surprise = surprises[day - 1];
+
+      document.getElementById("modalIcon").textContent = surprise.icon;
+      document.getElementById("modalDate").textContent =
+        `DAY ${day} • ${surprise.date}`;
+
+      document.getElementById("modalTitle").textContent =
+        surprise.title;
+
+      document.getElementById("modalMessage").textContent =
+        surprise.message;
+
+      document.getElementById("modal").classList.add("show");
+    }
+
+
+    function closeModal() {
+      document.getElementById("modal").classList.remove("show");
+    }
+
+    document.getElementById("modal").addEventListener("click", (event) => {
+      if (event.target.id === "modal") {
+        closeModal();
+      }
+    });
+
+
+    /* =========================================
+       LOCKED CARD ANIMATION
+       ========================================= */
+
+    function lockedAnimation(card, date) {
+      card.animate(
+        [
+          { transform: "translateX(0)" },
+          { transform: "translateX(-8px) rotate(-2deg)" },
+          { transform: "translateX(8px) rotate(2deg)" },
+          { transform: "translateX(-5px)" },
+          { transform: "translateX(0)" }
+        ],
+        {
+          duration: 450,
+          easing: "ease-in-out"
+        }
+      );
+
+      showToast(`Nopeee Madam Ji 👀🔒 Come back on ${date}!`);
+    }
+
+
+    /* =========================================
+       CONFETTI
+       ========================================= */
+
+    function confettiBurst(amount = 50) {
+      const colors = [
+        "#d7a6ff",
+        "#ffb7dc",
+        "#c6e0ff",
+        "#fff2a8",
+        "#ffffff"
+      ];
+
+      for (let i = 0; i < amount; i++) {
+        const piece = document.createElement("div");
+
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.setProperty(
+          "--x",
+          ((Math.random() - .5) * 300) + "px"
+        );
+
+        piece.style.setProperty(
+          "--time",
+          (2 + Math.random() * 2) + "s"
+        );
+
+        document.body.appendChild(piece);
+
+        setTimeout(() => piece.remove(), 4500);
+      }
+    }
+
+
+    /* =========================================
+       BIRTHDAY MODE
+       ========================================= */
+
+    function checkBirthdayMode() {
+      const now = new Date();
+
+      if (now >= FINAL_DATE) {
+        document.getElementById("birthdayCard").classList.add("show");
+
+        document.getElementById("vaultStatus").textContent =
+          "🔓 THE VAULT IS NOW OPEN!!! 🎉";
+
+        setTimeout(() => {
+          confettiBurst(100);
+        }, 1000);
+      }
+    }
+
+    function birthdayBlast() {
+      confettiBurst(180);
+      showToast("HAPPY BIRTHDAY MADAM JIIII!!! 🎂💜🎉✨");
+    }
+
+
+    /* =========================================
+       HERO BUTTON
+       ========================================= */
+
+    function goToJourney() {
+      document.getElementById("today").scrollIntoView({
+        behavior: "smooth"
+      });
+
+      setTimeout(() => confettiBurst(20), 500);
+    }
+
+
+    /* =========================================
+       TOAST
+       ========================================= */
+
+    let toastTimer;
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+
+
+    /* =========================================
+       TOUCH SPARKLES
+       ========================================= */
+
+    document.addEventListener("pointerdown", (event) => {
+      if (event.target.closest("button, a")) return;
+
+      for (let i = 0; i < 4; i++) {
+        const sparkle = document.createElement("div");
+
+        sparkle.className = "tap-sparkle";
+        sparkle.textContent = i % 2 === 0 ? "✦" : "✨";
+
+        sparkle.style.left = event.clientX + "px";
+        sparkle.style.top = event.clientY + "px";
+
+        sparkle.style.setProperty(
+          "--x",
+          ((Math.random() - .5) * 90) + "px"
+        );
+
+        sparkle.style.setProperty(
+          "--y",
+          ((Math.random() - .5) * 90) + "px"
+        );
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => sparkle.remove(), 800);
+      }
+    });
+
+
+    /* =========================================
+       SCROLL REVEAL
+       ========================================= */
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      {
+        threshold: .12
+      }
+    );
+
+    document.querySelectorAll(".reveal").forEach(element => {
+      observer.observe(element);
+    });
+
+
+    /* =========================================
+       INITIALIZE WEBSITE
+       ========================================= */
+
+    updateToday();
+    buildDays();
+    updateProgress();
+    updateCountdown();
+    checkBirthdayMode();
+
+    setInterval(updateCountdown, 1000);
+
+    /* Update day automatically if midnight passes */
+    setInterval(() => {
+      const newDay = getCurrentDay();
+
+      if (newDay !== currentDay) {
+        currentDay = newDay;
+
+        updateToday();
+        buildDays();
+        updateProgress();
+
+        showToast("💌 A new surprise has unlocked, Madam Ji!!! ✨");
+        confettiBurst(70);
+      }
+    }, 60000);
+
+  </script>
+
+</body>
+</html>
