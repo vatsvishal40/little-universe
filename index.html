@@ -1,0 +1,3220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6f4ca3">
+  <title>Little Universe ✦</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+
+    :root {
+      --cream: #fffaff;
+      --purple: #8d67c8;
+      --pink: #ffb9dc;
+      --glass: rgba(255,255,255,.11);
+      --border: rgba(255,255,255,.18);
+      --shadow: 0 18px 50px rgba(19,7,45,.30);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--cream);
+      font-family: "DM Sans", Arial, sans-serif;
+      background: #160d29;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, a {
+      font: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button { cursor: pointer; }
+
+    /* ========== SMOOTH ANIMATED UNIVERSE ========== */
+
+    .space {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(189,130,255,.38), transparent 26%),
+        radial-gradient(circle at 85% 25%, rgba(255,155,215,.25), transparent 24%),
+        radial-gradient(circle at 55% 78%, rgba(107,170,255,.20), transparent 32%),
+        linear-gradient(135deg, #130b25, #251141, #442368, #20143d);
+      background-size: 180% 180%;
+      animation: universeShift 18s ease-in-out infinite;
+      transform: translateZ(0);
+    }
+
+    @keyframes universeShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .aurora {
+      position: absolute;
+      width: 100vw;
+      height: 35vh;
+      left: 0;
+      top: 25vh;
+      opacity: .18;
+      background: linear-gradient(90deg, transparent, #a878ff, #ff9dd7, transparent);
+      filter: blur(45px);
+      animation: auroraMove 14s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    @keyframes auroraMove {
+      from { transform: translateX(-8%) rotate(-5deg); }
+      to { transform: translateX(8%) rotate(5deg); }
+    }
+
+    #stars, #particles, #floatingThings {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transform: translateZ(0);
+    }
+
+    #stars { z-index: -8; }
+    #particles { z-index: -7; }
+    #floatingThings { z-index: -6; }
+
+    .star {
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 0 5px rgba(255,255,255,.9);
+      animation: twinkle var(--duration) ease-in-out infinite alternate;
+      animation-delay: var(--delay);
+      will-change: opacity, transform;
+    }
+
+    @keyframes twinkle {
+      from { opacity: .2; transform: scale(.7); }
+      to { opacity: 1; transform: scale(1.5); }
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.8);
+      animation: drift var(--duration) linear infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+      10% { opacity: .7; }
+      to {
+        transform: translateY(-10vh) translateX(var(--drift));
+        opacity: 0;
+      }
+    }
+
+    .float-item {
+      position: absolute;
+      bottom: -80px;
+      font-size: var(--size);
+      opacity: .45;
+      animation: floatUniverse var(--duration) linear infinite;
+      animation-delay: var(--delay);
+      will-change: transform, opacity;
+    }
+
+    @keyframes floatUniverse {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: .5; }
+      100% {
+        transform: translateY(-120vh) rotate(var(--rotate)) translateX(var(--move));
+        opacity: 0;
+      }
+    }
+
+    /* ========== LOADER ========== */
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle, rgba(151,95,218,.35), transparent 30%),
+        #130b25;
+      transition: opacity .7s ease, visibility .7s ease;
+    }
+
+    .loader-orbit {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      animation: spin 3s linear infinite;
+      will-change: transform;
+    }
+
+    .loader-orbit::before,
+    .loader-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .loader-orbit::before {
+      top: -7px;
+      left: 43px;
+      width: 14px;
+      height: 14px;
+      background: #e5c9ff;
+      box-shadow: 0 0 20px #e5c9ff;
+    }
+
+    .loader-orbit::after {
+      bottom: 18px;
+      right: -5px;
+      width: 8px;
+      height: 8px;
+      background: #ffb6dd;
+    }
+
+    .loader-heart {
+      position: absolute;
+      font-size: 40px;
+      animation: heartbeat 1.3s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes heartbeat {
+      50% { transform: scale(1.15); }
+    }
+
+    .loader-title {
+      margin-top: 32px;
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+    }
+
+    .loader-subtitle {
+      margin-top: 9px;
+      color: #d7c5ee;
+      font-size: 11px;
+      letter-spacing: 2px;
+      animation: loaderBlink 1.4s infinite alternate;
+    }
+
+    @keyframes loaderBlink {
+      from { opacity: .35; }
+      to { opacity: 1; }
+    }
+
+    #loader.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* ========== MAIN ========== */
+
+    main {
+      width: min(100%, 560px);
+      margin: 0 auto;
+      padding: max(18px, env(safe-area-inset-top)) 16px 120px;
+    }
+
+    section {
+      scroll-margin-top: 25px;
+      margin: 28px 0 52px;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    /* ========== HERO ========== */
+
+    .hero {
+      min-height: calc(100vh - 20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .planet {
+      position: absolute;
+      width: 105px;
+      height: 105px;
+      right: -40px;
+      top: 10%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #f7d8ff, #b884e9 35%, #6e459d 70%);
+      box-shadow: 0 0 45px rgba(201,145,255,.3);
+      animation: planetFloat 6s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .planet::after {
+      content: "";
+      position: absolute;
+      width: 140px;
+      height: 33px;
+      left: -18px;
+      top: 36px;
+      border: 4px solid rgba(255,220,255,.55);
+      border-radius: 50%;
+      transform: rotate(-18deg);
+    }
+
+    .mini-moon {
+      position: absolute;
+      width: 43px;
+      height: 43px;
+      left: -5px;
+      bottom: 17%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #d8ccff 60%, #9c84c9);
+      box-shadow: 0 0 25px rgba(220,210,255,.35);
+      animation: moonFloat 5s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    @keyframes planetFloat {
+      50% { transform: translateY(-14px) rotate(6deg); }
+    }
+
+    @keyframes moonFloat {
+      to { transform: translate(15px, -10px); }
+    }
+
+    .logo-pill {
+      padding: 10px 17px;
+      border-radius: 999px;
+      color: #f4eaff;
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      animation: gentleFloat 4s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes gentleFloat {
+      50% { transform: translateY(-6px); }
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(50px, 15vw, 78px);
+      line-height: .92;
+      margin: 26px 0 16px;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #fff 20%, #f2c8ff 55%, #bcdcff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero h1 span {
+      display: block;
+      font-size: .48em;
+      margin-top: 13px;
+      letter-spacing: .5px;
+    }
+
+    .hero-description {
+      max-width: 390px;
+      color: #e9dff6;
+      line-height: 1.8;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .enter-btn {
+      position: relative;
+      overflow: hidden;
+      margin-top: 28px;
+      padding: 16px 24px;
+      min-width: 210px;
+      border: 0;
+      border-radius: 999px;
+      color: white;
+      font-weight: 700;
+      background: linear-gradient(135deg, #9a70e5, #d777bc, #a480ef);
+      background-size: 200% 200%;
+      box-shadow: 0 15px 35px rgba(168,110,255,.35);
+      animation: buttonGradient 5s ease infinite, buttonFloat 3s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .enter-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,.35), transparent 75%);
+      transform: translateX(-120%);
+      animation: shine 4s infinite;
+    }
+
+    @keyframes buttonGradient {
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes buttonFloat {
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes shine {
+      45%, 100% { transform: translateX(120%); }
+    }
+
+    .scroll-hint {
+      margin-top: 35px;
+      color: rgba(255,255,255,.55);
+      font-size: 10px;
+      letter-spacing: 2px;
+      animation: hintBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes hintBounce {
+      50% { transform: translateY(6px); }
+    }
+
+    /* ========== SECTION HEADINGS ========== */
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: block;
+      color: #f0b8dc;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: 29px;
+    }
+
+    .section-head p {
+      color: #d9cee8;
+      font-size: 13px;
+      margin: 9px auto 0;
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    /* ========== COUNTDOWN ========== */
+
+    .countdown-card {
+      border-radius: 30px;
+      padding: 23px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-card::before {
+      content: "✦";
+      position: absolute;
+      right: 18px;
+      top: 8px;
+      font-size: 30px;
+      color: rgba(255,255,255,.13);
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+    }
+
+    .time-box {
+      padding: 15px 4px;
+      text-align: center;
+      border-radius: 18px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .time-box b {
+      display: block;
+      font-size: clamp(20px, 7vw, 29px);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time-box span {
+      display: block;
+      margin-top: 4px;
+      font-size: 8px;
+      color: #cdbfdd;
+      letter-spacing: 1.2px;
+    }
+
+    .countdown-note {
+      text-align: center;
+      margin: 16px 0 0;
+      color: #e8d8f2;
+      font-size: 12px;
+    }
+
+    /* ========== TODAY ========== */
+
+    .today-card {
+      position: relative;
+      min-height: 355px;
+      padding: 30px 20px;
+      border-radius: 32px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .today-card::before {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      top: -80px;
+      left: -70px;
+      border-radius: 50%;
+      background: rgba(198,143,255,.14);
+    }
+
+    .today-date {
+      position: relative;
+      display: inline-flex;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      color: #f2dcff;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .big-envelope {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      height: 102px;
+      margin: 26px auto 18px;
+      border-radius: 12px;
+      font-size: 55px;
+      background: linear-gradient(135deg, #f0d3ff, #b889dd);
+      box-shadow: 0 18px 40px rgba(0,0,0,.22);
+      animation: envelopeFloat 3s ease-in-out infinite;
+      transition: transform .35s ease;
+      will-change: transform;
+    }
+
+    @keyframes envelopeFloat {
+      50% { transform: translateY(-8px) rotate(1.5deg); }
+    }
+
+    .big-envelope.open {
+      animation: envelopeOpen .65s ease forwards;
+    }
+
+    @keyframes envelopeOpen {
+      50% { transform: scale(1.12) rotate(-3deg); }
+      100% { transform: scale(1.03); }
+    }
+
+    .today-card h3 {
+      position: relative;
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: 23px;
+    }
+
+    .today-card > p {
+      position: relative;
+      color: #dcd0ea;
+      line-height: 1.7;
+      font-size: 13px;
+      max-width: 340px;
+      margin: 10px auto;
+    }
+
+    .open-surprise-btn {
+      position: relative;
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.2);
+      color: white;
+      padding: 13px 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+    }
+
+    /* ========== JOURNEY ========== */
+
+    .progress-card {
+      border-radius: 28px;
+      padding: 19px;
+      margin-bottom: 18px;
+    }
+
+    .progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 13px;
+    }
+
+    .progress-top b {
+      color: #f4d9ff;
+    }
+
+    .progress-track {
+      height: 11px;
+      margin-top: 14px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.1);
+    }
+
+    #progressFill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #a77aff, #ff9ed3, #c3ddff);
+      transition: width 1s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+    }
+
+    .day-card {
+      min-height: 158px;
+      padding: 15px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      text-align: left;
+      color: white;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      transition: transform .25s ease, opacity .25s ease;
+      contain: layout paint style;
+    }
+
+    .day-card:active {
+      transform: scale(.96);
+    }
+
+    .day-card.unlocked {
+      background:
+        radial-gradient(circle at 90% 5%, rgba(255,181,223,.20), transparent 35%),
+        linear-gradient(145deg, rgba(158,107,218,.35), rgba(255,157,211,.14));
+    }
+
+    .day-card.today {
+      border-color: rgba(255,225,250,.48);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 13px 35px rgba(185,125,255,.22);
+      animation: todayGlow 2.8s ease-in-out infinite;
+    }
+
+    @keyframes todayGlow {
+      50% { transform: translateY(-4px); }
+    }
+
+    .day-card.locked {
+      opacity: .55;
+      filter: saturate(.65);
+    }
+
+    .day-number {
+      color: #d7c7e9;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+
+    .day-icon {
+      font-size: 34px;
+      margin: 18px 0 8px;
+    }
+
+    .day-card b {
+      display: block;
+      font-size: 14px;
+    }
+
+    .day-card small {
+      display: block;
+      margin-top: 5px;
+      color: #d8cbe5;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
+    .lock-dot {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      font-size: 12px;
+    }
+
+    /* ========== VAULT ========== */
+
+    .vault {
+      padding: 28px 20px;
+      border-radius: 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vault-icon {
+      font-size: 62px;
+      display: inline-block;
+      animation: vaultFloat 3s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes vaultFloat {
+      50% { transform: translateY(-7px) rotate(2deg); }
+    }
+
+    .vault h3 {
+      margin: 12px 0 8px;
+      font-family: "Playfair Display", serif;
+      font-size: 25px;
+    }
+
+    .vault p {
+      color: #d8cde5;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .vault-status {
+      margin-top: 15px;
+      display: inline-block;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      font-size: 11px;
+    }
+
+    /* ========== BIRTHDAY ========== */
+
+    .birthday-card {
+      display: none;
+      border-radius: 32px;
+      padding: 30px 20px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,211,240,.35), transparent 45%),
+        linear-gradient(135deg, rgba(142,92,210,.7), rgba(226,113,177,.5));
+      border: 1px solid rgba(255,255,255,.3);
+      box-shadow: 0 20px 65px rgba(187,111,255,.25);
+    }
+
+    .birthday-card.show {
+      display: block;
+      animation: birthdayReveal .8s ease both;
+    }
+
+    @keyframes birthdayReveal {
+      from { opacity: 0; transform: scale(.85) translateY(25px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .cake {
+      font-size: 75px;
+      animation: cakeDance 2.5s ease-in-out infinite;
+    }
+
+    @keyframes cakeDance {
+      50% { transform: rotate(-4deg) scale(1.06); }
+    }
+
+    /* ========== BOTTOM NAV ========== */
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 500;
+      left: 50%;
+      bottom: max(12px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: min(calc(100% - 24px), 520px);
+      padding: 9px 5px;
+      display: flex;
+      justify-content: space-around;
+      border-radius: 25px;
+      background: rgba(30,16,55,.82);
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 15px 40px rgba(0,0,0,.3);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .nav-item {
+      flex: 1;
+      color: rgba(255,255,255,.68);
+      text-decoration: none;
+      text-align: center;
+      font-size: 9px;
+      padding: 5px 2px;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 19px;
+      margin-bottom: 3px;
+    }
+
+    /* ========== MODAL ========== */
+
+    #modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 15px;
+      background: rgba(10,5,25,.55);
+      opacity: 0;
+      visibility: hidden;
+      transition: .3s;
+    }
+
+    #modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-card {
+      width: min(100%, 520px);
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 28px 20px 25px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(221,150,255,.2), transparent 35%),
+        #352052;
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: 0 -15px 55px rgba(0,0,0,.3);
+      transform: translateY(40px);
+      transition: transform .35s cubic-bezier(.2,.9,.2,1);
+    }
+
+    #modal.show .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      float: right;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      color: white;
+      background: rgba(255,255,255,.12);
+    }
+
+    .modal-icon {
+      font-size: 52px;
+    }
+
+    .modal-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 27px;
+      margin: 13px 0 8px;
+    }
+
+    .modal-date {
+      color: #e8bce3;
+      font-size: 12px;
+    }
+
+    .modal-message {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 20px;
+      color: #eee6f7;
+      line-height: 1.8;
+      background: rgba(255,255,255,.07);
+      font-size: 14px;
+      white-space: pre-line;
+    }
+
+    /* ========== TOAST ========== */
+
+    #toast {
+      position: fixed;
+      z-index: 10000;
+      top: max(18px, env(safe-area-inset-top));
+      left: 50%;
+      width: calc(100% - 32px);
+      max-width: 450px;
+      padding: 14px 17px;
+      border-radius: 18px;
+      color: white;
+      background: rgba(61,37,91,.94);
+      border: 1px solid rgba(255,255,255,.2);
+      box-shadow: var(--shadow);
+      transform: translate(-50%, -100px);
+      transition: transform .4s ease;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    #toast.show {
+      transform: translate(-50%, 0);
+    }
+
+    /* ========== CONFETTI ========== */
+
+    .confetti {
+      position: fixed;
+      z-index: 9998;
+      top: -20px;
+      width: 8px;
+      height: 14px;
+      border-radius: 2px;
+      pointer-events: none;
+      animation: confettiFall var(--time) linear forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translate(var(--x), 110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* ========== TAP SPARKLES ========== */
+
+    .tap-sparkle {
+      position: fixed;
+      z-index: 8000;
+      pointer-events: none;
+      font-size: 17px;
+      animation: tapSparkle .65s ease-out forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes tapSparkle {
+      to {
+        transform: translate(var(--x), var(--y)) rotate(150deg) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* ========== SCROLL REVEAL ========== */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 600px) {
+      .days-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="space">
+    <div class="aurora"></div>
+  </div>
+
+  <div id="stars"></div>
+  <div id="particles"></div>
+  <div id="floatingThings"></div>
+
+  <div id="loader">
+    <div class="loader-orbit"></div>
+    <div class="loader-heart">💜</div>
+    <div class="loader-title">Little Universe</div>
+    <div class="loader-subtitle">PREPARING SOMETHING MAGICAL...</div>
+  </div>
+
+  <div id="toast"></div>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="planet"></div>
+      <div class="mini-moon"></div>
+
+      <div class="logo-pill">✦ YOUR VERY OWN LITTLE UNIVERSE ✦</div>
+
+      <h1>
+        Heyyyy
+        <span>Diyaa Madam Ji 💜</span>
+      </h1>
+
+      <p class="hero-description">
+        This is a tiny little universe made especially for you...
+        and every day, a new piece of it will slowly come alive. ✨
+      </p>
+
+      <button class="enter-btn" onclick="goToJourney()">
+        ✦ Start Exploring ✦
+      </button>
+
+      <div class="scroll-hint">SCROLL TO EXPLORE ↓</div>
+    </section>
+
+    <section class="reveal" id="countdown">
+      <div class="section-head">
+        <span class="eyebrow">THE GRAND FINALE</span>
+        <h2>Counting down... ⏳</h2>
+        <p>Something very special is waiting at the end of this journey.</p>
+      </div>
+
+      <div class="glass countdown-card">
+        <div class="countdown">
+          <div class="time-box"><b id="days">00</b><span>DAYS</span></div>
+          <div class="time-box"><b id="hours">00</b><span>HOURS</span></div>
+          <div class="time-box"><b id="minutes">00</b><span>MINS</span></div>
+          <div class="time-box"><b id="seconds">00</b><span>SECS</span></div>
+        </div>
+
+        <p class="countdown-note" id="countdownNote">
+          Until 7 September 🎂✨
+        </p>
+      </div>
+    </section>
+
+    <section class="reveal" id="today">
+      <div class="section-head">
+        <span class="eyebrow">TODAY'S SURPRISE</span>
+        <h2>Something for you 💌</h2>
+      </div>
+
+      <div class="glass today-card">
+        <div class="today-date" id="todayDate">✦ LOADING YOUR DAY...</div>
+
+        <div class="big-envelope" id="todayEnvelope">💌</div>
+
+        <h3 id="todayTitle">A little surprise...</h3>
+
+        <p id="todayDescription">
+          Your special message is waiting for you.
+        </p>
+
+        <button class="open-surprise-btn" onclick="openToday()">
+          Open today's surprise ✨
+        </button>
+      </div>
+    </section>
+
+    <section class="reveal" id="journey">
+      <div class="section-head">
+        <span class="eyebrow">YOUR JOURNEY</span>
+        <h2>17 little moments ✨</h2>
+        <p>One day at a time. One surprise at a time. No cheating, Diyaa Madam Ji. 👀</p>
+      </div>
+
+      <div class="glass progress-card">
+        <div class="progress-top">
+          <b id="progressText">Day 1 of 17 💜</b>
+          <span id="progressPercent">0%</span>
+        </div>
+
+        <div class="progress-track">
+          <div id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="days-grid" id="daysGrid"></div>
+    </section>
+
+    <section class="reveal" id="vault">
+      <div class="glass vault">
+        <div class="vault-icon">🎁</div>
+        <h3>The Birthday Vault</h3>
+        <p>
+          The biggest surprise in this Little Universe is safely locked away...
+          and it only opens on the special day. 🔐✨
+        </p>
+
+        <div class="vault-status" id="vaultStatus">
+          🔒 LOCKED UNTIL 7 SEPTEMBER
+        </div>
+      </div>
+    </section>
+
+    <section id="birthdaySection">
+      <div class="birthday-card" id="birthdayCard">
+        <div class="cake">🎂</div>
+        <h2>HAPPY BIRTHDAY DIYAA MADAM JI!!! 💜🎉</h2>
+        <p>The whole Little Universe is finally yours today. ✨🌌</p>
+
+        <button class="open-surprise-btn" onclick="birthdayBlast()">
+          CELEBRATEEEE 🎉
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <a class="nav-item" href="#home"><span>🏠</span>Home</a>
+    <a class="nav-item" href="#today"><span>💌</span>Today</a>
+    <a class="nav-item" href="#journey"><span>🪐</span>Journey</a>
+    <a class="nav-item" href="#vault"><span>🎁</span>Vault</a>
+  </nav>
+
+  <div id="modal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-icon" id="modalIcon">💌</div>
+      <div class="modal-date" id="modalDate"></div>
+      <h3 id="modalTitle">A Little Surprise</h3>
+      <div class="modal-message" id="modalMessage">
+        Your message will go here. 💜
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ========== DATES ========== */
+
+    const START_DATE = new Date(2026, 7, 22, 0, 0, 0);
+    const FINAL_DATE = new Date(2026, 8, 7, 0, 0, 0);
+
+    /* ========== 17 SURPRISE DAYS ========== */
+
+    const surprises = [
+      { date: "22 August", icon: "💌", title: "The Beginning", preview: "The first little piece of your universe...", message: `FOR MADAM — BEFORE YOU BEGIN
+
+Madam
+
+Pata hai mujhe kaafi time se ek ajeeb si feeling aa rahi thi ki aapko aapke baare mein kuch batana chahiye
+
+Aisa nahi ki aapko apne baare mein kuch pata nahi hai Obviously aap khud ko mujhse zyada jaanti hain Aapko pata hai aapko kya pasand hai kya nahi pasand kab aapka mood accha hota hai kab aap irritate hoti hain kab aapko kisi se baat karne ka mann karta hai aur kab bas chup rehna hota hai
+
+Aap apni aadatein jaanti hain
+
+Apni smile jaanti hain
+
+Apni favourite cheezein jaanti hain
+
+Apni memories jaanti hain
+
+Lekin
+
+Shayad aap khud ko us tarah nahi jaanti jis tarah koi aur aapko dekh sakta hai
+
+Aur shayad isi liye ye chhoti si journey hai
+
+17 din
+
+17 chhote se moments
+
+17 different pieces
+
+Aur har din aapke baare mein kuch aisa jo shayad aapne kabhi us nazariye se dekha hi na ho
+
+Main aapko koi definition dene nahi aaya
+
+Main ye nahi keh raha ki Madam aisi hain
+
+Kyuki honestly aapko ek sentence mein explain karna possible bhi nahi hai
+
+Aap kabhi ekdum simple hain
+
+Kabhi bilkul unpredictable
+
+Kabhi itni funny ki pata nahi kis baat pe hansi aa rahi hoti hai
+
+Kabhi itni serious ki lagta hai duniya ka saara kaam aapke upar hi hai
+
+Kabhi aap bahut kuch keh deti hain bina kuch kahe
+
+Aur kabhi ek simple sa hmm bhi itna kuch bol deta hai ki saamne wala sochta reh jaaye ki iska matlab exactly kya hai
+
+Aapki personality ka bhi koi single version nahi hai
+
+Aapke andar bahut saare little versions hain
+
+Ek jo bahut caring hai
+
+Ek jo unnecessarily overthink karta hai
+
+Ek jo chhoti chhoti cheezon ko notice karta hai
+
+Ek jo chehre ke emotion ko notice karta hai
+
+Ek jo random cheezon pe khush ho jata hai
+
+Ek jo kabhi kabhi bas apni duniya mein rehna chahta hai
+
+Ek jo apne close logon ke saamne bilkul alag ho jata hai
+
+Aur ek woh bhi
+
+Jo shayad aap khud sabse kam dekhti hain
+
+Woh Madam jo dusron ki nazar mein hain
+
+Aur ye website actually usi ke baare mein hai
+
+Maine socha agar main aapko ek saath sab kuch bata dunga toh shayad iska maza hi khatam ho jayega
+
+Isliye ek saath nahi
+
+Thoda thoda
+
+Dheere dheere
+
+Kyuki mereko apni Madam ka birthday diye ke saath celebrate karna hai aur ache se
+
+Jaise kisi book ke pages turn hote hain
+
+Har din ek naya page
+
+Har page par aapka ek alag part
+
+Kabhi aapki personality
+
+Kabhi aapki little habits
+
+Kabhi aapka way of thinking
+
+Kabhi aapki smile
+
+Kabhi aapki woh side jo sabko nahi dikhti
+
+Kabhi woh cheezein jo aap khud notice nahi karti
+
+Aur eventually
+
+Shayad woh bhi jo mere liye sabse important hai
+
+Lekin uske baare mein abhi nahi
+
+Uske liye thoda wait karna padega
+
+Because some things are better when they arrive at the right time
+
+Aur haan ek cheez pehle hi clear kar deta hoon
+
+Ye koi test nahi hai
+
+Koi activity nahi hai
+
+Aapko kuch prove nahi karna
+
+Bas kholna hai
+
+Padhna hai
+
+Aur kabhi kabhi bas smile kar dena hai
+
+Agar kisi din aapko lage ki ye toh mujhe bilkul nahi lagta mere jaisa hai thats okay too
+
+Kyuki ye aapki autobiography nahi hai
+
+Ye meri nazar se aapki ek little si story hai
+
+Aur har insaan kisi na kisi ki nazar mein thoda different hota hai
+
+Aap apne aap ko jis mirror mein dekhti hain usmein aapko ek version dikhta hai
+
+Mujhe aap mein shayad kuch aur dikhta hai
+
+Kuch expressions jo aapko normal lagte hain mujhe cute lagte hain
+
+Kuch habits jo aapko ordinary lagti hain mujhe memorable lagti hain
+
+Kuch moments jo aapke liye bas normal moments hain woh mere liye yaad reh jaate hain
+
+Aur shayad isi difference ko aap agle kuch dinon mein feel karengi
+
+Main chahta hoon ki jab aap ye sab padhein aap sirf ye na sochein
+
+mere baare mein kya likha hai
+
+Because maybe aapko apne andar kuch aisi beautiful cheezein milengi jinhe aapne kabhi importance hi nahi di
+
+Maybe aapko kuch aisi qualities yaad aayengi jo aap bhool chuki hain
+
+Maybe aap kisi purani memory pe smile karengi
+
+Maybe kisi line pe thoda rukengi
+
+Maybe kisi din bas chup chaap padh ke aage badh jaayengi
+
+And it is completely fine
+
+Mujhe bas itna chahiye ki ye 17 din aapke liye thode different ho
+
+Thode softer
+
+Thode warmer
+
+Aur thode zyada aapke
+
+Kyunki birthdays har saal aate hain
+
+Cake aata hai
+
+Messages aate hain
+
+Happy Birthday hazaar baar sunne ko milta hai
+
+Lekin is baar main aapko sirf birthday wish nahi karna chahta
+
+Main chahta hoon ki birthday tak pahunchte pahunchte aap apne baare mein 17 baar kuch naya sune
+
+17 baar ruk kar sochein
+
+17 baar shayad smile karein
+
+Aur maybe bas maybe
+
+17 din ke end tak aap apne aap ko thoda sa meri nazar se bhi dekh paayengi
+
+Toh
+
+WELCOME MADAM
+
+Aapki 17 day journey yahin se start hoti hai
+
+Aaj koi big reveal nahi
+
+Koi final message nahi
+
+Koi spoiler nahi
+
+Bas ek beginning
+
+Baaki sab
+
+Dheere dheere
+
+Aur jab aap last tak pahunchengi
+
+Shayad tab aap samjhenge ki ye sab shuru hi kyun kiya tha
+
+Until then
+
+Don't rush
+
+Don't skip
+
+Bas har din wapas aana
+
+Aur apne baare mein kisi aur ki aankhon se thoda sa dekhna
+
+Because this time the story isn't about someone else
+
+It's about you
+
+FOR MADAM
+
+17 DAYS 17 PIECES ONE YOU
+
+FIRST STOP · 22 AUGUST` },
+      { date: "23 August", icon: "🌸", title: "How Special You Are to Me", preview: "Something small to make Diyaa Madam Ji smile.", message: `### Aap Mere Liye Kitni Special Hain
+
+Aaj Day 2 hai
+
+Aur shayad aapko lagega ki kal hi toh sab kuch shuru hua tha Lekin sach kahu toh mere liye aapki kahani kisi ek din se shuru nahi hui Aap meri life mein dheere dheere aayi thi Bilkul waise jaise subah ki roshni bina shor kiye kamre mein aa jaati hai Pehle bas ek halka sa ehsaas hota hai Phir pata chalta hai ki poora kamra roshan ho chuka hai
+
+Aap bhi mere liye kuch aisi hi hain
+
+Aapko shayad kabhi kabhi khud samajh nahi aata hoga ki aap kitni special hain Aapko shayad lagta hoga ki aap bas ek normal si ladki hain Jo kabhi bahut zyada hasti hai Kabhi bina kisi reason ke chup ho jaati hai Kabhi bahut kuch bolna chahti hai Aur kabhi bas shanti se rehna chahti hai Lekin meri nazar mein aap kabhi normal nahi rahi
+
+Aapki ek alag hi duniya hai Aur mujhe sabse achi baat ye lagti hai ki mujhe us duniya ka ek chota sa hissa banne ka mauka mila
+
+Aapki smile ka koi particular reason hona zaroori nahi hota Kabhi kabhi bas aapko smile karte hue dekhna hi kaafi hota hai Aap khush hoti hain toh pata nahi kyun mere andar bhi ek alag si khushi aa jaati hai Aap excited hoti hain toh mujhe bhi excitement feel hone lagti hai Aap kisi choti si baat ko lekar khush hoti hain toh woh choti si baat mujhe bhi important lagne lagti hai
+
+Shayad isi ko care kehte hain
+
+Aapke saath sab kuch perfect hona zaroori nahi hai Aapko hamesha happy rehna bhi zaroori nahi hai Aapko har waqt strong dikhna bhi zaroori nahi hai Aap jaisi hain waise hi bahut achi hain
+
+Aapki silence bhi apni jagah beautiful hai Aapki random baatein bhi beautiful hain Aapka bina matlab hasna bhi beautiful hai Aapka kisi baat par suddenly excited ho jaana bhi beautiful hai Aapka poems likhna bhi beautiful hai Aur aapka kabhi kabhi khud ko samajhne ki koshish karna bhi beautiful hai
+
+Mujhe aapki perfection nahi pasand Mujhe aapki woh saari choti choti cheezein pasand hain jo milkar aapko aap banati hain
+
+Kabhi kabhi main sochta hu ki agar aap meri life mein nahi hoti toh shayad meri life bilkul different hoti Ho sakta hai kuch din waise hi nikal jaate Ho sakta hai main hasta bhi Ho sakta hai main apne kaam mein busy bhi rehta Lekin ek cheez definitely missing hoti
+
+Aap
+
+Kyuki kuch log life mein sirf time spend karne ke liye nahi aate Kuch log life ke normal moments ko memories bana dete hain ya sath me life jene ke liye
+
+Aap mere liye unhi logon mein se hain
+
+Aapke saath baat karna kabhi sirf baat karna nahi raha Kabhi woh ek smile ban gaya Kabhi ek memory Kabhi ek random thought Kabhi ek reason to check my phone Kabhi ek aisi choti si moment jise main baad mein yaad karke khud smile kar leta hu 😅
+
+Aur sabse funny baat ye hai ki shayad aapko inmein se aadhi cheezon ka idea bhi nahi hai
+
+Aapko nahi pata hoga ki aapki ek normal si line kabhi kabhi mera poora mood change kar deti hai Aapko nahi pata hoga ki aapki ek simple si smile kitni achi lagti hai Aapko nahi pata hoga ki aapka khush hona mere liye kitna matter karta hai
+
+Lekin main chahta hu ki aapko dheere dheere ye sab pata chale
+
+Isliye ye Little Universe sirf ek website nahi hai Ye meri taraf se ek choti si jagah hai jahan aapko baar baar yaad dilaya ja sake ki aap important hain
+
+Bahut zyada important
+
+Aapko kabhi ye feel ho ki duniya bahut noisy ho gayi hai Toh bas yaad rakhna ki kahin na kahin ek aisi jagah hai jahan aapko kisi explanation ki zaroorat nahi Jahan aapko perfect banne ki zaroorat nahi Jahan aapko kuch prove karne ki zaroorat nahi Jahan aap bas aap ho sakti hain
+
+Aur mere liye woh enough hai
+
+Aapko pata hai mujhe sabse beautiful cheez kya lagti hai
+
+Ye ki aapko khud shayad pata hi nahi ki aap kitni beautiful memories create kar deti hain
+
+Kabhi ek conversation Kabhi ek joke Kabhi ek random message Kabhi ek choti si fight Kabhi ek silly moment Kabhi ek serious baat Kabhi ek poem Kabhi bas aapka hona
+
+Ye sab mere liye memories hain
+
+Aur memories ki sabse beautiful baat ye hoti hai ki waqt unhe purana nahi karta Waqt unhe aur precious bana deta hai
+
+Aaj Day 2 hai Abhi 15 days aur hain Aur shayad in 15 days mein main aapko bahut kuch batane wala hu Lekin ek baat aaj hi bata dena chahta hu
+
+Aap meri life ka koi ordinary chapter nahi hain
+
+Aap woh chapter hain jise main baar baar padhna chahta hu ya iski book hi bnana chata hu
+
+Aap woh memory hain jise main lose nahi karna chahta Aap woh person hain jiske liye main bina kisi special occasion ke bhi kuch special karna chahta hu
+
+Aur agar kabhi aapko lage ki aapki presence kisi ki life mein kitni important hai Toh bas ek baar meri taraf se dekhiye
+
+Shayad aapko answer mil jayega
+
+Aapko meri life mein aane ke liye koi grand entrance karne ki zaroorat nahi thi Aap bas aayi Aur dheere dheere important hoti gayi
+
+Itni important ki ab aapki absence bhi notice hoti hai or notice hi nhi pareshan bhi krti hai
+
+Itni important ki aapki happiness matter karti hai
+
+Itni important ki aapki memories ko preserve karne ke liye ek poora Little Universe banana pada
+
+Aur haan Aapko ye bhi pata hona chahiye ki ye universe sirf achi animations aur cute messages se nahi bana
+
+Iske andar bahut saari feelings hain
+
+Bahut saari memories hain
+
+Bahut saari smiles hain
+
+Bahut saari random thoughts hain
+
+Aur sabse zyada gratitude hai
+
+Gratitude ki aap meri life ka part bani
+
+Gratitude ki mujhe aapko jaanne ka chance mila
+
+Gratitude ki mujhe aapke saath itne saare moments mile
+
+Aur gratitude ki ab mere paas aapko yaad karne ke liye sirf memories nahi balki ek poora Little Universe bhi hai
+
+Aaj ka message bas itna hi kehna chahta hai
+
+Aap special hain
+
+Aap important hain
+
+Aapki presence matter karti hai
+
+Aapki smile matter karti hai
+
+Aapki happiness matter karti hai
+
+Aapki choti choti chize matter karti hain
+
+Aur sabse important
+
+Aap jaisi hain waise hi matter karti hain
+
+Is universe mein har day ek nayi memory ke liye hai
+
+Aur Day 2 par main bas itna chahta hu ki jab aap ye padh rahi ho toh ek baar smile zaroor karein
+
+Kyunki agar meri wajah se aapke face par ek choti si smile bhi aa gayi
+
+Toh mere liye Day 2 already successful hai
+
+Aur ye toh bas shuruaat hai
+
+Abhi Little Universe mein bahut kuch baaki hai
+
+Aur shayad sabse beautiful cheezein abhi aani baaki hain 🤗` },
+      { date: "24 August", icon: "✨", title: "The Little Things I Notice About You", preview: "Today's universe has something shiny.", message: `### Aapki Choti Choti Baatein Jo Mujhe Bahut Pyaari Hain
+
+Aaj Day 3 hai
+
+Aur aaj main kisi badi baat ke baare mein nahi likhna chahta
+Aaj main bas aapki un choti choti cheezon ke baare mein likhna chahta hu
+Woh choti choti habits
+Woh tiny expressions
+Woh random reactions
+Woh bina soche ki gyi baate
+Aur woh little details jo shayad aap khud bhi notice nahi karti
+
+Kyuki mere liye aapki beauty sirf kisi ek cheez mein nahi hai
+
+Mere liye aapki sabse beautiful cheez woh choti choti details hain jo milkar aapko AAP banati hain
+
+Kabhi kabhi aap kuch bolti hain aur mujhe aapke words se zyada aapka expression yaad reh jaata hai
+Kabhi aap kisi baat par suddenly excited ho jaati hain
+Kabhi kisi choti si baat par itni cute reaction deti hain ki saamne wala bas smile karne lagta hai
+Kabhi aap ekdum serious ho jaati hain
+Aur kabhi bina kisi warning ke achank bat km
+
+Aur honestly
+
+Yahi toh aap hain
+
+Aapki ye unpredictability hi toh aapko interesting banati hai
+
+Mujhe aapki woh habit bhi achi lagti hai jab aap kisi cheez ko lekar genuinely excited hoti hain
+Aapke words mein woh excitement aa jaati hai
+Aapka way of talking change ho jaata hai
+Aur aap jis cheez ke baare mein bata rahi hoti hain woh automatically important lagne lagti hai
+Chahe woh kitni bhi choti baat kyun na ho
+Aapke liye agar woh important hai
+Toh mere liye bhi important hai
+
+Mujhe aapka woh side bhi bahut achha lagta hai jab aap kisi baat ko lekar confused hoti hain
+Kabhi aap sochti rehti hain ki kya karna chahiye
+Kabhi ek hi baat ko baar baar soch leti hain
+Aur kabhi khud hi apne thoughts mein itna kho jaati hain ki pata hi nahi chalta ki aap kis duniya mein chali gayi
+
+Aur shayad aapko ye sab normal lagta hoga
+
+Lekin mujhe nahi
+
+Mujhe ye sab little details lagti hain
+
+Aur little details hi toh kisi person ko truly special banati hain
+
+Aapki smile bhi sirf smile nahi hai
+Kabhi woh simple si smile hoti hai
+Kabhi woh kisi funny baat ke baad wali smile hoti hai
+Kabhi woh woh wali smile hoti hai jo aap chhupane ki koshish karti hain
+Aur kabhi bas ek choti si smile hoti hai
+
+Lekin pata nahi kyun
+
+Aapki smile dekhkar atmosphere hi thoda better lagne lagta hai
+
+Aapki expressions mein bhi ek alag hi story hoti hai
+Aapko kuch pasand aaye toh pata chal jaata hai
+Aapko kuch boring lage toh woh bhi pata chal jaata hai
+Aap surprised ho toh woh bhi easily samajh aa jaata hai
+Aur jab aap kisi baat ko lekar genuinely happy hoti hain
+Tab toh aapko hide karna almost impossible hai
+
+Aur mujhe ye sab notice karna achha lagta hai
+
+Isliye nahi ki main har choti cheez ko count karta hu
+Bas isliye kyunki aap important hain
+Aur jab koi important hota hai
+Toh uski choti choti cheezein automatically yaad rehne lagti hain
+
+Aapka random way mein baat karna
+Aapka suddenly topic change kar dena
+Aapka kisi simple si baat ko interesting bana dena
+Aapka kabhi bahut kuch bolna
+Aur kabhi bas thoda sa bolna
+Sab kuch apni jagah special hai
+
+Aapki ek aur cute si baat hai
+
+Aap kabhi kabhi khud nahi samajh paati ki aap kitni cute reaction de rahi hain
+Aapke liye woh bas ek normal reaction hota hai
+Lekin saamne wale ke liye woh ek memory ban sakta hai
+Aur mere liye toh ban hi jaata hai
+
+Kabhi kabhi aapki ek simple si line poore din yaad reh jaati hai
+Kabhi aapki koi random baat suddenly yaad aati hai
+Aur phir bina kisi reason ke smile aa jaati hai
+
+Ye bahut ajeeb hai
+
+Lekin bahut beautiful bhi hai
+
+Kyuki iska matlab hai ki memories hamesha kisi bade moment se nahi banti
+Kabhi kabhi ek choti si conversation bhi enough hoti hai
+Ek expression
+Ek laugh
+Ek random message
+Ek silly reaction
+Ek normal sa moment
+Aur bas
+Woh moment memory ban jaata hai
+
+Mujhe aapki woh habit bhi achi lagti hai jab aap kisi cheez ko lekar genuinely care karti hain
+Aap shayad us waqt realise bhi nahi karti ki aap itna kr rhi hai
+Lekin aapke words aur actions se pata chal jaata hai ki aapko farak padta hai
+
+Aur honestly
+
+Ye quality bahut special hai
+
+Har koi care nahi karta
+Aur har koi care ko express bhi nahi karta
+Lekin aapke andar woh softness hai
+Woh little bit of warmth hai
+Jo aapko aur special banati hai
+
+Mujhe aapka woh side bhi pasand hai jo sabke saamne nahi aata
+Woh comfortable version of you
+Jahan aapko kisi perfect image ko maintain karne ki zaroorat nahi hoti
+Jahan aap random ho sakti hain
+Silly ho sakti hain
+Quiet ho sakti hain
+Excited ho sakti hain
+Annoyed ho sakti hain
+Aur bas khud ho sakti hain
+
+Aur shayad wahi version sabse beautiful hota hai
+
+Kyuki usme koi acting nahi hoti
+Koi filter nahi hota
+Bas Aap hoti hain
+
+Aur mujhe lagta hai ki kisi person ko truly special banane ke liye perfection ki zaroorat nahi hoti
+Unki little imperfections
+Unki weird habits
+Unke random expressions
+Unke unexpected reactions
+Unki choti choti khushiyan
+Unki silly bate
+Sab milkar unki personality banate hain
+
+Aur aapki personality ki ye little little pieces hi toh mujhe itni achi lagti hain
+
+Kabhi kabhi main sochta hu ki agar main aapki saari little habits likhne baith jaun
+Toh shayad ye poora Little Universe bhi chota pad jaaye
+Kyuki aapke baare mein likhne ke liye sirf big moments nahi hain
+Bahut saare tiny moments bhi hain
+Aur mere liye un tiny moments ki value bahut zyada hai
+
+Aaj Day 3 par main bas aapko ye yaad dilana chahta hu
+
+Aapko extraordinary banne ke liye extraordinary karne ki zaroorat nahi hai
+Aapki normal si smile enough hai
+Aapki random si baat enough hai
+Aapka excited hona enough hai
+Aapka silly hona enough hai
+Aapka quiet rehna enough hai
+Aapka bas aap hona enough hai
+
+Kyuki aapki value kisi achievement se decide nahi hoti
+Aapki value kisi perfect moment se decide nahi hoti
+Aapki value aapki choti choti cheezon mein bhi hai
+
+Aur shayad isi liye mujhe aapki little habits itni achi lagti hain
+Kyuki woh mujhe baar baar yaad dilati hain ki aap koi character nahi hain
+Aap real hain aap diya hai
+Aapki apni little world hai
+Apni little habits hain
+Apni little expressions hain
+Apni little happiness hai
+
+Aur somehow us little world ka ek chota sa part mere Little Universe mein bhi aa gaya hai
+
+Aur mujhe ye thought bahut beautiful lagta hai
+
+Aaj ka Day 3 kisi huge confession ke liye nahi hai
+Aaj ka Day 3 bas ek reminder hai
+
+Ki kabhi kabhi sabse beautiful things woh hoti hain jo hum normally notice bhi nahi karte
+
+Ek smile
+Ek expression
+Ek habit
+Ek reaction
+Ek random sentence
+Ek tiny moment
+
+Aur aapke case mein
+
+Ye tiny moments hi toh meri favourite memories ban jaate hain
+
+Toh agar kabhi aapko lage ki aapki koi choti si habit weird hai
+Ya aapka koi random expression silly hai
+Ya aapka koi reaction unnecessary hai
+Toh please usse change karne ki zaroorat nahi
+
+Kyuki ho sakta hai wahi little thing kisi aur ke liye bahut precious ho
+
+Aur mere liye toh already hai
+
+Aapki choti choti baatein
+Aapke little expressions
+Aapki random habits
+Aapki tiny details
+Sab milkar ek aisi picture banate hain
+
+Jise main kisi ek word mein describe nahi kar sakta
+
+Bas itna keh sakta hu
+
+Ki mujhe Aap aisi hi achi lagti hain
+Bilkul naturally
+Bilkul genuinely
+Bilkul apni little little ways mein
+
+Aur agar Day 3 ka ek hi meaning ho
+Toh woh ye hai
+
+Aapko khud shayad apni choti choti cheezein ordinary lagti hongi
+Lekin meri nazar mein
+Unhi ordinary cheezon mein aapki sabse beautiful story chhupi hai
+
+Aur main honestly khush hu ki mujhe us story ke kuch pages dekhne ka chance mila
+
+Abhi Little Universe mein bahut saare days baaki hain
+Bahut saari memories baaki hain
+Bahut saari feelings baaki hain
+
+Lekin aaj ke liye bas itna
+
+Please kabhi apni little things ko underestimate mat karna
+
+Kyuki kabhi kabhi kisi ki poori smile
+Kisi ki poori memory
+Aur kisi ke poore din ki happiness
+Bas ek choti si cheez se ban jaati hai
+
+Aur aapki woh choti si cheez
+Shayad aapko khud pata bhi nahi
+Lekin mere liye bahut special hai
+
+Day 3
+
+For all the little things that make you
+
+You 🤍` },
+      { date: "25 August", icon: "🦋", title: "The Little Things That Make You, You", preview: "A little surprise has landed.", message: `### Aapki Choti Choti Baatein
+
+Aaj Day 4 hai
+
+Aur aaj ka note thoda alag hai
+
+Aaj main aapko kisi ek badi quality ke baare mein nahi batana chahta
+
+Aaj bas un choti choti cheezon ke baare mein baat karna chahta hu jo shayad aapke liye bilkul normal hain
+
+Lekin mere liye wahi choti choti cheezein aapko aur zyada aap banati hain
+
+Kabhi kabhi mujhe lagta hai ki kisi insaan ko samajhne ke liye uski badi badi baatein sunna zaroori nahi hota
+
+Bas uski choti choti aadatein notice karni hoti hain
+
+Uska kisi baat par react karne ka tareeka
+
+Uska kisi cheez ko lekar excited hona
+
+Uska achanak serious ho jaana
+
+Uska bina kisi proper reason ke kisi random topic par chale jaana
+
+Uska kisi choti si baat ko bahut der tak sochna
+
+Aur phir kuch time baad aise behave karna jaise kuch hua hi nahi
+
+Aapke andar bhi ye saari choti choti cheezein hain
+
+Aur shayad aapko khud inmein se aadhi cheezon ka pata bhi nahi hoga
+
+Aap kabhi kisi baat ko explain karte karte usmein itni involved ho jaati hain ki aapke words se zyada aapke expressions sab kuch bata dete hain
+
+Kabhi aap kuch kehna nahi chahti hoti lekin aapka face already answer de chuka hota hai
+
+Kabhi aap kisi cheez ko lekar genuinely excited hoti hain aur us waqt aapke andar ka woh innocent sa excitement saf saf dikhta hai
+
+Aur kabhi aap kisi random si cheez ko itna seriously discuss karne lagti hain ki saamne wala bhi us conversation ko seriously lene lagta hai
+
+Mujhe aapki ye little things interesting lagti hain
+
+Kyunki ye woh cheezein hain jo kisi introduction mein nahi likhi ja sakti
+
+Kisi bio mein nahi aa sakti
+
+Aur kisi ek sentence mein explain bhi nahi ho sakti
+
+Ye bas time ke saath notice hoti hain
+
+Jaise kisi favourite song ko baar baar sunne ke baad uski choti choti details yaad ho jaati hain
+
+Waise hi kisi person ko jaanne ke baad uski little habits bhi yaad rehne lagti hain
+
+Aapka baat karne ka tareeka
+
+Aapka kisi cheez ko lekar curious hona
+
+Aapka kabhi ekdum se topic change kar dena
+
+Aapka kisi baat par thoda zyada sochna
+
+Aapka kisi achi cheez ko lekar genuinely interested hona
+
+Ye sab aapki personality ke chote chote pieces hain
+
+Aur jab ye saare pieces ek saath aate hain tab jo person saamne hota hai
+
+Woh diya hoti hai
+
+Mujhe lagta hai hum aksar apni personality ko sirf kuch words mein define karne ki koshish karte hain
+
+Jaise main aisa hu
+
+Main waisi hu
+
+Lekin actually koi bhi insaan itna simple nahi hota
+
+Har person ke andar bahut saare versions hote hain
+
+Aur aapke bhi hain
+
+Kabhi aap bahut thoughtful hoti hain
+
+Kabhi bilkul random
+
+Kabhi bahut focused
+
+Kabhi completely distracted
+
+Kabhi serious
+
+Kabhi funny
+
+Kabhi bahut kuch kehna chahti hain or agr me time pe na aau toh vo bhul jati hain
+
+Aur kabhi bas apni hi duniya mein rehna chahti hain
+
+Aur mujhe lagta hai inmein se koi bhi version fake nahi hai
+
+Ye sab aapka part hain
+
+Isi liye aapko ek single word mein describe karna mushkil hai
+
+Aapko dekhkar kabhi kabhi lagta hai ki aapki personality ek simple straight line nahi hai
+
+Woh ek poori little universe jaisi hai
+
+Jisme har jagah kuch alag hai
+
+Kahin ek thought
+
+Kahin ek memory
+
+Kahin koi random habit
+
+Kahin koi funny expression
+
+Kahin koi quiet moment
+
+Aur kahin koi aisi baat jo shayad aapne khud bhi kabhi notice nahi ki
+
+Aur honestly mujhe lagta hai ki kisi person ki sabse beautiful cheezein aksar wahi hoti hain jo woh khud notice nahi karta
+
+Aapki bhi bahut si choti choti baatein aisi hongi
+
+Jo aapke liye bas normal hain
+
+Lekin kisi aur ko woh yaad reh jaati hain
+
+Kabhi ek particular reaction
+
+Kabhi kisi word ko bolne ka tareeka
+
+Kabhi kisi situation mein aapka expression kese example du vo car vala incident yad hai aaj tk uski video recording mind me hai fir jb hm addmission krvane gye the tb
+
+Kabhi kisi choti si baat ko lekar aapka suddenly interested ho jaana specially bat jb kisi or ki ho 🙄
+
+Kabhi kisi memory ko unexpectedly yaad kar lena
+
+Ye moments us waqt shayad bilkul ordinary lagte hain
+
+Lekin time ke saath wahi ordinary moments memories ban jaate hain
+
+Aur memories ki sabse ajeeb baat pata hai kya hai
+
+Jab woh ban rahi hoti hain tab humein pata nahi hota ki hum memory bana rahe hain
+
+Hum bas moment mein hote hain
+
+Bas baat kar rahe hote hain
+
+Bas has rahe hote hain
+
+Bas random topics discuss kar rahe hote hain
+
+Bas apni normal life jee rahe hote hain
+
+Aur phir kuch time baad wahi moment yaad aata hai
+
+Aur tab realise hota hai ki woh kitna important tha
+
+Aapki little habits bhi kuch aisi hi hain
+
+Shayad aapko kabhi lage ki ye toh kuch bhi nahi hai
+
+Bas meri aadat hai
+
+Bas mera reaction hai
+
+Bas main aise hi karti hu
+
+Lekin kabhi kabhi wahi aise hi wali cheez kisi ki memory ka favourite part ban jaati hai
+
+Aur shayad isi wajah se mujhe aapki woh cheezein bhi achi lagti hain jo aap khud important nahi samajhti
+
+Aapka natural rehna
+
+Aapka bina soche kuch bol dena
+
+Aapka kisi baat par suddenly curious ho jaana
+
+Aapka kisi cheez ko apne tareeke se dekhna
+
+Aapka apni little world mein lost ho jaana
+
+Ye sab aapki personality ka woh part hai jo kisi picture mein capture nahi ho sakta
+
+Kisi photograph mein sirf aapka face aa sakta hai
+
+Lekin aapka expression nahi
+
+Kisi message mein aapke words aa sakte hain
+
+Lekin un words ke peeche wali feeling nahi
+
+Kisi memory mein event yaad reh sakta hai
+
+Lekin us moment ka exact feeling hamesha explain nahi ho sakta
+
+Isi liye shayad kisi insaan ko jaanne mein time lagta hai
+
+Kyunki har din uske baare mein kuch naya pata chalta hai
+
+Aur mujhe lagta hai aapke saath bhi aisa hi hai
+
+Aapko jitna jaana jaata hai
+
+Utni hi nayi choti choti cheezein notice hoti hain
+
+Aur har choti cheez aapki picture ko thoda aur complete karti hai
+
+Lekin funny part ye hai ki ye picture kabhi complete hogi bhi nahi
+
+Kyunki aap khud bhi time ke saath change hongi
+
+Aaj jo habit hai woh kal shayad na ho
+
+Aaj jo cheez aapko exciting lagti hai woh kuch time baad normal ho sakti hai
+
+Aaj jo expression hai uski jagah kal koi naya expression aa sakta hai
+
+Aur ye change hona bhi beautiful hai
+
+Kyunki iska matlab hai ki story abhi chal rahi hai
+
+Abhi bahut saare pages baaki hain
+
+Bahut saare versions baaki hain
+
+Bahut saare random moments baaki hain
+
+Bahut saari little habits abhi discover honi hain
+
+Aur shayad future mein jab hum aaj ke time ko yaad karenge
+
+Toh humein badi badi cheezon se zyada ye choti choti details yaad aayengi
+
+Kis baat par aapka reaction kaisa tha
+
+Kis topic par aap kitni der tak baat karti thi
+
+Kis cheez ko lekar aap suddenly excited ho jaati thi
+
+Kaunsi random baat par conversation pata nahi kahan se kahan pahunch jaati thi
+
+Aur kaise ek completely normal day bhi ek memory ban jaata tha
+
+Aaj Day 4 par main bas itna kehna chahta hu
+
+Aapki personality ki beauty sirf un qualities mein nahi hai jo aapko khud pata hain
+
+Woh un little details mein bhi hai jo shayad aap kabhi notice nahi karti
+
+Aapke expressions
+
+Aapki habits
+
+Aapka way of thinking
+
+Aapka reactions dene ka tareeka
+
+Aapka random side
+
+Aapka thoughtful side
+
+Aapka quiet side
+
+Aapka completely unpredictable side
+
+Ye sab alag alag pieces hain
+
+Aur in sab pieces ko mila kar jo person banta hai
+
+Woh aap hain
+
+Aur shayad isi liye aapko kisi ek description mein fit karna possible nahi
+
+Aapko bas observe kiya ja sakta hai
+
+Samjha ja sakta hai
+
+Dheere dheere jaana ja sakta hai
+
+Aur har baar kuch naya discover kiya ja sakta hai
+
+Toh Day 4 ka ye little note bas unhi choti choti cheezon ke naam
+
+Jo shayad aapke liye normal hain
+
+Lekin aapki story ko aapki story banati hain
+
+Aur agar kabhi aapko lage ki aapke andar kuch extraordinary nahi hai
+
+Toh bas yaad rakhna
+
+Kabhi kabhi extraordinary hona zaroori hi nahi hota
+
+Kabhi kabhi kisi ka bilkul apne jaisa hona hi enough hota hai
+
+Aur aap
+
+Bilkul apne jaisi hain
+
+Isi liye itni alag hain
+
+Isi liye itni memorable hain
+
+Aur isi liye is Little Universe mein aapki choti choti baaton ke liye bhi ek jagah honi chahiye 💙` },
+      { date: "26 August", icon: "💜", title: "The Way You Speak", preview: "Something is waiting behind this card.", message: `## DAY 05 KA MESSAGE
+
+Aaj Day 5 hai
+
+Aur aaj main aapki kisi habit ya kisi expression ke baare mein nahi likhunga
+
+Aaj bas aapki baaton ke baare mein likhna hai
+
+Aap kaise baat karti hain
+
+Kaise kisi simple si baat ko apne tareeke se explain karti hain
+
+Kaise ek normal conversation ko pata nahi kahan se kahan le jaati hain
+
+Aur kaise kabhi kabhi aapki ek choti si baat poore din yaad reh jaati hai
+
+Mujhe lagta hai kisi insaan ki baat karne ka tareeka uski personality ka bahut bada part hota hai
+
+Kyunki words toh sab use karte hain
+
+Lekin un words ko kis tarah bola jaata hai
+
+Kis waqt bola jaata hai
+
+Aur kis feeling ke saath bola jaata hai
+
+Ye har person ka alag hota hai
+
+Aur aapka bhi
+
+Aapki conversations kabhi ek straight line mein nahi chalti
+
+Ek topic se shuru hoti hain
+
+Phir beech mein koi random baat aa jaati hai
+
+Phir us random baat se ek aur topic nikalta hai
+
+Aur kabhi kabhi end mein hum dono ko khud nahi pata hota ki hum originally baat kis cheez par kar rahe the
+
+Aur honestly
+
+Mujhe ye bilkul boring nahi lagta
+
+Actually mujhe ye kaafi special lagta hai 😅
+
+Kyunki aapke saath baat karna sirf information exchange karna nahi hai
+
+Aapke saath baat karna ek experience jaisa hai
+
+Kabhi conversation bahut simple hoti hai
+
+Kabhi bilkul random
+
+Kabhi serious
+
+Kabhi thoughtful
+
+Kabhi ldai
+
+Kabhi itni funny ki pata hi nahi chalta kab conversation itni long ho gayi
+
+Aur kabhi ek simple si baat ke andar itni saari feelings hoti hain ki uska answer dene se pehle sochna padta hai
+
+Aap jab kisi cheez ke baare mein genuinely interested hoti hain na
+
+Toh aapki baaton mein woh interest clearly feel hota hai
+
+Aap sirf sun nahi rahi hoti
+
+Aap actually us cheez ko samajhne ki koshish kar rahi hoti hain
+
+Aur mujhe ye cheez bahut achi lagti hai
+
+Kyunki kisi conversation ko beautiful banane ke liye fancy words ki zaroorat nahi hoti
+
+Bas saamne wala genuinely present ho
+
+Aur aap jab kisi conversation mein hoti hain
+
+Toh aisa lagta hai ki aap actually wahan hoti hain
+
+Kabhi aap kisi baat ko lekar bahut curious ho jaati hain
+
+Kabhi kisi answer se satisfy nahi hoti aur phir ek aur question aa jaata hai
+
+Kabhi kisi topic ko lekar aapki opinion suddenly bahut strong ho jaati hai
+
+Aur kabhi aap kisi baat ko itne simple tareeke se bol deti hain ki saamne wala sochta reh jaata hai ki ye baat itni obvious thi phir pehle kyun nahi socha
+
+Aapki baaton mein ek aur interesting cheez hai
+
+Aap har cheez ko apne tareeke se dekhti hain
+
+Same situation ko do log completely different tareeke se dekh sakte hain
+
+Aur aapka perspective aksar wahi hota hai jo conversation ko interesting bana deta hai
+
+Kabhi main aapki baat sunte hue sochta hu ki maine is cheez ko kabhi is angle se dekha hi nahi kyuki agr me aapko kisi bhi insaan se bat krte hue dekhu aapki id se fir sochta hu kya bat boli hai
+
+Aur shayad yehi kisi achi conversation ki beauty hai
+
+Ki baat khatam hone ke baad bhi kuch na kuch mind mein reh jaata hai
+
+Aapki kuch baatein bhi aisi hain
+
+Conversation khatam ho jaati hai
+
+Phone side mein rakh diya jaata hai
+
+Sab kuch normal ho jaata hai
+
+Lekin kuch line ya koi choti si baat baad mein randomly yaad aa jaati hai
+
+Aur tab realise hota hai ki woh moment actually kitna memorable tha
+
+Kabhi kabhi aapki ek normal si baat bhi unnecessarily yaad reh jaati hai
+
+Aur mujhe khud nahi pata kyun
+
+Shayad isliye kyunki words se zyada person matter karta hai
+
+Agar wahi baat koi aur bole toh shayad itna difference na pade
+
+Lekin jab woh baat aap bolti hain
+
+Toh somehow uska meaning thoda alag lagta hai
+
+Aapki baat karne ki ek apni rhythm hai
+
+Kabhi fast
+
+Kabhi slow
+
+Kabhi ekdum focused
+
+Kabhi beech mein random detour
+
+Kabhi ek hi topic ko bahut seriously discuss karna
+
+Aur kabhi ekdum se kisi completely unrelated cheez par chale jaana
+
+Aur ye sab milkar aapki conversations ko aapki conversations banata hai
+
+Mujhe aapki baaton ka sabse achha part ye lagta hai ki unmein sirf words nahi hote
+
+Unmein aap hoti hain
+
+Aapka mood
+
+Aapka perspective
+
+Aapki curiosity
+
+Aapka humour
+
+Aapka seriousness
+
+Aapki thinking
+
+Sab thoda thoda karke aa jaata hai
+
+Isliye shayad kisi insaan ko sirf uske face se nahi jaana ja sakta
+
+Uski conversations bhi uska ek portrait banati hain
+
+Aur agar main aapki conversations ka portrait banaun
+
+Toh shayad woh bahut colourful hoga
+
+Kahin random thoughts
+
+Kahin serious discussions
+
+Kahin unnecessary debates
+
+Kahin funny moments
+
+Kahin completely unexpected topics
+
+Kahin woh baatein jo sirf hum dono ko samajh aayengi
+
+Aur kahin aisi lines jo normal moment mein boli gayi hongi like mera fav idiot pta nhi aap ye jbhi mujhe bulati hai lgta hai me aapke aapke dil ke bhot close hu secure feel krta hu
+
+Aap kabhi kabhi bina realise kiye kisi conversation ko memorable bana deti hain
+
+Aur shayad aapko ye bhi nahi pata hota
+
+Aap bas baat kar rahi hoti hain
+
+Lekin saamne wala us moment ko remember kar raha hota hai
+
+Isi liye mujhe lagta hai ki baatein bhi memories hoti hain
+
+Photos memories ko capture kar sakti hain
+
+Videos moments ko capture kar sakti hain
+
+Lekin conversations feelings ko capture karti hain
+
+Kyunki kuch memories mein humein yaad nahi hota ki exactly kya hua tha
+
+Lekin humein yaad hota hai ki us waqt humne kya baat ki thi
+
+Kis cheez par discussion hua tha
+
+Kis baat par suddenly topic badal gaya tha
+
+Kis random line ne poori conversation ko alag direction mein bhej diya tha
+
+Aur ye choti choti details hi baad mein sabse zyada valuable lagti hain
+
+Aapki baaton mein ek aur cheez hai jo mujhe achi lagti hai
+
+Aap har waqt ek hi tarah se nahi bolti
+
+Aur ye achi baat hai
+
+Kyunki real people ek hi mood mein nahi rehte
+
+Kabhi serious hona bhi normal hai
+
+Kabhi random hona bhi normal hai
+
+Kabhi zyada bolna bhi normal hai
+
+Kabhi bas thoda sa bolna bhi normal hai
+
+Kabhi gussa or naraz hona bhi normal hai
+
+Aur aapke ye different versions hi aapko complete banate hain
+
+Mujhe aapko sirf tab sunna achha nahi lagta jab aap happy hoti hain
+
+Aapki normal everyday baatein bhi utni hi important hain
+
+Woh random questions bhi
+
+Woh unnecessary discussions bhi
+
+Woh small updates bhi
+
+Woh suddenly yaad aayi hui baat bhi
+
+Aur woh conversations bhi jinka koi proper conclusion kabhi aata hi nahi
+
+Kyunki har conversation ka purpose hona zaroori nahi hota
+
+Kabhi kabhi bas baat karna hi enough hota hai
+
+Aur shayad isi liye aapki baatein mere liye important hain
+
+Kyunki unmein kisi perfect script ki zaroorat nahi hoti
+
+Aap bas aap hoti hain
+
+Aur wahi sabse achi baat hai
+
+Kabhi future mein jab hum purani conversations yaad karenge
+
+Toh shayad humein exact words yaad na rahein
+
+Lekin kuch moments zaroor yaad rahenge
+
+Kis waqt kya baat hui thi
+
+Kis topic par hum unnecessarily long discussion kar rahe the
+
+Kis random cheez par conversation start hui thi
+
+Aur kaise ek normal si baat eventually ek memory ban gayi
+
+Shayad isi liye main aapki baaton ko sirf words nahi maanta
+
+Ye Little Universe ka ek part hain
+
+Kyuki ye universe photos se nahi
+
+Sirf dates se nahi
+
+Sirf memories se nahi
+
+Balki un saari choti choti conversations se bhi bana hai jo time ke saath important hoti gayi
+
+Aaj Day 5 par bas itna kehna hai
+
+Aapka way of speaking simple ho sakta hai
+
+Random ho sakta hai
+
+Kabhi confusing ho sakta hai
+
+Kabhi completely unexpected ho sakta hai
+
+Lekin woh aapka hai
+
+Aur isi liye special hai
+
+Aapki baatein shayad duniya ki sabse extraordinary conversations na ho
+
+Lekin mere liye unmein ek aisi familiarity hai jo easily replace nahi hoti
+
+Kuch logon se baat karna bas conversation hoti hai
+
+Aur kuch logon se baat karna ek little moment ban jaata hai
+
+Aap mere liye unhi logon mein se hain
+
+Toh Day 5 ka note aapki un saari baaton ke naam
+
+Jo kabhi serious thi
+
+Kabhi random thi
+
+Kabhi confusing thi
+
+Kabhi funny thi
+
+Kabhi unnecessary long thi
+
+Aur kabhi sirf do teen words ki thi
+
+Kbhi gussa vali thi
+
+Lekin somehow
+
+Sab yaad reh gayi
+
+Aur shayad isi ko kisi ki baaton ka apna sa lagna kehte hain 💙
+` },
+      { date: "27 August", icon: "🎀", title: "Things That Remind Me of You", preview: "Another little moment, just for you.", message: `## DAY 06
+
+### Things That Remind Me of You
+
+Aaj Day 6 hai
+
+Aur aaj main aapke baare mein directly kuch batane ke bajaye un cheezon ke baare mein likhna chahta hu jo mujhe aapki yaad dila deti hain
+
+Kabhi kabhi kisi person ki yaad sirf unki photo dekhne se nahi aati
+
+Kabhi koi random song sunai deta hai
+
+Kabhi koi particular word sunne ko milta hai
+
+Kabhi koi jagah dikhti hai
+
+Kabhi koi situation hoti hai
+
+Kabhi koi bilkul choti si cheez saamne aa jaati hai
+
+Aur pata nahi kyun
+
+Mind automatically aapki taraf chala jaata hai
+
+Sabse funny baat ye hai ki in cheezon ka aap se directly koi connection bhi nahi hota
+
+Phir bhi somehow connection ban jaata hai
+
+Jaise kisi normal si cheez ne aapki memory ke saath apni ek choti si jagah bana li ho
+
+Kabhi koi song chal raha hota hai
+
+Aur uske lyrics 
+
+ uski vibe hi aisi hoti hai ki suddenly aap yaad aa jaati hain
+
+Kabhi koi particular type ka music sunta hu aur sochta hu ki ye aapko pasand aayega ya shayad aap ispe kya reaction deti
+
+Kabhi koi funny line sunai deti hai
+
+Aur pehla thought hota hai ki agar ye aap sunti toh kya bolti
+
+Kabhi koi random situation hoti hai
+
+Aur mind mein automatically imagine ho jaata hai ki aap is situation mein kya karti
+
+Aur phir khud hi smile aa jaati hai
+
+Ye thoda strange hai
+
+Kyuki technically us moment mein aap wahan hoti bhi nahi hain
+
+Lekin phir bhi somehow aap us moment ka ek part ban jaati hain
+
+Kabhi koi place bhi aapki yaad dila deta hai
+
+Koi road
+
+Koi shop
+
+Koi classroom
+
+Koi corner
+
+Koi aisi jagah jahan kabhi koi normal sa moment hua ho vo gali vo classroom ki kone vali bench vo car incident mndir
+
+Us waqt shayad kisi ne nahi socha hoga ki ye jagah future mein kisi memory ka reason banegi
+
+Lekin memories ka bhi apna ajeeb system hota hai
+
+Woh har jagah apna little connection bana leti hain
+
+Kabhi kisi jagah se guzarte hue bas ek second ke liye purani baat yaad aa jaati hai
+
+Aur phir poora scene mind mein replay hone lagta hai
+
+Kya hua tha
+
+Kisne kya kaha tha
+
+Us waqt kya situation thi
+
+Aur sabse funny part
+
+Us waqt jo moment bilkul normal lag raha tha
+
+Wahi baad mein itna memorable ban jaata hai
+
+Kabhi kabhi words bhi aapki yaad dila dete hain
+
+Koi particular word
+
+Koi phrase
+
+Koi nickname
+
+Koi aisa sentence jo normally koi bhi bol sakta hai
+
+Lekin agar woh word kisi aur context mein sunai de (madam)
+
+Toh mind immediately aapke kisi purane moment se usse connect kar deta hai
+
+Aur main sochta hu
+
+Kitni ajeeb cheez hai na
+
+Ek simple word
+
+Aur uske peeche ek poori memory
+
+Phone dekhta hu
+
+Aur ek second ke liye lagta hai shayad aapka message hoga
+
+Phir pata chalta hai ki kuch aur hai
+
+Lekin woh ek second bhi apne aap mein funny hota hai
+
+Kyuki mind ne bina permission ke aapko yaad kar liya
+
+Kabhi koi joke sunta hu
+
+Aur sochta hu ki ye aapko batana chahiye
+
+Kabhi koi weird si cheez dekhta hu
+
+Aur lagta hai
+
+Ye toh bilkul aap wali baat hai
+
+Kabhi koi cute ya funny situation hoti hai
+
+Aur automatically thought aata hai ki aap hoti toh ispe kya reaction deti
+
+Aur ye reactions imagine karna bhi kabhi kabhi actual situation se zyada entertaining ho jaata hai 😅
+
+Aapko shayad pata bhi nahi hoga ki aapke saath judi hui kitni random memory hain
+
+Kisi song ke saath
+
+Kisi word ke saath
+
+Kisi place ke saath
+
+Kisi joke ke saath
+
+Kisi memory ke saath
+
+Kisi particular time ke saath
+
+Aur kabhi kabhi bas kisi random thought ke saath
+
+Aapki yaad ke liye hamesha koi proper reason chahiye bhi nahi hota
+
+Kabhi mind khud hi decide kar leta hai
+
+Aaj ye yaad aayega
+
+Aur bas yaad aa jaata hai
+
+Kabhi koi old conversation yaad aati hai
+
+Lekin poori conversation nahi
+
+Bas ek particular line
+
+Ek particular reaction
+
+Ya ek particular moment
+
+Aur phir us ek choti si cheez ke saath poori memory connected feel hone lagti hai ye sb isliye likh rha hu kyuki aaj jb me us gali se ja rha teri bhot yad aayi
+
+Mujhe lagta hai memories bhi photographs ki tarah simple nahi hoti
+
+Photo mein jo dikh raha hai wahi hota hai
+
+Lekin memory mein bahut kuch hidden hota hai but hmari jyada hai nhi
+
+Ek place ke saath ek feeling
+
+Ek song ke saath ek moment
+
+Ek word ke saath ek conversation
+
+Ek joke ke saath ek laugh
+
+Aur ek random cheez ke saath kisi person ki yaad
+
+Shayad isi liye kuch cheezein humare liye doosron se zyada meaningful ho jaati hain
+
+Kisi aur ke liye woh sirf ek song hai
+
+Mere liye woh kisi memory ka background ban sakta hai khat yad hai
+
+Kisi aur ke liye woh sirf ek place hai
+
+Mere liye woh ek particular moment yaad dila sakta hai ttn ho vo gali ho ya fir mndir
+
+Kisi aur ke liye woh sirf ek word hai
+
+Lekin mere mind mein us word ke saath aapki koi baat attached ho sakti hai koi madam bole kahi bhi lgta hai tu hau
+
+Aur mujhe ye cheez actually kaafi beautiful lagti hai
+
+Kyuki iska matlab ye nahi ki har cheez special honi chahiye
+
+Kabhi ordinary cheezein bhi special connections bana leti hain
+
+Aapki wajah se nahi
+
+Bas time ke saath
+
+Moments ke through
+
+Aur memories ke through
+
+Kabhi kabhi main sochta hu ki future mein bhi aisa hi hoga
+
+Aaj ki jo normal cheezein hain
+
+Ho sakta hai kuch saal baad wahi cheezein kisi purani memory ka reason ban jaayein
+
+Aaj koi particular song sunna
+
+Aaj kisi jagah jaana
+
+Aaj koi random conversation hona
+
+Aaj koi stupid joke
+
+Aaj koi completely ordinary moment
+
+Aur phir future mein wahi cheez suddenly yaad aayegi
+
+Aur shayad tab realise hoga ki hum us waqt ek memory create kar rahe the
+
+Bina jaane
+
+Bina plan kiye
+
+Bas normal life jeete hue
+
+Aur shayad isi wajah se mujhe random moments pasand hain
+
+Kyuki humein kabhi nahi pata hota ki kaunsa moment baad mein important ban jayega
+
+Kabhi ek five minute ki conversation yaad reh jaati hai
+
+Kabhi ek silly incident
+
+Kabhi ek particular expression
+
+Kabhi ek random message
+
+Kabhi bas ek normal sa day
+
+Aur phir wahi normal day kisi reason se mind mein save ho jaata hai
+
+Aapki yaad bhi kuch aisi hi hai
+
+Kabhi planned nahi
+
+Kabhi announced nahi
+
+Bas suddenly
+
+Kahin se bhi
+
+Kisi bhi cheez ke through
+
+Aur phir thodi der ke liye mind mein ek little sa corner aapka ho jaata hai
+
+Kabhi koi cheez dekhkar lagta hai
+
+Ye toh aapko definitely pasand aayegi
+
+Kabhi kuch dekhkar lagta hai
+
+Ispe aapka reaction kya hota jitne bhi chize terelie passand ki hau
+
+Kabhi koi story lgta hu aapki 
+
+Kabhi koi interesting fact milta hai
+
+Aur lagta hai ki aapko ye batana chahiye
+
+Aur kabhi koi completely useless information milti hai
+
+Phir bhi mind bolta hai
+
+Ye aapko batani hai
+
+Reason
+
+Koi nahi
+
+Bas aise hi
+
+Aur shayad yahi sabse genuine part hai
+
+Har yaad ke peeche koi huge reason nahi hota
+
+Kabhi kabhi bas kisi insaan ki presence itni familiar ho jaati hai ki normal life ki random cheezein bhi unse connect hone lagti hain
+
+Aur aapke saath bhi kuch aisa hi hua hai
+
+Aap meri daily life ke har moment ka part  hain
+
+Lekin surprisingly bahut saare random moments mein aapki ek choti si memory mil jaati hai
+
+Kahin ek word mein
+
+Kahin ek song mein
+
+Kahin ek place mein
+
+Kahin ek joke mein
+
+Kahin ek old conversation mein
+
+Aur kahin bas ek thought mein
+
+Day 6 ka ye message isi liye hai
+
+Aapko batane ke liye ki kisi person ki importance sirf un moments se nahi samjhi jaati jo uske saath directly spend kiye gaye hain
+
+Kabhi kabhi woh un moments se bhi samajh aati hai jahan woh present hi nahi tha
+
+Lekin phir bhi uski yaad aa gayi
+
+Aur shayad aapke saath meri favourite cheezon mein se ek ye hi hai
+
+Ki aapko yaad karne ke liye mujhe kisi special occasion ki zaroorat nahi padti
+
+Koi birthday nahi
+
+Koi festival nahi
+
+Koi particular date nahi
+
+Koi reminder nahi
+
+Bas life chalti rehti hai
+
+Aur beech beech mein
+
+Koi na koi cheez
+
+Kahin na kahin
+
+Aapki yaad dila deti hai
+
+Aur honestly
+
+Mujhe lagta hai memories ka real magic bhi wahi hai
+
+### DAY 6
+
+**For all the random little things**
+
+**That somehow remind me of you 💜**
+` },
+      { date: "28 August", icon: "🌙", title: "Moonlight", preview: "Tonight, your universe feels extra magical.", message: `DAY 7 — THE WAY YOU LOVE
+
+Aaj ka topic thoda alag hai kyunki aaj main aapko aapki koi ek quality batane nahi wala Aaj bas aapko aapka woh side dikhana hai jo shayad aap khud bhi itna notice nahi karti The way you love Aur yahan love ka matlab sirf kisi ek insaan se pyaar karna nahi hai Love woh saari chhoti chhoti cheezein hain jo aap apne logon ke liye naturally karti ho bina kisi expectation ke aur bina ye soche ki saamne wala notice karega ya nahi
+
+Mujhe lagta hai hum aksar love ko bahut complicated bana dete hain Hume lagta hai ki kisi ko love karna matlab bade gestures karna Long messages likhna Surprises dena Gifts dena Har waqt available rehna ya har problem solve kar dena Lekin actually love bahut baar in sab cheezon se kaafi simple hota hai Kisi ki chhoti si baat yaad rakhna Kisi ke mood ko bina pooche samajh jaana Kisi ki favourite cheez yaad rehna Kisi ko uske difficult day mein unnecessary advice dene ke bajaye bas sun lena Ya phir bina kisi reason ke kisi ke liye kuch chhota sa kar dena Ye sab bhi love hi hai
+
+Aur mujhe lagta hai aapka love bhi kuch aisa hi hai Aap shayad har baar words mein nahi bolti hongi ki aap kisi ko kitna important samajhti ho Lekin aapki chhoti chhoti actions woh baat bol deti hain Aap kisi ki kahi hui random si baat ko yaad rakh leti ho Kisi ne kabhi casually kuch mention kiya aur shayad us waqt usse khud bhi yaad na ho ki usne kya bola tha Lekin aapke dimaag mein woh baat reh sakti hai Phir kabhi months baad aap wahi cheez yaad karke saamne wale ko surprise kar deti ho Aur us moment par shayad woh bas itna hi bolta hai ki tumhe ye yaad tha Lekin us ek sentence ke andar jo feeling hoti hai na woh bahut beautiful hoti hai Kyunki kisi ko yaad rakhna actually usse ye batana hai ki tumhari baatein mere liye important hain
+
+Aapka care bhi shayad isi tarah ka hai Bahut loud nahi Bahut showy nahi Bas quietly present rehne wala Agar koi apna pareshan ho toh shayad aap baar baar uske upar questions nahi karogi Lekin aap notice karogi ki uska mood theek nahi hai Agar woh baat nahi karna chahta toh shayad aap usse force nahi karogi Lekin andar se aap phir bhi uske baare mein sochti rahogi Aur jab usse baat karne ka mann hoga toh aap available rehna chahogi Mujhe lagta hai kisi ko space dena aur phir bhi usse ye feel karwana ki main yahin hoon Ye love ka bahut mature form hai shyd me mere andr missing hai kyuki agr aap kisi taklif me hoti hai toh mereko jana hota hai ki de kon rha hai bs
+
+Aap un logon ke liye genuinely happy bhi hoti ho jinhe aap apna maanti ho Kisi apne ke saath kuch accha ho toh aapko uski khushi dekhkar khushi hoti hai Usme comparison nahi hota Ye nahi ki mere paas kyun nahi hai Bas ek simple sa thought hota hai ki accha hua uske saath accha hua Aur honestly ye quality bahut special hai Kyunki kisi ki happiness ko genuinely celebrate karna tabhi possible hota hai jab hum us person ko dil se apna samajhte hain shyd isliye me idiot hu
+
+Kabhi kabhi love ka matlab kisi ke liye kuch karna nahi hota Kabhi kabhi love ka matlab hota hai kisi ke liye kuch na karna Jaise jab saamne wala tired ho toh usse unnecessary questions na poochna Jab koi upset ho toh uske mood ko personal na lena Jab kisi ko thoda alone time chahiye ho toh usse woh space de dena Aur phir jab woh wapas aaye toh usse ye feel na karwana ki usne tumhe ignore kiya tha Ye chhoti cheezein hain lekin friendship mein inki value bahut zyada hoti hai aaj kl me time nhi de parah tbhi aap wait kr rhi hai
+
+Mujhe lagta hai aap jab kisi ko genuinely apna maan leti ho toh unki little things automatically important ho jaati hain Unki favourite cheezein Unki habits Unke random jokes Unke mood changes Unki woh baatein jo shayad baaki logon ko bilkul normal lagti hain Aapke liye unmein meaning aa jaata hai Aur shayad isi wajah se aap kisi person ko sirf uski badi qualities ki wajah se nahi yaad rakhti Aapko uski woh tiny details bhi yaad rehti hain jo us person ko baaki sabse alag banati hain
+
+Aur ye bhi love hai ki aap kisi ko perfect samajhne ke baad love nahi karti Aap unki imperfections ke saath bhi unhe apna samajh sakti ho Kisi ka mood kabhi kharab ho sakta hai Koi kabhi rude ho sakta hai Koi galat decision le sakta hai Koi confused ho sakta hai Aur phir bhi agar woh aapka apna hai toh aap uski ek mistake ko uski poori personality nahi bana deti Aap samajhne ki koshish karti ho ki shayad uske peeche bhi koi reason tha Har baar agree karna zaroori nahi hota Lekin samajhne ki koshish karna bhi care ka part hai
+
+Lekin aaj main aapko ek aur important cheez yaad dilana chahta hoon Aap jis tarah doosron ko care deti ho na usi tarah ki care aap khud bhi deserve karti ho Aap doosron ke bad days ko samajh sakti ho toh apne bad days ko bhi thoda samajhna Aap doosron ko bol sakti ho ki koi baat nahi toh kabhi kabhi khud se bhi kehna ki koi baat nahi Har din productive hona zaroori nahi Har waqt happy rehna zaroori nahi Har situation ko perfectly handle karna bhi zaroori nahi in short mujhe btao toh hua kya hai janta hu kbhi Btane ka man nhi krta but shyd me aapko khush kr sku ya kahu toh apne aap ko rhkh saku
+
+Kabhi kabhi aapko bhi kisi ke saamne ye kehne ka haq hai ki aaj mera mood theek nahi hai Aaj mujhe bas sunne wala chahiye Aaj mujhe advice nahi chahiye Aaj mujhe thoda time chahiye Aur jo person aapko genuinely love karega woh aapki in needs ko burden nahi samjhega Woh samjhega ki care sirf tab nahi hoti jab aap smile kar rahi hoti ho Care tab bhi hoti hai jab aap tired ho Confused ho Silent ho ya bas apne aap mein rehna chahti ho 
+
+Mujhe lagta hai real love ki sabse beautiful cheez ye hoti hai ki usmein aapko perform nahi karna padta Aapko har waqt funny rehne ki zaroorat nahi hoti Har waqt happy dikhne ki zaroorat nahi hoti Aapko apni feelings hide karne ki zaroorat nahi hoti Aap bas apne real version mein reh sakte ho Thoda silly Thoda emotional Kabhi overthinking wala Kabhi unnecessarily excited Kabhi bilkul quiet Aur saamne wala phir bhi wahi rahe
+
+Aapka love shayad isi comfort ko create karta hai Aapke apne log aapke paas apna real version lekar aa sakte hain Unhe har baar ye sochna nahi padta ki aap unhe judge karogi ya nahi Aur agar aap kisi ko ye comfort de paati ho toh honestly aap uski life mein ek bahut beautiful place hold karti ho
+
+Love sirf kisi ko yaad karna nahi hota Love kisi ki absence ko notice karna bhi hai Jaise koi normally roz baat karta ho aur ek din chup ho toh us silence ko feel karna Kisi ki awaaz mein difference notice karna Kisi ke message ka tone samajhna Kisi ke bas ek okay se samajh jaana ki actually okay nahi hai Ye sab cheezein tabhi notice hoti hain jab saamne wala genuinely matter karta hai
+
+Shayad isi liye The Way You Love mere liye sirf aapki ek quality ka naam nahi hai Ye aapke personality ka woh part hai jo aapke baare mein bahut kuch batata hai Aap kis cheez ko notice karti ho Kis cheez ko yaad rakhti ho Kis cheez ko importance deti ho Kis waqt kisi ke paas rehti ho aur kis waqt usse space deti ho Ye sab milkar batata hai ki aapka heart kaise kaam karta hai
+
+Aur agar mujhe aapke love ko ek simple si line mein describe karna ho toh main shayad itna hi kahunga
+
+Aap logon ko sirf love nahi karti Aap unhe feel karwati ho ki woh important hain
+
+Aur Madam mujhe nahi lagta ki isse zyada beautiful tareeka koi aur ho sakta hai kisi ki life ka ek chhota sa hissa banne ka Ho sakta hai aapko apni ye quality ordinary lage Ho sakta hai aapko lage ki main toh bas normal cheezein karti hoon Lekin kabhi kabhi kisi ki life mein normal si cheez bhi bahut special ban jaati hai agar woh sahi person se aaye
+
+Toh Day 7 par bas ek cheez yaad rakhna Jis softness se aap apne logon ko samajhne ki koshish karti ho us softness ka ek hissa apne liye bhi rakhna Doosron ko jitni patience deti ho utni khud ko bhi dena Doosron ki mistakes ko jitni kindness se dekhti ho apni mistakes ko bhi utni hi kindness se dekhna Aur kabhi ye mat sochna ki care karne wala insaan weak hota hai
+
+Kyunki duniya mein bahut log attention de sakte hain Bahut log words bol sakte hain Bahut log promises kar sakte hain Lekin kisi ki chhoti baat yaad rakhna Kisi ke silence ko samajhna Kisi ki happiness mein genuinely khush hona Kisi ke bad day mein quietly present rehna aur bina kisi expectation ke kisi ko important feel karwana Ye sab har kisi ke bas ki baat nahi hoti
+
+Kyuki shayad jab aap khud ko samajhne ki journey start karogi na toh aapko ye bhi samajh aayega ki aap jis tarah doosron ko love karti ho usmein aapka ek bahut beautiful part chhupa hua hai
+
+Aur woh part kabhi khona mat
+
+Bas usmein ek person aur add kar dena
+ Khud ko 💜` },
+      { date: "29 August", icon: "⭐", title: "You Shine", preview: "A little reminder from your universe.", message: `DAY 8 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "30 August", icon: "🪐", title: "Another World", preview: "You've reached another little planet.", message: `DAY 9 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "31 August", icon: "🎁", title: "Mystery Box", preview: "Something is wrapped especially for today.", message: `DAY 10 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "1 September", icon: "🌷", title: "September Begins", preview: "The grand day is getting closer...", message: `DAY 11 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "2 September", icon: "📸", title: "A Little Memory", preview: "A special corner of the universe.", message: `DAY 12 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "3 September", icon: "💭", title: "Thinking of You", preview: "A thought saved especially for today.", message: `DAY 13 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "4 September", icon: "💗", title: "Almost There", preview: "The countdown is getting serious now. 👀", message: `DAY 14 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "5 September", icon: "🔮", title: "A Magical Hint", preview: "Something BIG is getting closer...", message: `DAY 15 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "6 September", icon: "👑", title: "One More Sleep", preview: "Tomorrow... everything changes. 🎂", message: `DAY 16 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "7 September", icon: "🎂", title: "THE GRAND FINALE", preview: "HAPPY BIRTHDAY DIYAA MADAM JI!!!", message: `THE FINAL BIRTHDAY MESSAGE WILL BE ADDED HERE 🎂💜🎉` }
+    ];
+
+    /* ========== CREATE STARS ========== */
+
+    const starsContainer = document.getElementById("stars");
+
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+
+      const size = Math.random() * 2.5 + 1;
+
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+      star.style.setProperty("--size", size + "px");
+      star.style.setProperty("--duration", (2 + Math.random() * 3) + "s");
+      star.style.setProperty("--delay", (-Math.random() * 5) + "s");
+
+      starsContainer.appendChild(star);
+    }
+
+    /* ========== PARTICLES ========== */
+
+    const particlesContainer = document.getElementById("particles");
+
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement("div");
+      particle.className = "particle";
+
+      particle.style.left = Math.random() * 100 + "%";
+      particle.style.setProperty("--duration", (12 + Math.random() * 10) + "s");
+      particle.style.setProperty("--drift", ((Math.random() - .5) * 100) + "px");
+
+      particlesContainer.appendChild(particle);
+    }
+
+    /* ========== FLOATING ITEMS ========== */
+
+    const floatingContainer = document.getElementById("floatingThings");
+    const floatingIcons = ["💜", "🩷", "✨", "✦", "🦋", "🌸", "☁️"];
+
+    for (let i = 0; i < 16; i++) {
+      const item = document.createElement("div");
+      item.className = "float-item";
+
+      item.textContent =
+        floatingIcons[Math.floor(Math.random() * floatingIcons.length)];
+
+      item.style.left = Math.random() * 100 + "%";
+      item.style.setProperty("--size", (13 + Math.random() * 15) + "px");
+      item.style.setProperty("--duration", (15 + Math.random() * 12) + "s");
+      item.style.setProperty("--delay", (-Math.random() * 20) + "s");
+      item.style.setProperty("--rotate", ((Math.random() * 500) - 250) + "deg");
+      item.style.setProperty("--move", ((Math.random() - .5) * 100) + "px");
+
+      floatingContainer.appendChild(item);
+    }
+
+    /* ========== LOADER ========== */
+
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").classList.add("hide");
+      }, 1800);
+    });
+
+    /* ========== CURRENT DAY ========== */
+
+    function getCurrentDay() {
+      const now = new Date();
+
+      if (now < START_DATE) return 0;
+
+      const diff = now - START_DATE;
+      const day = Math.floor(diff / 86400000) + 1;
+
+      return Math.min(day, 17);
+    }
+
+    let currentDay = getCurrentDay();
+
+    /* ========== TODAY CARD ========== */
+
+    function updateToday() {
+      const todayDate = document.getElementById("todayDate");
+      const title = document.getElementById("todayTitle");
+      const description = document.getElementById("todayDescription");
+
+      if (currentDay === 0) {
+        todayDate.textContent = "🔒 THE JOURNEY HAS NOT STARTED YET";
+        title.textContent = "Not yet... 👀";
+        description.textContent = "Your Little Universe begins on 22 August.";
+        return;
+      }
+
+      const surprise = surprises[currentDay - 1];
+
+      todayDate.textContent = `✦ DAY ${currentDay} • ${surprise.date}`;
+      title.textContent = surprise.title;
+      description.textContent = surprise.preview;
+    }
+
+    /* ========== BUILD 17 CARDS ========== */
+
+    function buildDays() {
+      const grid = document.getElementById("daysGrid");
+      grid.innerHTML = "";
+
+      surprises.forEach((surprise, index) => {
+        const dayNumber = index + 1;
+        const unlocked = dayNumber <= currentDay;
+        const isToday = dayNumber === currentDay;
+
+        const card = document.createElement("button");
+
+        card.className =
+          "day-card " +
+          (unlocked ? "unlocked " : "locked ") +
+          (isToday ? "today" : "");
+
+        card.innerHTML = `
+          <div class="lock-dot">${unlocked ? "✨" : "🔒"}</div>
+          <div class="day-number">DAY ${String(dayNumber).padStart(2, "0")}</div>
+          <div class="day-icon">${unlocked ? surprise.icon : "🔐"}</div>
+          <b>${unlocked ? surprise.title : "Locked"}</b>
+          <small>${unlocked ? surprise.date : "Come back on " + surprise.date}</small>
+        `;
+
+        card.addEventListener("click", () => {
+          if (unlocked) {
+            openDay(dayNumber);
+          } else {
+            lockedAnimation(card, surprise.date);
+          }
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    /* ========== PROGRESS ========== */
+
+    function updateProgress() {
+      const percentage = Math.round((currentDay / 17) * 100);
+
+      document.getElementById("progressText").textContent =
+        `Day ${currentDay || 0} of 17 💜`;
+
+      document.getElementById("progressPercent").textContent =
+        `${percentage}%`;
+
+      requestAnimationFrame(() => {
+        document.getElementById("progressFill").style.width =
+          percentage + "%";
+      });
+    }
+
+    /* ========== COUNTDOWN ========== */
+
+    function updateCountdown() {
+      const now = new Date();
+
+      if (now >= FINAL_DATE) {
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+
+        document.getElementById("countdownNote").textContent =
+          "IT'S THE SPECIAL DAY!!! 🎂🎉💜";
+
+        return;
+      }
+
+      const diff = FINAL_DATE - now;
+
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff / 3600000) % 24);
+      const minutes = Math.floor((diff / 60000) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+      document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+      document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+      document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+    }
+
+    /* ========== OPEN TODAY ========== */
+
+    function openToday() {
+      if (currentDay === 0) {
+        showToast("The Little Universe opens on 22 August 👀✨");
+        return;
+      }
+
+      const envelope = document.getElementById("todayEnvelope");
+
+      envelope.classList.remove("open");
+      void envelope.offsetWidth;
+      envelope.classList.add("open");
+
+      openDay(currentDay);
+      confettiBurst(28);
+    }
+
+    /* ========== OPEN DAY MESSAGE ========== */
+
+    function openDay(day) {
+      const surprise = surprises[day - 1];
+
+      document.getElementById("modalIcon").textContent = surprise.icon;
+      document.getElementById("modalDate").textContent =
+        `DAY ${day} • ${surprise.date}`;
+
+      document.getElementById("modalTitle").textContent =
+        surprise.title;
+
+      document.getElementById("modalMessage").textContent =
+        surprise.message;
+
+      document.getElementById("modal").classList.add("show");
+    }
+
+    function closeModal() {
+      document.getElementById("modal").classList.remove("show");
+    }
+
+    document.getElementById("modal").addEventListener("click", event => {
+      if (event.target.id === "modal") closeModal();
+    });
+
+    /* ========== LOCKED ANIMATION ========== */
+
+    function lockedAnimation(card, date) {
+      card.animate([
+        { transform: "translateX(0)" },
+        { transform: "translateX(-6px)" },
+        { transform: "translateX(6px)" },
+        { transform: "translateX(0)" }
+      ], {
+        duration: 350,
+        easing: "ease-in-out"
+      });
+
+      showToast(`Nopeee Diyaa Madam Ji 👀🔒 Come back on ${date}!`);
+    }
+
+    /* ========== CONFETTI ========== */
+
+    function confettiBurst(amount = 40) {
+      const colors = ["#d7a6ff", "#ffb7dc", "#c6e0ff", "#fff2a8", "#ffffff"];
+
+      for (let i = 0; i < amount; i++) {
+        const piece = document.createElement("div");
+
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        piece.style.setProperty(
+          "--x",
+          ((Math.random() - .5) * 250) + "px"
+        );
+
+        piece.style.setProperty(
+          "--time",
+          (2 + Math.random() * 1.5) + "s"
+        );
+
+        document.body.appendChild(piece);
+
+        setTimeout(() => piece.remove(), 4000);
+      }
+    }
+
+    /* ========== BIRTHDAY MODE ========== */
+
+    function checkBirthdayMode() {
+      const now = new Date();
+
+      if (now >= FINAL_DATE) {
+        document.getElementById("birthdayCard").classList.add("show");
+
+        document.getElementById("vaultStatus").textContent =
+          "🔓 THE VAULT IS NOW OPEN!!! 🎉";
+
+        setTimeout(() => confettiBurst(70), 800);
+      }
+    }
+
+    function birthdayBlast() {
+      confettiBurst(100);
+      showToast("HAPPY BIRTHDAY DIYAA MADAM JIII!!! 🎂💜🎉✨");
+    }
+
+    /* ========== HERO BUTTON ========== */
+
+    function goToJourney() {
+      document.getElementById("today").scrollIntoView({
+        behavior: "smooth"
+      });
+
+      setTimeout(() => confettiBurst(15), 400);
+    }
+
+    /* ========== TOAST ========== */
+
+    let toastTimer;
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2800);
+    }
+
+    /* ========== TAP SPARKLES ========== */
+
+    document.addEventListener("pointerdown", event => {
+      if (event.target.closest("button, a")) return;
+
+      for (let i = 0; i < 3; i++) {
+        const sparkle = document.createElement("div");
+
+        sparkle.className = "tap-sparkle";
+        sparkle.textContent = i % 2 === 0 ? "✦" : "✨";
+
+        sparkle.style.left = event.clientX + "px";
+        sparkle.style.top = event.clientY + "px";
+
+        sparkle.style.setProperty(
+          "--x",
+          ((Math.random() - .5) * 70) + "px"
+        );
+
+        sparkle.style.setProperty(
+          "--y",
+          ((Math.random() - .5) * 70) + "px"
+        );
+
+        document.body.appendChild(sparkle);
+
+        setTimeout(() => sparkle.remove(), 700);
+      }
+    });
+
+    /* ========== SCROLL REVEAL ========== */
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll(".reveal").forEach(element => {
+      observer.observe(element);
+    });
+
+    /* ========== START EVERYTHING ========== */
+
+    updateToday();
+    buildDays();
+    updateProgress();
+    updateCountdown();
+    checkBirthdayMode();
+
+    setInterval(updateCountdown, 1000);
+
+    setInterval(() => {
+      const newDay = getCurrentDay();
+
+      if (newDay !== currentDay) {
+        currentDay = newDay;
+
+        updateToday();
+        buildDays();
+        updateProgress();
+
+        showToast("💌 A new surprise has unlocked, Diyaa Madam Ji!!! ✨");
+        confettiBurst(50);
+      }
+    }, 60000);
+  </script>
+
+</body>
+  </html>
