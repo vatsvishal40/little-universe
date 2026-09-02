@@ -822,6 +822,218 @@
       margin-bottom: 3px;
     }
 
+    /* ========== RAKSHA BANDHAN ========== */
+
+    #rakhi {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rakhi-card {
+      position: relative;
+      text-align: center;
+      padding: 34px 22px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,220,242,.34), transparent 42%),
+        linear-gradient(135deg, rgba(119,76,180,.62), rgba(222,101,164,.42));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 20px 65px rgba(187,111,255,.22);
+    }
+
+    .rakhi-orbit {
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border: 1px dashed rgba(255,255,255,.22);
+      border-radius: 50%;
+      left: 50%;
+      top: 36px;
+      transform: translateX(-50%);
+      animation: rakhiOrbit 8s linear infinite;
+    }
+
+    .rakhi-icon {
+      position: relative;
+      z-index: 2;
+      width: 190px;
+      height: 125px;
+      display: inline-block;
+      margin: 18px 0 18px;
+      animation: hairbandFloat 3.2s ease-in-out infinite;
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,.34));
+      perspective: 500px;
+    }
+
+    /* Simple black girls hair rubber band — drawn with CSS so it works without emoji support */
+    .hairband {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 88px;
+      height: 88px;
+      transform: translate(-50%, -50%) rotateX(58deg) rotateZ(-16deg);
+      border-radius: 50%;
+      border: 16px solid #090909;
+      background: transparent;
+      box-shadow:
+        inset 4px 5px 0 rgba(255,255,255,.16),
+        inset -5px -7px 0 rgba(0,0,0,.8),
+        0 9px 0 rgba(0,0,0,.22),
+        0 17px 24px rgba(0,0,0,.36);
+      animation: hairbandSpin 5.5s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+
+    .hairband::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.13);
+      transform: translateZ(5px);
+    }
+
+    .hairband::after {
+      content: '';
+      position: absolute;
+      width: 28px;
+      height: 8px;
+      left: 12px;
+      top: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.18);
+      transform: rotate(-18deg) translateZ(9px);
+      filter: blur(1px);
+    }
+
+    .hairband-loop {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 116px;
+      height: 116px;
+      transform: translate(-50%, -50%) rotateX(58deg) rotateZ(-16deg);
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.07);
+      pointer-events: none;
+    }
+
+    .nav-rakhi-icon {
+      position: relative;
+      display: block !important;
+      width: 22px !important;
+      height: 19px !important;
+      margin: 0 auto 3px !important;
+      font-size: 0 !important;
+      transform: rotate(-12deg);
+      filter: drop-shadow(0 3px 3px rgba(0,0,0,.45));
+      animation: navBandFloat 2.8s ease-in-out infinite;
+    }
+
+    .nav-rakhi-icon::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 1px;
+      width: 15px;
+      height: 15px;
+      border: 5px solid #090909;
+      border-radius: 50%;
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,.2), 0 4px 5px rgba(0,0,0,.35);
+    }
+
+    .nav-rakhi-icon::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 3px;
+      width: 6px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.22);
+      transform: rotate(-15deg);
+    }
+
+    .rakhi-sparkles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .rakhi-sparkles span {
+      position: absolute;
+      font-size: 18px;
+      animation: rakhiSparkle 2.4s ease-in-out infinite;
+    }
+
+    .rakhi-sparkles span:nth-child(1) { left: 18%; top: 22%; }
+    .rakhi-sparkles span:nth-child(2) { right: 18%; top: 28%; animation-delay: .5s; }
+    .rakhi-sparkles span:nth-child(3) { left: 25%; bottom: 22%; animation-delay: 1s; }
+    .rakhi-sparkles span:nth-child(4) { right: 24%; bottom: 18%; animation-delay: 1.5s; }
+
+    .rakhi-card h2 {
+      margin: 0 0 10px;
+      font-size: clamp(25px, 6vw, 38px);
+    }
+
+    .rakhi-card p {
+      max-width: 560px;
+      margin: 0 auto;
+      color: rgba(255,255,255,.78);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    .rakhi-note {
+      margin: 22px auto 0;
+      max-width: 500px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.13);
+      animation: noteGlow 2.5s ease-in-out infinite;
+    }
+
+    .rakhi-note b {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 17px;
+    }
+
+    @keyframes hairbandFloat {
+      0%,100% { transform: translateY(0) rotate(-2deg) scale(1); }
+      50% { transform: translateY(-10px) rotate(3deg) scale(1.05); }
+    }
+
+    @keyframes hairbandSpin {
+      0%,100% { transform: translate(-50%, -50%) rotateX(58deg) rotateZ(-16deg); }
+      50% { transform: translate(-50%, -50%) rotateX(48deg) rotateZ(12deg) scale(1.04); }
+    }
+
+    @keyframes navBandFloat {
+      0%,100% { transform: rotate(-12deg) translateY(0); }
+      50% { transform: rotate(8deg) translateY(-2px) scale(1.08); }
+    }
+
+    @keyframes rakhiFloat {
+      0%,100% { transform: translateY(0) rotate(-3deg) scale(1); }
+      50% { transform: translateY(-10px) rotate(3deg) scale(1.06); }
+    }
+
+    @keyframes rakhiOrbit {
+      to { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    @keyframes rakhiSparkle {
+      0%,100% { opacity: .25; transform: scale(.75) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.25) rotate(18deg); }
+    }
+
+    @keyframes noteGlow {
+      50% { box-shadow: 0 0 28px rgba(255,190,225,.13); transform: translateY(-2px); }
+    }
+
     /* ========== MODAL ========== */
 
     #modal {
@@ -1092,6 +1304,26 @@
       <div class="days-grid" id="daysGrid"></div>
     </section>
 
+    <section class="reveal" id="rakhi">
+      <div class="rakhi-card">
+        <div class="rakhi-orbit"></div>
+        <div class="rakhi-sparkles" aria-hidden="true">
+          <span>✨</span><span>💜</span><span>🌸</span><span>✨</span>
+        </div>
+        <div class="rakhi-icon" aria-label="black hair rubber band" role="img"><span class="hairband-loop"></span><span class="hairband"></span></div>
+        <h2>Raksha Bandhan Special 💜</h2>
+        <p>
+          Ye section abhi thoda sa secret haiii 👀
+          kyuki iske liye bas thoda wait krlooo
+        </p>
+        <div class="rakhi-note">
+          <b>Bas thoda wait krlooo 🥹💜</b>
+          Jldiii kuch hogaaa... aur jab hoga naaa toh ye chhota sa section
+          itna chhota nhi lagega 😭✨
+        </div>
+      </div>
+    </section>
+
     <section class="reveal" id="vault">
       <div class="glass vault">
         <div class="vault-icon">🎁</div>
@@ -1125,6 +1357,7 @@
     <a class="nav-item" href="#home"><span>🏠</span>Home</a>
     <a class="nav-item" href="#today"><span>💌</span>Today</a>
     <a class="nav-item" href="#journey"><span>🪐</span>Journey</a>
+    <a class="nav-item" href="#rakhi"><span class="nav-rakhi-icon" aria-hidden="true"></span>Rakhi</a>
     <a class="nav-item" href="#vault"><span>🎁</span>Vault</a>
   </nav>
 
@@ -3101,7 +3334,47 @@ Agar kabhi koi aapse puche ki Vishal aapko divine gift from God kyu bolta hai to
 
 **kyuki kuch gifts ki price nhi hoti madam**
 **unki value hoti hai 💜**` },
-      { date: "3 September", icon: "💭", title: "Thinking of You", preview: "A thought saved especially for today.", message: `DAY 13 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "3 September", icon: "🪐", title: "HER BUT IN PARALLEL UNIVERSES 🪐💜", preview: "A completely opposite version of her from a parallel universe.", message: `DAY 13 — HER BUT IN PARALLEL UNIVERSES 🪐💜
+
+Toh aaj day 13 hai aur aaj me aapke baare me kuch achha nhi bolungaaa kyuki aaj hum normal universe me nhi hain aaj hum parallel universe me hain aur parallel universe me toh sab kuch opposite hota hai na toh waha wali aap bhi obviously meri wali aapki bilkul opposite hogi matlab jo cheez aap normally karti ho uska ulta jo quality aapme hai uski jagah uski sabse bekaar version aur jo kaam aap normally nhi karti ho woh waha aapka favourite hogaaa  toh aaj please buraaa mat maan na kyuki jo kuch bhi likhunga woh parallel universe wali aapke liye hai meri wali aapke liye nhi haiii smjjheeee
+
+Sabse phele waha wali aap bilkul caring nhi hogiii kisi ko koi problem ho rhi hai koi upset hai koi pareshan hai aapko koi fark hi nhi padegaa saamne wala apni poori kahani suna raha hoga aur aap udhar bas haan accha thik hai bolke phone chala rahi hogiii koi bole mujhe bura lg rha hai toh aap bol dogi toh mujhe kya karna haiii  koi bole meri problem hai toh aap bol dogi mujhe kyu bata rhe hooo  matlab itni caring ki saamne wala dobara kabhi apni problem batane ki himmat hi na karegaaa 😂
+
+Aur waha wali aapko kisi ki baat yaad bhi nhi rahegi  koi kal kya bol ke gaya tha aapko aaj tak yaad nhi hogaaa koi important baat batayi toh 5 minute baad hi gayab koi birthday bataya toh birthday ke din bhi aapko yaad nhi hoga  koi bole aapko maine ye baat pehle batayi thi toh aap seedha bol dogi nhi mujhe nhi yaad haiii aur saamne wala sochta rahega ki madam ko memory mili bhi hai ya sirf phone ka storage mila haiii indirect short memory😂
+
+Phir waha wali aap bilkul quiet nhi hogiii balki aap itni loud hogi ki agar aap ek room me baith jao toh baaki sab log room se bahar chale jayengeee 😂 aapko koi chup karane ki koshish kare toh aap aur jyadaa bolna start kar dogi koi bole thoda dheere toh aap bol dogi kyu dheere boluuu 😂 aur aapke paas har waqt kuch na kuch bolne ke liye hoga chahe kisi ne suna ho ya nhi aapko bas bolna haiii aap kisi conversation me enter karogi aur 10 minute baad sabko pata chal jayega ki aap aayi thi kyuki aapki awaaz poori building ko pata chal chuki hogiii or udhar valiki awaz bhot kharab hogi isi ko passand nhi hogi specially mujhee tohh bilkul nhii
+
+Aur waha wali aapko sharam naam ki koi cheez nhi hogiii  kisi ke saamne kuch bhi bol do kisi bhi topic pe kuch bhi keh do aur baad me ye bhi mat sochna ki maine kya bol diyaaa  agar koi aapko dekhe bhi toh aapko koi fark nhi padegaaa aapko bas apni hi duniya me rehna haiii aur jo dimag me aaya woh muh se bahar  matlab filter naam ki cheez waha exist hi nhi karti hogiii gali dena or marna ye sb common hoga 😂
+
+Aur sabse funny baat waha wali aap bilkul overthink nhi karegiii koi message ka reply na kare toh aapko koi fark nhi koi seen karke chhod de toh aap phone side me rakh dogi koi ajeeb reply de toh aap uska meaning nikalne ke liye poori research nhi karogi  bas jo hua hua aur aage badhooo  matlab dimaag itna shaant ki dekh ke mujhe doubt hone lagega ki ye wahi ladki hai jo mere universe me ek choti si baat ko bhi 100 baar soch sakti haiii 😂
+
+Aur gussa bhi bilkul nhi hoga waha wali  aapko pareshan kare toh aap hasogi koi aapka favourite food kha jaye toh bhi koi problem nhi koi aapko irritate kare toh aap bol dogi koi baat nhi 😂 matlab duniya ki sabse shaant ladki hogi sirf merelie aap lekin honestly mujhe lagta hai parallel universe me bhi aapka ye version jyadaa der nhi chalega kyuki aap bina gussa kiye reh hi nhi saktiii 😂😂😂😂
+
+Waha wali aapke nakhre bhi nhi hongeee 😂 jo bolo woh turant maan lo jo khana mile woh kha lo jaha bolo waha chalo jo dress dikhao woh pehen lo aur koi bole ye karo toh bas kar do 😂 matlab decision making naam ki koi cheez hi nhi hogi aur mujhe toh lagta hai agar koi aapko waha bol de chalo bina plan ke 500 km door chalte hain toh aap bol dogi haaa chalo 😂
+
+Aur food ki toh baat hi mat karo 😭 parallel universe wali aapko momos se koi matlab nhi hoga golgappe dekh ke aapko kuch feel nhi hoga fries saamne pade honge aur aap unko aise dekhogi jaise kisi ne table pe books rakh di ho 😂 aur  koi bole chalo kuch tasty khate hain toh aap bol dogi mujhe bhook nhi haiii 😂
+
+Aur waha wali aapko mandir jaana bhi bilkul pasandhogaaa 😭 koi bole chalo mandir toh aap seedha bol dogi mujhe  jaana mujhe ghar pe nhi rehna haiii 😂 koi kitna bhi nhi bole aapka answer same rahega  jaanaaa  hai mtlb jana hai😭
+
+Waha wali aap bilkul responsible bhi nhi hogiii kaam pada hai pada rehne dooo kal kar lengeee aur kal aaya toh phir next kal 😂 assignment hai toh deadline ke din yaad aayega important kaam hai toh last moment pe karna haiii aur agar koi pooche kab karogi toh bolna hai dekhte hainnn 😂 matlab planning naam ki cheez sirf dictionary me milegiii
+
+Aur waha wali aapko kisi cheez ki excitement bhi jaldi nhi hogiii koi surprise de toh aapka reaction bas ohh thanks 😂 koi favourite place ka naam le toh aap bas acchaaa koi bole chalo bahar chalte hain toh aap bolo mujhe nhi jaanaaa 😭 matlab excitement ko aapne block karke rakha hua hoga jese mujhe krke rhkha tha real universe me
+
+Aur haan waha wali aap bilkul childish bhi nhi hogiii har waqt serious face bana ke ghoomna haiii kisi random baat pe hasna nhi haiii stupid jokes pe react nhi karna haiii aur agar masti kare toh usko seedha lecture dena haiii 😂 koi aapko koi ajeeb sa joke sunaye toh aap usko dekho aur bolo very funny 😐 aur bas saamne wala wahi khatam
+
+Aur sabse badi burai toh ye hogi ki waha wali aapko kisi ki bhi fikar nhi hogi aur kisi se attachment bhi nhi hogiii koi aapka close ho ya door chala jaye aapko koi difference nhi padegaaa koi aapki life me aaye ya chala jaye aap bas normal rahogi jaise kuch hua hi nhi  aur saamne wala wahin baith ke sochta rahega ki itna stone hearted insaan maine pehli baar dekha haiii 😂😂
+
+Waha wali aap kabhi random baatein bhi nhi karegiii kabhi bina reason message nhi karegi kabhi koi stupid thought share nhi karegi aur conversation ko ajeeb direction me le jaana toh bilkul nhi 😂 sab kuch planned hoga proper hoga serious hoga aur honestly mujhe lagta hai aisi aapko dekh ke sabse phele me hi bore ho jaungaaa kyuki aapki sabse dangerous problem ye hogi ki aap bilkul predictable hongiii 😭
+
+Aur waha wali aapko khud bhi nhi pata hoga ki aap kitni boring ho 😂 aapko lagega me toh bhot normal hu aur baaki duniya hi ajeeb haiii 😂 aap kisi ko random message nhi karogi kisi ko pareshan nhi karogi 😂😂
+
+Aur agar me puchu hloooo kya kr rhi ho toh aap bol dogi kuch nhi kam kr rhi thi ya aapse bat  bhaiii aapke answers ka  logic hi logic hogaaa aur sabse funny baat ye hogi ki aapko khud lagega ki aapne bilkul normal answer diya haiii 😂
+
+Toh basically parallel universe wali aap ek aisi ladki hogi jo caring nhi hogi quiet nhi hogi shy nhi hogi overthink nhi karegi gussa nhi karegi nakhre nhi karegi childish nhi hogi food lover nhi hogi random nhi hogi aur sabse important baat bilkul sense bhi nhi banayegiii
+
+Toh madammm agar kabhi aapko kisi parallel universe me jaana ho na toh please mujhe pehle bata denaaa kyuki mujhe pehle hi prepare hona haiii ki waha wali aapko kaise handle karna haiii 😭😂
+
+Happy Day 13 madammm 🪐💜` },
       { date: "4 September", icon: "💗", title: "Almost There", preview: "The countdown is getting serious now. 👀", message: `DAY 14 MESSAGE WILL BE ADDED HERE 💜` },
       { date: "5 September", icon: "🔮", title: "A Magical Hint", preview: "Something BIG is getting closer...", message: `DAY 15 MESSAGE WILL BE ADDED HERE 💜` },
       { date: "6 September", icon: "👑", title: "One More Sleep", preview: "Tomorrow... everything changes. 🎂", message: `DAY 16 MESSAGE WILL BE ADDED HERE 💜` },
