@@ -1174,6 +1174,184 @@
       }
     }
 
+
+
+    /* ========== ENHANCED MOTION + DAY 14 SPECIAL ========== */
+    .day-card {
+      animation: cardRise .72s cubic-bezier(.2,.85,.25,1) both;
+      transition: transform .32s cubic-bezier(.2,.85,.25,1), box-shadow .32s ease, border-color .32s ease, filter .32s ease;
+    }
+
+    .day-card:hover {
+      transform: translateY(-7px) scale(1.025);
+      box-shadow: 0 18px 45px rgba(0,0,0,.2), 0 0 30px rgba(193,139,255,.12);
+      border-color: rgba(255,255,255,.28);
+    }
+
+    .day-card .day-icon {
+      display: inline-block;
+      animation: iconDrift 3s ease-in-out infinite;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,.18));
+    }
+
+    .day-card .lock-dot {
+      animation: lockPulse 2.2s ease-in-out infinite;
+    }
+
+    .day-card::after {
+      content: '';
+      position: absolute;
+      inset: -45% -85%;
+      background: linear-gradient(105deg, transparent 44%, rgba(255,255,255,.13) 50%, transparent 56%);
+      transform: translateX(-55%) rotate(8deg);
+      animation: cardShine 6.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .day-card.day14-special {
+      border-color: rgba(255,194,231,.65);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,208,237,.24), transparent 35%),
+        radial-gradient(circle at 90% 80%, rgba(182,143,255,.22), transparent 42%),
+        linear-gradient(145deg, rgba(170,102,222,.54), rgba(255,135,199,.22));
+      box-shadow: 0 16px 46px rgba(217,123,255,.22), inset 0 0 28px rgba(255,255,255,.04);
+      animation: cardRise .72s cubic-bezier(.2,.85,.25,1) both, day14Pulse 2.8s ease-in-out infinite;
+    }
+
+    .day-card.day14-special .day-icon {
+      animation: day14Icon 1.9s ease-in-out infinite;
+    }
+
+    .day-card.day14-special b {
+      text-shadow: 0 0 18px rgba(255,211,239,.35);
+    }
+
+    #progressFill {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #progressFill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50px;
+      left: -55px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+      animation: progressSweep 2.6s ease-in-out infinite;
+    }
+
+    #modal.show .modal-icon { animation: modalIconPop .75s cubic-bezier(.16,1.3,.3,1) both, iconDrift 3s ease-in-out .75s infinite; }
+    #modal.show .modal-date { animation: softFadeUp .55s ease .08s both; }
+    #modal.show .modal-card h3 { animation: softFadeUp .6s ease .14s both; }
+    #modal.show .modal-message { animation: messageReveal .7s cubic-bezier(.2,.8,.2,1) .18s both; }
+
+    #modal.day14-modal {
+      background: radial-gradient(circle at 50% 18%, rgba(130,77,171,.28), rgba(10,5,25,.72));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    #modal.day14-modal .modal-card {
+      position: relative;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 85% 0%, rgba(255,175,225,.25), transparent 33%),
+        radial-gradient(circle at 10% 100%, rgba(153,111,235,.2), transparent 40%),
+        #352052;
+      border-color: rgba(255,206,237,.4);
+      box-shadow: 0 -18px 70px rgba(0,0,0,.38), 0 0 55px rgba(221,128,255,.17);
+      animation: day14ModalGlow 3.2s ease-in-out infinite;
+    }
+
+    #modal.day14-modal .modal-card::before {
+      content: '';
+      position: absolute;
+      top: -80%;
+      left: -65%;
+      width: 62%;
+      height: 240%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.09), transparent);
+      transform: rotate(18deg);
+      animation: modalShimmer 5.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    #modal.day14-modal .modal-message {
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: inset 0 0 28px rgba(255,255,255,.025);
+    }
+
+    .bottom-nav { animation: navFloat 4.5s ease-in-out infinite; }
+    .nav-item span { transition: transform .25s ease, filter .25s ease; }
+    .nav-item:hover span { transform: translateY(-3px) scale(1.12); filter: drop-shadow(0 4px 7px rgba(255,255,255,.18)); }
+
+    @keyframes cardRise {
+      from { opacity: 0; transform: translateY(24px) scale(.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes iconDrift {
+      0%,100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-6px) rotate(3deg) scale(1.05); }
+    }
+    @keyframes lockPulse {
+      0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+      50% { transform: scale(1.08); box-shadow: 0 0 18px rgba(255,255,255,.08); }
+    }
+    @keyframes cardShine {
+      0%,58% { transform: translateX(-55%) rotate(8deg); opacity: 0; }
+      68% { opacity: 1; }
+      82%,100% { transform: translateX(65%) rotate(8deg); opacity: 0; }
+    }
+    @keyframes day14Pulse {
+      0%,100% { transform: translateY(0); box-shadow: 0 16px 46px rgba(217,123,255,.20), inset 0 0 28px rgba(255,255,255,.04); }
+      50% { transform: translateY(-5px); box-shadow: 0 22px 58px rgba(232,134,255,.34), 0 0 26px rgba(255,184,224,.12), inset 0 0 34px rgba(255,255,255,.06); }
+    }
+    @keyframes day14Icon {
+      0%,100% { transform: translateY(0) rotate(-6deg) scale(1); }
+      45% { transform: translateY(-8px) rotate(5deg) scale(1.12); }
+      65% { transform: translateY(-5px) rotate(-2deg) scale(1.07); }
+    }
+    @keyframes progressSweep {
+      0% { left: -55px; opacity: 0; }
+      20% { opacity: 1; }
+      70%,100% { left: calc(100% + 20px); opacity: 0; }
+    }
+    @keyframes modalIconPop {
+      from { opacity: 0; transform: translateY(15px) scale(.55) rotate(-14deg); }
+      to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+    }
+    @keyframes softFadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes messageReveal {
+      from { opacity: 0; transform: translateY(15px) scale(.985); filter: blur(2px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+    @keyframes day14ModalGlow {
+      0%,100% { box-shadow: 0 -18px 70px rgba(0,0,0,.38), 0 0 38px rgba(221,128,255,.12); }
+      50% { box-shadow: 0 -22px 78px rgba(0,0,0,.4), 0 0 65px rgba(244,143,255,.24); }
+    }
+    @keyframes modalShimmer {
+      0%,55% { transform: translateX(0) rotate(18deg); opacity: 0; }
+      68% { opacity: 1; }
+      85%,100% { transform: translateX(330%) rotate(18deg); opacity: 0; }
+    }
+    @keyframes navFloat {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-2px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .day-card, .day-card::after, .day-icon, .lock-dot, #progressFill::after, .bottom-nav,
+      #modal.show .modal-icon, #modal.show .modal-date, #modal.show .modal-card h3, #modal.show .modal-message,
+      #modal.day14-modal .modal-card, #modal.day14-modal .modal-card::before {
+        animation: none !important;
+      }
+    }
+
     /* ========== SCROLL REVEAL ========== */
 
     .reveal {
@@ -3375,7 +3553,52 @@ Toh basically parallel universe wali aap ek aisi ladki hogi jo caring nhi hogi q
 Toh madammm agar kabhi aapko kisi parallel universe me jaana ho na toh please mujhe pehle bata denaaa kyuki mujhe pehle hi prepare hona haiii ki waha wali aapko kaise handle karna haiii 😭😂
 
 Happy Day 13 madammm 🪐💜` },
-      { date: "4 September", icon: "💗", title: "Almost There", preview: "The countdown is getting serious now. 👀", message: `DAY 14 MESSAGE WILL BE ADDED HERE 💜` },
+      { date: "4 September", icon: "💗", title: "THINGS THAT ONLY MAKE SENSE WHEN IT’S YOU 😭💜", preview: "Some things are weird, random, confusing… and somehow make perfect sense only when it’s you. 😭💜", message: `DAY 14 — THINGS THAT ONLY MAKE SENSE WHEN IT’S YOU 😭💜
+
+Aaj ka topic thodaaa alag hai kyuki aaj mujhe aapke baare me koi badi badi baat nahi karni aur na hi aapki personality ka analysis krna hai kyuki honestly aapko analyse karne baith gaya na toh ek alag hi research paper ban jayegaaa  Aaj bas un choti choti cheezon ki baat karni hai jo kisi aur ke saath shayad bilkul ajeeb lagein lekin jab woh aap karti ho toh pata nahi kyuu woh somehow bilkul normal lagti hain aur dimaag me ek hi thought aata hai ki haan ye toh madam hi kar sakti hain 😭💜
+
+Jaise aapka kisi normal si baat ko unnecessarily interesting bana dena  Ekdum simple conversation chal rahi hogi aur pata nahi kaha se aap koi aisi baat bol dogi jiska original topic se door door tak koi connection nahi hoga lekin phir bhi hum ussi pe baat karne lag jaayenge aur kuch time baad mujhe yaad bhi nahi rahega ki hum originally kis cheez ke baare me baat kar rahe the  Kisi aur ke saath hota toh shayad main bolta bhai topic pe wapas aa ja lekin aapke saath toh ye normal bat hai
+
+Aapka random mood change bhi kuch aisa hi hai  Ek minute pehle full khushi mode me kuch bata rahi hoti ho aur next minute suddenly ekdum shaant aur serious ho jaogi aur mujhe samajh hi nahi aayega ki bhai abhi toh kya hua tha 😭 Phir main poochunga kya hua aur aap bol dogi kuch nahi  Bas ye do words bolke conversation close samajh leti ho aap jaise “kuch nahi” duniya ka sabse detailed answer ho  Aur funny baat ye hai ki agar koi aur bole kuch nahi toh shayad maan bhi loon lekin aapka kuch nahi sunte hi pata chal jaata hai ki obviously kuch toh hai kisi bat se toh pareshan hai aap madam
+
+Aapka kisi cheez ko leke unnecessarily excited hona bhi sirf aapke saath hi sense karta hai  Choti si cheez ho sakti hai lekin aap usko aise treat karogi jaise duniya ki sabse important announcement ho gayi ho Aur phir us excitement ko dekh ke saamne wala bhi excited ho jaata hai chahe usko pehle us cheez se koi matlab hi na raha ho  Aapka excitement ek se dusre insan me transfer hone jesa haii baki ka nhi pta but mere sath toh hai 
+
+Aur phir aapka woh kisi cheez ko pehle mana karna aur baad me wahi cheez kar lena  Ye bhi aapka ek alag talent hai Pehle nahi nahi nahi bilkul nahi aur thodi der baad wahi cheez casually karte hue mil jaogi jaise pehle teen baar mana kiya hi nahi tha Aur agar koi yaad dila de ki aapne toh mana kiya tha toh expression aisa hoga jaise saamne wale ko goli mar do aap reels mna kr ke reels dekhna hai bhar ka km kha keor jyada khana khana bnane ke liye mna kro or jyada bnana 
+
+or ek or bat hai mujhe na ldkio ki jhulfe bikul passand nhi thi but ptaa nhii keseee tere pee achii lgtii hai or kbhi kbhii tere bal had se jyada pyaare lgteee haii bhagwann jane kese hota hai but hota hai 
+
+Aapka kisi random cheez ko yaad rakh lena bhi ajeeb hai  Aapko woh baat yaad hogi jiske baare me mujhe khud yaad nahi hoga ki maine kab batayi thi Aur phir kabhi months baad aap uska reference de dogi aur main sochunga ye information aapke dimaag me abhi tak kis folder me safely rakhi hui thi  Aur doosri taraf koi simple si cheez hogi jo aapko yaad rehni chahiye woh gayab  Matlab memory ka system bhi apne rules pe chalta hai 😭😭
+
+Aapka kabhi kabhi bina kisi proper reason ke hasna bhi sirf aapke saath normal hai  Koi purani baat yaad aa gayi hogi ya dimaag me koi random thought aa gaya hoga aur aap bas has rahi ho Aur jab poocha jaaye kya hua toh aap explain bhi nahi karogi kyuki ab us moment ka joke sirf aapke dimaag ko samajh aa raha hai ya pta nhi kya hota hai bs hasii 
+
+Aur mujhe sabse funny cheez ye lagti hai ki aapko khud pata bhi nahi hota ki aap ye sab karti ho  Aapke liye ye sab normal routine hai Aapko lagta hai main bas normal behave kar rahi hoon aur idhar saamne wala quietly observe kar raha hota hai ki madam aaj phir kya naya system hai but ek bat sach bolu tohh mujhee ye sb bhot jyada passand hai
+
+Kuch logon ke saath comfortable hone ke liye time lagta hai Kuch logon ke saath conversation maintain karni padti hai Kuch logon ke saath har cheez explain karni padti hai Lekin aapke saath pata nahi kaise woh randomness bhi comfortable lagti hai Silence bhi awkward nahi lagta aur bakwaas bhi unnecessary nahi lagti 😭 Aapke saath conversation ka perfect hona zaroori nahi hota kyuki imperfect conversation bhi apni jagah complete lagti hai or achi lgti hai
+
+Aur shayad isi liye aapki kuch cheezein kisi aur ke saath imagine hi nahi hoti  Aapka woh particular reaction kisi aur kare toh shayad weird lagega Aap wohi baat bolo toh funny lagegi Aap kisi random cheez ko importance do toh woh suddenly important lagne lagti hai Aap kisi normal moment ko unnecessarily memorable bana do toh baad me wahi moment yaad reh jaata hai ye sb bs tu hi kr skti hai
+
+ Aap annoying bhi ho sakti ho confusing bhi ho sakti ho unnecessarily dramatic bhi ho sakti ho aur kabhi kabhi aapko samajhna genuinely impossible bhi ho sakta hai 😭 Lekin shayad isi liye aap aap ho or mujhe isliye toh tereko jana hai kitni sari bate hai jo nhi pta mujhee 
+
+Kuch cheezein explain karne ki zarurat nahi hoti Kuch habits justify karne ki zarurat nahi hoti Kuch reactions ka logic dhoondhne ki zarurat nahi hoti Kyuki jab baat aapki ho toh bas ek hi explanation kaafi hota hai
+
+“diya madam toh diya madam haii” 😭💜
+
+Aur honestly mujhe lagta hai kisi insaan ki sabse alag cheez uski soul hotit hai joo apki bhott jyadaa achii haii
+
+Aapki bhi bohot saari cheezein aisi hi hain madammm
+
+Weird hain
+Random hain
+Kabhi kabhi irritating bhi hain 
+Lekin jab aap karti ho na toh pata nahi kyuu sab kuch somehow bilkul sense karta hai
+
+Because some things are not supposed to make sense
+
+They’re just supposed to be you
+
+or agr mereko chance milaa pakoo pura jane kaa toh me janee kii koshishh jarurr krungaa hoskta hai kbhi kbhi letter ajib ho but kya kru jb likhne jata hu dimagg me itni sari bate kha chli jati haii
+
+Happy Day 14 madammm ` },
       { date: "5 September", icon: "🔮", title: "A Magical Hint", preview: "Something BIG is getting closer...", message: `DAY 15 MESSAGE WILL BE ADDED HERE 💜` },
       { date: "6 September", icon: "👑", title: "One More Sleep", preview: "Tomorrow... everything changes. 🎂", message: `DAY 16 MESSAGE WILL BE ADDED HERE 💜` },
       { date: "7 September", icon: "🎂", title: "THE GRAND FINALE", preview: "HAPPY BIRTHDAY DIYAA MADAM JI!!!", message: `THE FINAL BIRTHDAY MESSAGE WILL BE ADDED HERE 🎂💜🎉` }
@@ -3506,7 +3729,10 @@ Happy Day 13 madammm 🪐💜` },
         card.className =
           "day-card " +
           (unlocked ? "unlocked " : "locked ") +
-          (isToday ? "today" : "");
+          (isToday ? "today " : "") +
+          (dayNumber === 14 ? "day14-special" : "");
+
+        card.style.animationDelay = `${Math.min(index * 0.055, 0.55)}s`;
 
         card.innerHTML = `
           <div class="lock-dot">${unlocked ? "✨" : "🔒"}</div>
@@ -3615,11 +3841,20 @@ Happy Day 13 madammm 🪐💜` },
       document.getElementById("modalMessage").textContent =
         surprise.message;
 
-      document.getElementById("modal").classList.add("show");
+      const modal = document.getElementById("modal");
+      modal.classList.toggle("day14-modal", day === 14);
+      modal.classList.add("show");
+
+      if (day === 14) {
+        setTimeout(() => confettiBurst(46), 120);
+        setTimeout(() => confettiBurst(24), 520);
+      }
     }
 
     function closeModal() {
-      document.getElementById("modal").classList.remove("show");
+      const modal = document.getElementById("modal");
+      modal.classList.remove("show");
+      setTimeout(() => modal.classList.remove("day14-modal"), 320);
     }
 
     document.getElementById("modal").addEventListener("click", event => {
