@@ -1370,6 +1370,199 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+  
+/* ========== TEACHER'S DAY PREMIUM POPUP ========== */
+#teacherPopup{
+  position:fixed;
+  inset:0;
+  z-index:12000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(8,3,20,.72);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .45s ease, visibility .45s ease;
+}
+#teacherPopup.show{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.teacher-card{
+  position:relative;
+  width:min(100%,560px);
+  max-height:min(86vh,760px);
+  overflow:auto;
+  padding:28px 20px 24px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:34px;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(255,192,229,.28),transparent 32%),
+    radial-gradient(circle at 90% 85%,rgba(157,123,255,.25),transparent 38%),
+    linear-gradient(145deg,rgba(78,42,116,.96),rgba(42,22,70,.98));
+  box-shadow:0 30px 100px rgba(0,0,0,.48),0 0 70px rgba(221,126,255,.2);
+  transform:translateY(35px) scale(.92);
+  transition:transform .55s cubic-bezier(.16,1.2,.3,1);
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.25) transparent;
+}
+#teacherPopup.show .teacher-card{
+  transform:translateY(0) scale(1);
+}
+.teacher-card::before{
+  content:"";
+  position:absolute;
+  inset:-70%;
+  background:linear-gradient(110deg,transparent 45%,rgba(255,255,255,.11) 50%,transparent 55%);
+  transform:rotate(12deg) translateX(-45%);
+  animation:teacherShine 5.5s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes teacherShine{
+  0%,55%{transform:rotate(12deg) translateX(-45%);opacity:0}
+  68%{opacity:1}
+  85%,100%{transform:rotate(12deg) translateX(45%);opacity:0}
+}
+.teacher-close{
+  position:absolute;
+  z-index:2;
+  top:14px;
+  right:14px;
+  width:38px;
+  height:38px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:50%;
+  color:#fff;
+  background:rgba(255,255,255,.1);
+  font-size:18px;
+  transition:transform .2s ease,background .2s ease;
+}
+.teacher-close:hover{transform:rotate(90deg) scale(1.08);background:rgba(255,255,255,.18)}
+.teacher-top{
+  position:relative;
+  text-align:center;
+  padding:5px 35px 18px;
+}
+.teacher-crown{
+  display:inline-block;
+  font-size:45px;
+  filter:drop-shadow(0 8px 15px rgba(255,190,230,.3));
+  animation:teacherCrown 2s ease-in-out infinite;
+}
+@keyframes teacherCrown{
+  50%{transform:translateY(-7px) rotate(3deg) scale(1.08)}
+}
+.teacher-badge{
+  display:inline-block;
+  margin-top:4px;
+  padding:7px 13px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  color:#f7dff2;
+  background:rgba(255,255,255,.08);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+.teacher-top h2{
+  margin:13px 0 4px;
+  font-family:"Playfair Display",serif;
+  font-size:clamp(28px,7vw,40px);
+  line-height:1.05;
+  background:linear-gradient(135deg,#fff,#ffd1ec,#d7c4ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.teacher-top p{
+  margin:7px 0 0;
+  color:#eadbf3;
+  font-size:12px;
+}
+.teacher-message{
+  position:relative;
+  padding:20px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:24px;
+  background:rgba(255,255,255,.075);
+  color:#f5edf9;
+  font-size:13.5px;
+  line-height:1.82;
+  white-space:pre-line;
+}
+.teacher-message strong{
+  color:#ffd4ec;
+}
+.teacher-actions{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:17px;
+}
+.teacher-action{
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  padding:12px 18px;
+  color:#fff;
+  background:rgba(255,255,255,.1);
+  transition:transform .2s ease,background .2s ease;
+}
+.teacher-action:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.17);
+}
+.teacher-hearts{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.teacher-hearts span{
+  position:absolute;
+  bottom:-30px;
+  font-size:18px;
+  animation:teacherHeartFloat var(--t) linear infinite;
+  animation-delay:var(--d);
+  opacity:0;
+}
+.teacher-hearts span:nth-child(1){left:8%}
+.teacher-hearts span:nth-child(2){left:24%}
+.teacher-hearts span:nth-child(3){left:46%}
+.teacher-hearts span:nth-child(4){left:67%}
+.teacher-hearts span:nth-child(5){left:86%}
+@keyframes teacherHeartFloat{
+  0%{transform:translateY(0) scale(.7) rotate(0);opacity:0}
+  12%{opacity:.7}
+  100%{transform:translateY(-85vh) scale(1.25) rotate(25deg);opacity:0}
+}
+.teacher-open-btn{
+  position:relative;
+  overflow:hidden;
+}
+.teacher-open-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.38) 50%,transparent 65%);
+  transform:translateX(-120%);
+  animation:teacherButtonShine 3.8s infinite;
+}
+@keyframes teacherButtonShine{
+  55%,100%{transform:translateX(120%)}
+}
+@media(max-width:430px){
+  #teacherPopup{padding:10px}
+  .teacher-card{padding:23px 14px 18px;border-radius:28px;max-height:89vh}
+  .teacher-message{padding:16px;font-size:13px;line-height:1.75}
+  .teacher-top{padding-left:25px;padding-right:25px}
+}
+
   </style>
 </head>
 
@@ -1528,6 +1721,100 @@
         </button>
       </div>
     </section>
+
+  
+<!-- ========== TEACHER'S DAY SURPRISE ========== -->
+<section class="reveal" id="teacherDay">
+  <div class="section-head">
+    <span class="eyebrow">A SPECIAL NOTE FOR MADAM</span>
+    <h2>Teacher's Day 💜</h2>
+    <p>Kyuki meri teacher thodi zyada special haiii 😭✨</p>
+  </div>
+
+  <div class="glass today-card" style="min-height:auto">
+    <div class="big-envelope" style="margin-bottom:20px">👑💌</div>
+    <h3>For My Madammm 💜</h3>
+    <p>Ek chhota sa note nahi madammm... thoda bada wala thank you hai 😭💜</p>
+    <button class="open-surprise-btn teacher-open-btn" onclick="openTeacherPopup()">
+      Open Madam's Special Note ✨
+    </button>
+  </div>
+</section>
+
+<div id="teacherPopup" aria-hidden="true">
+  <div class="teacher-card" role="dialog" aria-modal="true" aria-labelledby="teacherPopupTitle">
+    <button class="teacher-close" onclick="closeTeacherPopup()" aria-label="Close">✕</button>
+
+    <div class="teacher-hearts" aria-hidden="true">
+      <span style="--t:7s;--d:0s">💜</span>
+      <span style="--t:8s;--d:1.5s">✨</span>
+      <span style="--t:6.5s;--d:2.2s">💖</span>
+      <span style="--t:9s;--d:.7s">🌸</span>
+      <span style="--t:7.5s;--d:3s">💜</span>
+    </div>
+
+    <div class="teacher-top">
+      <div class="teacher-crown">👑</div>
+      <div class="teacher-badge">TEACHER'S DAY • JUST FOR MADAM</div>
+      <h2 id="teacherPopupTitle">Happy Teacher's Day<br>Madammm 💜</h2>
+      <p>Student ki taraf se ek dil se thank you 😭✨</p>
+    </div>
+
+    <div class="teacher-message">
+Happy Teachers Day  madammm
+
+Waise toh aaj ka din teachers ke liye hota hai  lekin mere liye ye din thoda aur special hai kyuki mujhe ek aisi teacher mili jo sirf books ya padhai nahi sikhati balki life ki bohot saari chhoti chhoti cheezein bhi sikha deti hai
+
+Sabse pehli cheez jo maine aapse seekhi hai woh hai patience  har cheez ka answer turant dena zaroori nahi hota  kabhi kabhi thoda rukna  samajhna aur phir react karna jyadaa better hota hai
+
+Maine aapse ye bhi seekha ki kisi ko appreciate karna kitna important hota hai  chhoti si effort bhi notice karna aur saamne wale ko ye feel karwana ki uski mehnat matter karti hai  ye cheez shayad simple lage but honestly bohot kuch change kar deti hai
+
+Aapse maine sorry bolna bhi seekha  ego ko side mein rakh kar ye maan lena ki haan galti hui hai  aur sorry bol dena  har baar apni baat prove karna zaroori nahi hota
+
+Maine ye seekha ki har argument jeetna zaroori nahi hota  kabhi kabhi relationship ko bachana argument jeetne se jyadaa important hota hai  aur ye lesson mujhe aapse shayad sabse jyadaa passand hai
+
+Aapse maine situations ko sirf apni side se dekhna band karna seekha  kisi aur ki situation kya hai  woh kya feel kar raha hai  uske mind mein kya chal raha hoga  ye sab sochna bhi zaroori hai
+
+Aapne mujhe ye bhi sikhaya ki strong hona ka matlab ye nahi ki aapko kabhi weak feel hi nahi karna  strong woh hota hai jo difficult days ke baad bhi khud ko sambhal leta hai  aur honestly madam aapki strength dekh kar ye cheez aur jyadaa samajh aati hai
+
+Maine aapse effort ki value seekhi  perfect result se jyadaa important kabhi kabhi woh effort hota hai jo kisi ne honestly diya ho
+
+Aapse maine thoda sa crazy rehna bhi seekha 😭😂  har cheez ko itna seriously lene ki zaroorat nahi hoti  kabhi random baatein karna  stupid jokes pe hasna  random snaps bhejna aur bina reason ke kisi ka mood better kar dena bhi life ka important part hai
+
+Maine friendship ka actual meaning bhi aapse seekha  friendship sirf daily baat karna ya har waqt saath rehna nahi hoti  kabhi kabhi bas itna jaana ki saamne wala hai  aur jab zaroorat hogi toh woh mil jayega  wahi kaafi hota hai
+
+Jab main unwell tha tab aapke funny snaps aur random baatein bhi mere liye bohot matter karti thi  shayad aapko woh bas normal lagta ho  but mujhe pata hai ki un chhoti cheezon ne kitna mood better kiya tha
+
+Aapse maine dreams ko seriously lena seekha  apne future ke baare mein sochna  kuch banna  kuch achieve karna aur apne liye better life imagine karna
+
+Aapne mujhe ye bhi samjhaya ki log life mein aate hain aur kabhi kabhi chale bhi jaate hain  har kisi ko forever hold karke rakhna possible nahi hota  lekin jo log genuinely important hote hain unki value karni chahiye jab woh saath hain
+
+Maine aapse happiness ko complicated na banana seekha  kabhi momos  kabhi golgappe  kabhi lemon drink  kabhi random walk  kabhi bas baith kar bakwaas karna  happiness ke liye hamesha koi huge reason nahi chahiye hota
+
+Aur madam ek aur cheez jo maine aapse seekhi hai woh hai ki kuch bonds ko explain karna zaroori nahi hota  kuch log bas special ho jaate hain  bina kisi proper reason ke  aur phir unki presence normal life ka ek beautiful part ban jaati hai
+
+Aapne mujhe ye bhi sikhaya ki care hamesha bade bade words mein nahi hoti  kabhi ek message  kabhi ek funny snap  kabhi ek simple sa pooch lena ki sab theek hai  kabhi kisi ki chhoti si baat yaad rakh lena  ye sab bhi care hoti hai
+
+Aur honestly madam  aapse seekhne ke baad bhi student perfect nahi hua hai 😭😂  syllabus abhi bhi bohot pending hai  report card bhi shayad questionable hi rahega  aur student ki stupidity ka chapter toh abhi tak complete nahi hua 😭
+
+Lekin haan  ek cheez pakki hai  madam ne apne student ko bohot kuch sikhaya hai  sirf answers nahi  situations samajhna  people ko appreciate karna  patience rakhna  sorry bolna  effort karna  dreams dekhna  friendship ko value karna aur sabse important  little things mein happiness dhoondhna
+
+Toh aaj Teacher's Day par bas thank you bolna tha madammm  un sab cheezon ke liye jo aapne intentionally sikhayi aur un sab cheezon ke liye bhi jo aapne bina realize kiye sikha di
+
+Aur haan madam  student aapko marks nahi dega kyuki teacher ko marks dene ka haq student ko thodi hota hai 😭😂  but agar appreciation ka report card hota na  toh aap definitely full marks deserve karti
+
+Happy Teacher's Day madammm 💜😭
+
+Aur bas ek request hai madam
+
+Agli baar syllabus thoda easy rakhna 😭😂💜
+    </div>
+
+    <div class="teacher-actions">
+      <button class="teacher-action" onclick="closeTeacherPopup()">Close 💜</button>
+    </div>
+  </div>
+</div>
 
   </main>
 
@@ -4088,6 +4375,31 @@ Happy Day 15 madammm 💜` },
         confettiBurst(50);
       }
     }, 60000);
+  
+/* ========== TEACHER'S DAY POPUP ========== */
+function openTeacherPopup(){
+  const popup = document.getElementById("teacherPopup");
+  if(!popup) return;
+  popup.classList.add("show");
+  popup.setAttribute("aria-hidden","false");
+  document.body.style.overflow = "hidden";
+  if(typeof createConfetti === "function") createConfetti();
+}
+function closeTeacherPopup(){
+  const popup = document.getElementById("teacherPopup");
+  if(!popup) return;
+  popup.classList.remove("show");
+  popup.setAttribute("aria-hidden","true");
+  document.body.style.overflow = "";
+}
+document.addEventListener("keydown",function(e){
+  if(e.key === "Escape") closeTeacherPopup();
+});
+document.addEventListener("click",function(e){
+  const popup=document.getElementById("teacherPopup");
+  if(popup && e.target===popup) closeTeacherPopup();
+});
+
   </script>
 
 </body>
